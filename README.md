@@ -4,7 +4,7 @@
 
 v5 
 
-- папка spectrum_data для сохранения спекторв 
+- папка spectrum_data для сохранения спектров 
 - сохранение driven curren
 
 v4 

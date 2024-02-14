@@ -62,6 +62,8 @@
             !!!!       write(*,*) i,outj(i)
         end do
 
+        call save_driven_current(positive_dc, negative_dc, time)
+
         rc_result = DrivenCurrentResult(positive_dc, negative_dc)
         call rc_result%print(time)
         call rc_result%save(time)
@@ -69,6 +71,29 @@
         call fokkerplanck_compute(time, TAU)
 
     end
+
+    subroutine save_driven_current(pos_dc, neg_dc, time)
+        use driven_current_module
+        implicit none
+        type(DrivenCurrent), intent(in) :: pos_dc
+        type(DrivenCurrent), intent(in) :: neg_dc
+        real(wp),            intent(in) :: time
+
+        integer i
+        character(132) fname
+        integer :: iu
+
+        write(fname,'("lhcd/driven_current/", f9.7,".dat")') time
+        open(newunit=iu, file=FNAME, status="replace", action="write")
+	    write(iu,'(10A16)'), 'index', 'pos_dc', 'neg_dc'
+
+        do i=1, pos_dc%grid_size
+            write (iu, *) i, pos_dc%outj(i), neg_dc%outj(i)
+        end do
+
+        close(iu)
+
+    end subroutine
 
     subroutine lhcurrent(driven_current, ispectr)
         !subroutine lhcurrent(outj,ohj,cuj,cujoh,inpt,ispectr)

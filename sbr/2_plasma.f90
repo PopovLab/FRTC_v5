@@ -92,7 +92,7 @@ contains
             tem(i)=TE(i)
             temi(i)=TI(i)
             zeff(i)=ZEF(i)
-            afld(i)=UPL(i)/RTOR/GP2 !!variant
+            afld(i)=0 !UPL(i)/RTOR/GP2 !!variant
         end do
         rh(ngrid)=1.d0
         rh1=rh(1)          !saving the first ASTRA radial grid element

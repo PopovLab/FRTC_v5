@@ -1,5 +1,5 @@
 {
-  "name": "t15s30",
+  "name": "43110",
   "setting": {
     "Comments": {
       "value": "Comments about ....",
@@ -277,21 +277,21 @@
     "grill parameters": {
       "Zplus": {
         "title": "Zplus",
-        "value": 20.0,
+        "value": 2.25,
         "type": "float",
         "unit": "cm",
         "description": "upper grill corner in centimeters"
       },
       "Zminus": {
         "title": "Zminus",
-        "value": -20.0,
+        "value": -2.25,
         "type": "float",
         "unit": "cm",
         "description": "lower grill corner in centimeters"
       },
       "ntet": {
         "title": "ntet",
-        "value": 15,
+        "value": 3,
         "type": "int",
         "description": "theta grid number"
       },
@@ -303,23 +303,8 @@
       }
     },
     "spectrum": {
-      "spectrum_type": "spectrum_1D",
-      "source": "D:/PopovLab/FRTC_v4/ray_tracing/t15s30box.dat",
-      "parameters": {
-        "angle": {
-          "title": "Angle",
-          "value": 0.0,
-          "type": "float",
-          "unit": "deg",
-          "description": "Rotation on spectrum"
-        },
-        "spline": {
-          "title": "Spline",
-          "value": false,
-          "type": "logical",
-          "description": "Apply spline approximation"
-        }
-      }
+      "spectrum_type": "scatter_spectrum",
+      "source": "D:/PopovLab/FRTC_v4/ray_tracing/43110box.dat"
     }
   }
 }

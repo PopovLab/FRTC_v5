@@ -1,5 +1,5 @@
 {
-  "name": "t15s30",
+  "name": "t15epam1801d",
   "setting": {
     "Comments": {
       "value": "Comments about ....",
@@ -304,7 +304,7 @@
     },
     "spectrum": {
       "spectrum_type": "spectrum_1D",
-      "source": "D:/PopovLab/FRTC_v4/ray_tracing/t15s30box.dat",
+      "source": "D:/PopovLab/FRTC_v4/ray_tracing/t154r1depam180box.dat",
       "parameters": {
         "angle": {
           "title": "Angle",

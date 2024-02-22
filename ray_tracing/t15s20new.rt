@@ -1,5 +1,5 @@
 {
-  "name": "t15s30",
+  "name": "t15s20new",
   "setting": {
     "Comments": {
       "value": "Comments about ....",
@@ -40,7 +40,7 @@
       },
       "dni2": {
         "title": "dni2",
-        "value": 0.25,
+        "value": 0.0,
         "type": "float",
         "description": "Ni2/Ni1, relative density of ions 2"
       },
@@ -111,7 +111,7 @@
       },
       "rrange": {
         "title": "rrange",
-        "value": 0.1,
+        "value": 0.0001,
         "type": "float",
         "description": "rel.(hr) size of a 'turning' point region, <1.d0"
       },
@@ -165,7 +165,7 @@
       },
       "pgiter": {
         "title": "pgiter",
-        "value": 1e-05,
+        "value": 0.0001,
         "type": "float",
         "description": "relative accuracy to stop iterations"
       },
@@ -304,7 +304,7 @@
     },
     "spectrum": {
       "spectrum_type": "spectrum_1D",
-      "source": "D:/PopovLab/FRTC_v4/ray_tracing/t15s30box.dat",
+      "source": "D:/PopovLab/FRTC_v4/ray_tracing/oldprepfiles/t15s20.dat",
       "parameters": {
         "angle": {
           "title": "Angle",

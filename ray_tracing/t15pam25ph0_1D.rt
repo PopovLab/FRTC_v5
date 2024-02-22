@@ -1,8 +1,8 @@
 {
-  "name": "t15s30",
+  "name": "t15pam25ph0_1D",
   "setting": {
     "Comments": {
-      "value": "Comments about ....",
+      "value": "Comments about ....\n",
       "title": "Comments",
       "type": "text"
     },
@@ -291,7 +291,7 @@
       },
       "ntet": {
         "title": "ntet",
-        "value": 15,
+        "value": 5,
         "type": "int",
         "description": "theta grid number"
       },
@@ -304,7 +304,7 @@
     },
     "spectrum": {
       "spectrum_type": "spectrum_1D",
-      "source": "D:/PopovLab/FRTC_v4/ray_tracing/t15s30box.dat",
+      "source": "D:/PopovLab/FRTC_v4/ray_tracing/spcpz_PAM_2.45GHz_8x4x13.6cm_dphi=+000_Case204.dat",
       "parameters": {
         "angle": {
           "title": "Angle",

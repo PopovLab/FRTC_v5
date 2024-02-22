@@ -68,7 +68,7 @@ QLH=10.0d0;
 CF1=0.1d-3;  !interval between lhcd() calls, sec
 CF2=0.3d0;  !first call of lhcd()
 CF3=0.61d0;
-DSTART=0.298;
+DSTART=CF2-0.005;
 debug:0.0001:DSTART::;
 saveprofiles::CF2:CF3:;
 lhcd2017(PELH,CAR14,CAR15,ZRD8):CF1:CF2:CF3:;
@@ -115,7 +115,7 @@ NNWM=0.45e-4*(1-FJUMP(0.180));
 SN=SNNEU*NE+CAR20;
 
 !=========DENSITY============
-NE=0.5*NEX;
+NE=NEX;
 CAR17=(2.5-0.8)*((1-(AMETR/0.223)**1.5)**8)+0.79;
 CAR19=(0.8-0.6)*((1-(AMETR/0.223)**15)**2)+0.6;
 CAR18=CAR17*STEP(0.161-AMETR)+CAR19*STEP(AMETR-0.161)+0.001;
@@ -129,7 +129,7 @@ ZRD44=1-0.3*(FRAMP(0.2,0.21));
 CAR21=(0.72-0.17)*((1-(AMETR/0.223)**1.5)**7)+0.17;
 CAR22=(0.17-0.02)*((1-(AMETR/0.223)**15)**2)+0.02;
 CAR23=CAR21*STEP(0.171-AMETR)+CAR22*STEP(AMETR-0.171)+0.001;
-TE=TEX*2;
+TE=TEX*4;
 !TE=(3.5-0.05)*((1-(AMETR/0.66)**1.5)**4)+0.05;
 
 

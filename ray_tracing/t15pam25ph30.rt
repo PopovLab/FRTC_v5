@@ -1,8 +1,8 @@
 {
-  "name": "t15s30",
+  "name": "t15pam25ph30",
   "setting": {
     "Comments": {
-      "value": "Comments about ....",
+      "value": "Comments about ....\n\n",
       "title": "Comments",
       "type": "text"
     },
@@ -291,7 +291,7 @@
       },
       "ntet": {
         "title": "ntet",
-        "value": 15,
+        "value": 5,
         "type": "int",
         "description": "theta grid number"
       },
@@ -303,23 +303,8 @@
       }
     },
     "spectrum": {
-      "spectrum_type": "spectrum_1D",
-      "source": "D:/PopovLab/FRTC_v4/ray_tracing/t15s30box.dat",
-      "parameters": {
-        "angle": {
-          "title": "Angle",
-          "value": 0.0,
-          "type": "float",
-          "unit": "deg",
-          "description": "Rotation on spectrum"
-        },
-        "spline": {
-          "title": "Spline",
-          "value": false,
-          "type": "logical",
-          "description": "Apply spline approximation"
-        }
-      }
+      "spectrum_type": "scatter_spectrum",
+      "source": "D:/PopovLab/FRTC_v4/ray_tracing/pam25ph30.dat"
     }
   }
 }

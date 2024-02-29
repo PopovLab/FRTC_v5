@@ -1,0 +1,17 @@
+{
+  "shape": "1x3",
+  "title": "Time Series data",
+  "plots": {
+    "ax1": [
+      "L",
+      "ICD"
+    ],
+    "ax2": [
+      "Iohm"
+    ],
+    "ax3": [
+      "V",
+      "Vexp"
+    ]
+  }
+}

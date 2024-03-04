@@ -1,0 +1,40 @@
+{
+  "title": "Radial Data setting",
+  "show_grid": true,
+  "shape": "2x2",
+  "x_axis": "rho",
+  "sub_plots": [
+    {
+      "name": "ax1",
+      "title": "профили токов",
+      "data": [
+        "J",
+        "Johm",
+        "Jlh"
+      ]
+    },
+    {
+      "name": "ax2",
+      "title": "профили E",
+      "data": [
+        "E",
+        "Upl"
+      ]
+    },
+    {
+      "name": "ax3",
+      "title": "профили мощности",
+      "data": [
+        "Plh",
+        "Poh"
+      ]
+    },
+    {
+      "name": "ax4",
+      "title": "профили температуры",
+      "data": [
+        "Te"
+      ]
+    }
+  ]
+}

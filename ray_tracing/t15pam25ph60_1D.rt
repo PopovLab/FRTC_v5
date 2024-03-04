@@ -304,11 +304,7 @@
     },
     "spectrum": {
       "spectrum_type": "spectrum_1D",
-<<<<<<< Updated upstream
       "source": "spcpz_PAM25_phi060_case04.dat",
-=======
-      "source": "spcpz_PAM_2.45GHz_dphi=+060_case04.dat",
->>>>>>> Stashed changes
       "parameters": {
         "angle": {
           "title": "Angle",

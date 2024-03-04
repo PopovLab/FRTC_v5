@@ -1,0 +1,31 @@
+{
+  "title": "Time Series",
+  "show_grid": true,
+  "shape": "1x3",
+  "x_axis": "time",
+  "sub_plots": [
+    {
+      "name": "ax1",
+      "title": "Chart 1",
+      "data": [
+        "ICD"
+      ]
+    },
+    {
+      "name": "ax2",
+      "title": "Chart 2",
+      "data": [
+        "Iohm",
+        "E"
+      ]
+    },
+    {
+      "name": "ax3",
+      "title": "Chart 3",
+      "data": [
+        "Vexp",
+        "V"
+      ]
+    }
+  ]
+}

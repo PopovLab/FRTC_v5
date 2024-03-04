@@ -466,6 +466,7 @@ contains
             xlogj=dlog(5.1527d7*tmp*16.d0*dsqrt(tmp)/dsqrt(dens))
             enorm(j)=(3.835d0/xlogj)*efld*tmp/dens
             enorm(j)=enorm(j)*5.d0/(5.d0+zefff(r))
+            enorm(j)=0 !!!!electric field off
             !!fst(j)=pn*xlogj*c0**4/pi4/vt**3
             fst(j)=((5.d0+zefff(r))/5.d0)*pn*xlogj*c0**4/pi4/vt**3
         end do        

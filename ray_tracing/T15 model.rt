@@ -257,7 +257,7 @@
       },
       "inew": {
         "title": "inew",
-        "value": 1,
+        "value": -1,
         "type": "int",
         "description": "inew=0 for usual tokamak&Ntor_grill; 1 or 2 for g' in ST&Npol_grill"
       },
@@ -305,10 +305,10 @@
     "spectrum": {
       "spectrum_type": "gaussian",
       "options": {
-        "x_min": -3.0,
+        "x_min": -4.5,
         "x_max": -0.8,
         "step": 0.01,
-        "bias": -1.9,
+        "bias": -2.5,
         "sigma": 0.2
       },
       "parameters": {
@@ -321,7 +321,7 @@
         },
         "spline": {
           "title": "Spline",
-          "value": true,
+          "value": false,
           "type": "logical",
           "description": "Apply spline approximation"
         }

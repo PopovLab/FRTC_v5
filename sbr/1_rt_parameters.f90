@@ -121,6 +121,45 @@ module rt_parameters
       print*, "nnz = ", nnz           
     end subroutine show_parameters
     
+    subroutine read_parameters_nml(file_path)
+        use, intrinsic :: iso_fortran_env, only: stderr => error_unit
+        implicit none
+        integer, parameter :: iunit = 20
+
+        !! Reads Namelist from given file.
+        character(len=*),  intent(in)    :: file_path
+        integer                          :: x1, x2, y1
+        integer                          :: z1, z2, z3
+        integer                          :: fu, rc
+
+        ! Namelist definition.
+        namelist /PARAMETERS/  x1, x2, y1
+        namelist /OPTIONS/  z1, z2, z3
+
+        print *, file_path
+
+        ! Check whether file exists.
+        inquire (file=file_path, iostat=rc)
+
+        if (rc /= 0) then
+            write (stderr, '("Error: input file ", a, " does not exist")') file_path
+            return
+        end if
+
+        ! Open and read Namelist file.
+        open (action='read', file=file_path, iostat=rc, newunit=fu)
+        read (nml=PARAMETERS, iostat=rc, unit=fu)
+        if (rc /= 0) write (stderr, '("Error: invalid Namelist format")')
+
+        read (nml=OPTIONS, iostat=rc, unit=fu)
+        if (rc /= 0) write (stderr, '("Error: invalid Namelist format")')
+        close (fu)
+
+        print *, x1, x2
+        print *, z1, z2, z3
+        pause
+    end subroutine
+
     subroutine read_parameters(file_name)
         implicit none
         integer, parameter :: iunit = 20
@@ -211,4 +250,6 @@ module rt_parameters
 
         call show_parameters
     end subroutine read_parameters
+
+
 end module rt_parameters

@@ -73,7 +73,7 @@ subroutine fokkerplanck_compute(time, TAU)
             fij(:,j,k) = fokker_planck%f
         end do
    
-        call write_distribution(fij0(:,j,2), i0, time)
+        !call write_distribution(fij0(:,j,2), i0, time)
         !call write_distribution(out_fj, n, time)
     end do
 

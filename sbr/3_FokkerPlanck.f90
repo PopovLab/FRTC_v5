@@ -54,12 +54,7 @@ subroutine fokkerplanck_compute(time, TAU)
         do k=1,2
             kindex=k
             flag_d0=.TRUE. ! d(x) enable
-<<<<<<< Updated upstream
             znak=2.d0*dble(k)-3.d0 ! znak = -1 if k = 1 or znak = 1 if k = 2
-=======
-            znak=2.d0*dble(k)-3.d0
-	    !znak=0.0
->>>>>>> Stashed changes
             fokker_planck = FokkerPlanck1D(znak*enorm(j), xend, vij(:,j), fij0(:,j,k))
             call fokker_planck%init_zero_diffusion
             do i=1, ntau

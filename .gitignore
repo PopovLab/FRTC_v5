@@ -1,6 +1,7 @@
 .vs/
 .vscode/
 doc/html/
+tmp/
 *.dir
 *.bak
 *.zip

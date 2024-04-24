@@ -767,7 +767,7 @@ contains
             end if
             !sav2008       if((y(3).gt.rexi1.or.y(3).lt.rexi2)) then  ! exit
             !!    if(dabs(y(3)-rexi).gt.rrange.or.nstp.eq.maxstep4) then  ! exit !sav2008
-            call memorize_trajectory_point4(y(3), y(1))
+            !call memorize_trajectory_point4(y(3), y(1))
             if(dabs(y(3)-rexi).gt.rrange) then  ! exit !sav2008
                 if(dydx(3).gt.zero) irs=-1
                 if(dydx(3).lt.zero) irs=1

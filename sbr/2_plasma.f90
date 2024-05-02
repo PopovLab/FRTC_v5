@@ -92,7 +92,7 @@ contains
             tem(i)=TE(i)
             temi(i)=TI(i)
             zeff(i)=ZEF(i)
-            afld(i)=10**(-10)*UPL(i)/RTOR/GP2 !!variant
+            afld(i)=UPL(i)/RTOR/GP2 !!variant
         end do
         rh(ngrid)=1.d0
         rh1=rh(1)          !saving the first ASTRA radial grid element
@@ -464,7 +464,7 @@ contains
             tmp=ft(r)/0.16d-8  !Te,  KeV
             dens=pn/1.d+13     !10^13 cm^-3
             xlogj=dlog(5.1527d7*tmp*16.d0*dsqrt(tmp)/dsqrt(dens))
-            enorm(j)=(3.835d0/xlogj)*efld*tmp/dens
+            enorm(j)=(3.835d0/xlogj)*efld*tmp/dens*0
             enorm(j)=enorm(j)*5.d0/(5.d0+zefff(r))
             !!fst(j)=pn*xlogj*c0**4/pi4/vt**3
             fst(j)=((5.d0+zefff(r))/5.d0)*pn*xlogj*c0**4/pi4/vt**3

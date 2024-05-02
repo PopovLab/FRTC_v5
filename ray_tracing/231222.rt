@@ -1,8 +1,8 @@
 {
-  "name": "Test1",
+  "name": "231222",
   "setting": {
     "Comments": {
-      "value": "0.1 gap\n\n\n\n\n",
+      "value": "0.1 gap\n\n\n\n\n\n",
       "title": "Comments",
       "type": "text"
     },
@@ -16,7 +16,7 @@
       },
       "xmi1": {
         "title": "xmi1",
-        "value": 1.0,
+        "value": 2.0,
         "type": "float",
         "description": "Mi1/Mp,  relative mass of ions 1"
       },
@@ -40,7 +40,7 @@
       },
       "dni2": {
         "title": "dni2",
-        "value": 0.05,
+        "value": 0.0215,
         "type": "float",
         "description": "Ni2/Ni1, relative density of ions 2"
       },
@@ -58,7 +58,7 @@
       },
       "dni3": {
         "title": "dni3",
-        "value": 0.05,
+        "value": 0.0215,
         "type": "float",
         "description": "Ni3/Ni1, relative density of ions 3"
       }
@@ -159,7 +159,7 @@
       },
       "pabs": {
         "title": "pabs",
-        "value": 0.05,
+        "value": 0.001,
         "type": "float",
         "description": "part of remaining power interp. as absorption"
       },
@@ -277,14 +277,14 @@
     "grill parameters": {
       "Zplus": {
         "title": "Zplus",
-        "value": 11.0,
+        "value": 6.0,
         "type": "float",
         "unit": "cm",
         "description": "upper grill corner in centimeters"
       },
       "Zminus": {
         "title": "Zminus",
-        "value": -11.0,
+        "value": -6.0,
         "type": "float",
         "unit": "cm",
         "description": "lower grill corner in centimeters"
@@ -304,7 +304,7 @@
     },
     "spectrum": {
       "spectrum_type": "spectrum_1D",
-      "source": "C:/Users/Astra_user/Desktop/spcpz25.dat",
+      "source": "C:/Users/Astra_user/Desktop/spcpz.dat",
       "parameters": {
         "angle": {
           "title": "Angle",

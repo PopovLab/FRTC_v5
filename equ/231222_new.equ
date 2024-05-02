@@ -1,0 +1,127 @@
+
+!----------------- Times -----------------
+TSTART = 0.017d0;
+TEND = 0.04002;
+TINIT = 0.02101d0;
+
+DROUT = 1.d-4;
+DPOUT = 1.d-4;
+DTOUT = 1.d-5;
+DSTART = 0.021d0;
+
+CF1 = 1.d-4;
+CF2 = 0.0301;
+CF3 = 0.0351;
+!----------------- Electrons parametrs -----------------
+CF14 = 1.5d0;
+NE:AS;
+CF10 = 1.5d0*(1.d0+0.5d0*FRAMP(CF2,CF3));
+CF11 = 0.15d0;
+NE = 0.75 * NEX;
+
+TE:AS;
+CF12 = 468.0d-3 - 88.0d-3*FRAMP(CF2,CF3);
+CF13 = 30.0d-3 - 7.0d-3*FRAMP(CF2,CF3);
+TE = TEX;
+!----------------- Ion parametrs -----------------
+TI:AS; 
+TI = 0.4*TEC*(1.d0+0.1d0*FRAMP(CF2,CF3))*EXP(-(CF14+0.6)*(RHO/ROC)**2);
+!----------------- Impurities -----------------
+AMAIN = AMJ;
+ZMAIN = ZMJ;
+
+AIM1 = 16;
+ZIM1 = 8;
+
+AIM2 = 12;
+ZIM2 = 6;
+
+!ZEF = ZMAIN + (1.2 + 0.6*FRAMP(CF2,CF3))*EXP(-500*(AMETR)**2);
+!ZEF = ZMAIN + 1.2*EXP(-500*(AMETR)**2);
+ZEF = 1.6 + 0.7*FRAMP(0.0336,CF3) + 0.08*FRAMP(0.0301,0.0336) + 0.1*(1 - FJUMP(0.0226));
+!ZEF = 2.1 + 0.3*FRAMP(CF2,CF3);
+!Its densities
+
+NIZ1 = NE*(ZEF-ZMJ)/(ZIM1-ZMJ)/ZIM1;
+NIZ2 = NE*(ZEF-ZMJ)/(ZIM2-ZMJ)/ZIM2;
+
+NI = NE*(ZIM1+ZIM2-ZEF)/(ZIM1+ZIM2-ZMJ)/ZMJ;
+
+!NHYDR = NI - NIZ1- NIZ2;
+NDEUT = NI - NIZ1- NIZ2;
+!----------------- Plasma parametrs -----------------
+!Current densities
+!NEOCL(100)<:;
+!CUBS="work(j,301)";
+!CC="work(j,303)";
+
+CU:EQ;
+CU = CNHH;
+!MU=0.5*FPR+0.25;
+
+HC = HCSA; DC = DCSA; XC = XCSA;
+CC = CNSA; CD = CUBM + 0.*CULH;
+!----------------- Equilibrium solver -----------------
+NBND = 100;
+NEQUIL = 41;
+ !MIXINT(CV1,CF1):;
+!----------------- LHCD & DrivenCurrent -----------------
+QLH = (0.062d0-1.d-2*FRAMP(CF2,CF3)-0.052*FJUMP(CF3))*FJUMP(CF2);
+
+debug:0.0001:DSTART::;
+saveprofiles::CF2:CF3:;
+lhcd2017(PELH):CF1:CF2:CF3:;
+drivencurrent(CULH,CAR32,CU)::CF2:CF3:;
+
+CD = CULH;
+CCD1 = VINT(PELH);
+CCD2 = IINT(CULH);
+
+CV10 =  IINT(CU) - IINT(CUBS) - CCD2;
+CV11 =  IINT(CUBS);
+!----------------- Auxiliary quantities -----------------
+ !CV14 = NEAVB;
+ !CV13 = -TIMDER(CV14);
+
+VTOR = 0; VPOL = VPSWW;
+ER = BTOR*(FRS*MU*VTOR/RTOR+VDIA-VPOL);
+
+ !PE = POH+PEBM-PET*TI; PET = -PEI; 
+ !PI = PIBM-PIT*TE; PIT = -PEI;
+
+CV15 = ABS(CCD2/CCD1);
+
+CV16 = VINT(PELH, 0.02);
+CF16 = (CCD1 - CV16)/CCD1;
+!----------------- Inductive part -----------------
+CF10 = -7.d-3 ; !D0
+CF11 = 0.002; !Ur0
+CF12 = 0.020838; !IPL0
+
+DELTB(CF10,CF11,CF12,ABC):;
+CV9=AB-ABS(CV2);
+CV3=0.4*GP*IPL*RTOR*LOG(CV9/(0.13-CV2));
+CV8=TIMDER(CV3);
+
+!----------------- Radial output -----------------
+Te\TE\\TEX\0.6; Jneo\(CU-CUBS-CD); Jpar\CU\10; shir\SHEAR;
+Ne\NE\2; Elong\ELON; Cond\CC; Poh\POH\10;
+Ti\TI\0.6; E\UPL/RTOR/GP2; Jlh\CULH\10; q\1./MU;
+Ni\NDEUT\2; Shift\SHIF; Jbs\CUBS; Plh\PELH\10;
+!----------------- Time output --------------
+q0_1./MU(0); q1_1./MU(ROC); Plhc_CV16; Pfr_CF16;
+Ibs_CV11; Iohm_CV10; Ilh_CCD2; Itot_CV10+CCD2+CV11;
+Qlh_QLH; Plh_CCD1; Zeff_ZEF(ROC);
+Uloop_(UPL(ROC)+CV8); Ux_ZRD3; Ur_ZRD4;
+
+
+
+
+
+
+
+
+
+
+
+

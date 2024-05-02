@@ -1,32 +1,38 @@
 {
   "title": "Time Series",
   "show_grid": true,
+  "show_axis_labels": true,
   "shape": "1x3",
   "x_axis": "time",
+  "x_label": "Value [arb. unit]",
   "sub_plots": [
     {
       "name": "ax1",
       "title": "Chart 1",
+      "y_label": "Value [arb. unit]",
       "data": [
         "Ilh",
         "Iohm",
+        "Ibs",
         "Ipl"
       ]
     },
     {
       "name": "ax2",
       "title": "Chart 2",
+      "y_label": "Value [arb. unit]",
       "data": [
-        "U",
+        "Uloo",
         "Ux"
       ]
     },
     {
       "name": "ax3",
       "title": "Chart 3",
+      "y_label": "Value [arb. unit]",
       "data": [
         "Qlh",
-        "NEV"
+        "Plh"
       ]
     }
   ]

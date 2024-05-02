@@ -36,18 +36,24 @@ TI = 0.7*TEC*(1.d0+0.1d0*FRAMP(CF2,CF3))*EXP(-(CF14+0.6)*(RHO/ROC)**2);
 AMAIN = AMJ;
 ZMAIN = ZMJ;
 
-!Carbon 
-
 AIM1 = 16;
 ZIM1 = 8;
 
-ZEF = 2.0d0
+AIM2 = 12;
+ZIM2 = 6;
+
+ZEF = ZMJ + 1.4 * EXP(-500*(AMETR)**2);
 
 !Its densities
 
 NIZ1 = NE*(ZEF-ZMJ)/(ZIM1-ZMJ)/ZIM1;
-NI = NE*(ZIM1-ZEF)/(ZIM1-ZMJ)/ZMJ;
-NDEUT = NI - NIZ1;
+NIZ2 = NE*(ZEF-ZMJ)/(ZIM2-ZMJ)/ZIM2;
+
+NI = NE*(ZIM1+ZIM2-ZEF)/(ZIM1+ZIM2-ZMJ)/ZMJ;
+
+NHYDR = NI - NIZ1- NIZ2;
+
+!NDEUT = NI - NIZ1- NIZ2;
 
 !----------------- Plasma parametrs -----------------
 !Current densities
@@ -56,7 +62,7 @@ CU:EQ;
 CU = FPR;
 CAR31 = CNHR + CCMHD;
 CC = CAR31;
-
+CUOHMB = 0;
 DC = DCKIM;
 HC = HCKIM;
 XC = XCKIM;
@@ -88,10 +94,10 @@ ER = BTOR*(FRS*MU*VTOR/RTOR+VDIA-VPOL);
  !PE = POH+PEBM-PET*TI; PET = -PEI; 
  !PI = PIBM-PIT*TE; PIT = -PEI;
 !----------------- Radial output -----------------
-Te\TE\\TEX; ELONG\ELON; J\CU; Utor\UPL;
-Ne\NE\\NEX; E\UPL/RTOR/GP2; Johm\CUOHM; Poh\POH;
-Ti\TI; Chr\CAR31; Jlh\CULH; q\1/MU;
-Ni\NI; SHIFT\SHIF; Jbs\CUBS; Plh\PELH;
+Te\TE\\TEX; Elong\ELON; J\CU; Utor\UPL;
+Ne\NE; Zeff\ZEF; Johm\CUOHM; Poh\POH;
+Ti\TI; Shift\SHIF; Jlh\CULH; q\1/MU;
+Ni\NHYDR; E\UPL/RTOR/GP2; Jbs\CUBS; Plh\PELH;
 !----------------- Time output --------------
 
 Te0_TEXC; Ti0_TIC;

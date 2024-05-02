@@ -1,8 +1,9 @@
 {
   "title": "Radial Data",
   "show_grid": true,
+  "show_axis_labels": true,
   "shape": "2x2",
-  "x_axis": "rho",
+  "x_axis": "ameter",
   "x_label": "Value [arb. unit]",
   "sub_plots": [
     {
@@ -10,8 +11,8 @@
       "title": "профили токов",
       "y_label": "Value [arb. unit]",
       "data": [
-        "J",
-        "Johm",
+        "Jneo",
+        "Jpar",
         "Jlh",
         "Jbs"
       ]

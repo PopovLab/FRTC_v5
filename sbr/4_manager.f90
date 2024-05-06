@@ -120,7 +120,6 @@ contains
                     if (ipri.gt.1) then
                         tetin0=tet1+htet*(itet-1)
                         write (*,111) tetin0, point%Ntor
-
 111                     format(1x,'traj. with tet0=',f10.5,1x,', Ninput=',f10.5,1x,'failed')
                     end if
                     current_trajectory%mbad = 1 ! плохоая траектория
@@ -156,7 +155,8 @@ contains
 
 
     !real(wp) function rini(xm, tet, point, ifail) !sav2009
-    subroutine rini(traj, point, iw0) 
+    subroutine rini(traj, point, iw0)
+        !! вычисление начальной точки входа луча
         use constants, only : zero
         use rt_parameters, only : inew, nr, iw
         use spectrum_mod, only : SpectrumPoint
@@ -218,6 +218,7 @@ contains
     end      
 
     subroutine dqliter(dltpow, traj, h, powexit, iout) !sav2008
+        !! вычисление поглощенной мощности вдоль траектории
         use constants, only: clt, zero
         use rt_parameters, only: itend0, kv
         use iterator_mod, only: vlf, vrt, dflf, dfrt

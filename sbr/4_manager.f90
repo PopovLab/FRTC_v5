@@ -235,7 +235,7 @@ contains
         type(Trajectory), pointer, intent(in) :: traj
         real(wp), intent(in)   :: dltpow
         real(wp), intent(in)   :: h
-        real(wp), intent(out)  :: powexit
+        real(wp), intent(inout)  :: powexit
         integer, intent(inout) :: iout
 
         type(TrajectoryPoint) :: tp

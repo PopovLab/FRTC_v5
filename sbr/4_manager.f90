@@ -93,17 +93,6 @@ contains
                 dltpow = pabs
                 call dqliter(dltpow,current_trajectory,hr,powexit,iout)
 
-                if (nmax0.eq.0) then
-                    pow1 = powexit
-                    pgamma = 1.d0-pow1/point%power
-                    powexit = pow1/pgamma
-                    dltpow = powexit-pow1+pabs
-                    call dqliter(dltpow,current_trajectory,hr,powexit,iout)
-                    powexit = powexit-dltpow+pabs
-                    if (powexit.lt.zero) powexit=zero
-                    go to 30
-                end if
-
                 if (iout.eq.0) then
                     go to 30
                 end if
@@ -127,15 +116,7 @@ contains
                     !-------------------------------------
                     !    encounted problems
                     !-------------------------------------
-                    if (current_trajectory%size.eq.max_size-1) then
-                        write (*,*) 'fix maximal length'
-                        nmax0 = 0
-                        do i=1,4
-                            nmaxm(i) = 0
-                        end do
-                        iout = 1
-                        goto 20
-                    end if
+
                     if (ipri.gt.1) then
                         tetin0=tet1+htet*(itet-1)
                         write (*,111) tetin0, point%Ntor

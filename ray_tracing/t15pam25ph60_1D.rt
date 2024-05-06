@@ -297,7 +297,7 @@
       },
       "nnz": {
         "title": "nnz",
-        "value": 300,
+        "value": 100,
         "type": "int",
         "description": "iN_phi grid number"
       }

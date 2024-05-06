@@ -291,13 +291,13 @@
       },
       "ntet": {
         "title": "ntet",
-        "value": 5,
+        "value": 15,
         "type": "int",
         "description": "theta grid number"
       },
       "nnz": {
         "title": "nnz",
-        "value": 51,
+        "value": 300,
         "type": "int",
         "description": "iN_phi grid number"
       }

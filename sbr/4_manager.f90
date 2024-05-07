@@ -13,12 +13,13 @@ contains
         use spectrum_mod
         use iterator_mod,only: plost, pnab
         use dispersion_module, only: icall1, icall2, yn3, ivar, izn
-        use driver_module !, only: irs, iabsorp
+        use driver_module, only: irs, iabsorp
         use trajectory_data
         implicit none
         type (Spectrum) spectr
         type (SpectrumPoint) point
         real(wp) pabs
+        real(wp) pow
         integer ntet, iout, itr,  nnj,  n_it
         integer maxref, iterat, nmax0, ibad, itet
         integer nbad1, nbad2, inz
@@ -106,7 +107,7 @@ contains
                 !-------------------------------------
                 ! call ray tracing
                 !-------------------------------------
-                call tracing(current_trajectory, nmax, nb1, nb2, pabs)
+                call tracing(current_trajectory, nmax, nb1, nb2, pow, pabs)
                 eps = eps_const 
                 nbad1 = nbad1+nb1
                 nbad2 = nbad2+nb2
@@ -228,7 +229,7 @@ contains
         use current, only: dfind
         use plasma, only: vperp
         use iterator_mod, only: psum4
-        use driver_module, only: pow
+        !use driver_module, only: pow
         use trajectory_data
         implicit none
 
@@ -245,6 +246,8 @@ contains
         real(wp) :: df, dfsr, vsr, pcurr, dcv
         real(wp) :: powpr, powd, powcol, powal
         real(wp) :: pil, pic, pia
+
+        real(wp)    :: pow
 
         pow=powexit
         pdec1=zero

@@ -76,7 +76,7 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
     real(wp) :: v, refr, dek3, parn, argum
     real(wp) :: df, powpr, powd, powal, pil, pic
     real(wp) :: powcol, pia, pt, denom, powdamped, domin, fff
-
+    real(wp) :: pow 
     character(14) folder
     character(40) ver_fn
     character(40) fname
@@ -228,7 +228,7 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
     end
 
     !subroutine traj(xm0, tet0, xbeg, nmax, nb1, nb2, pabs) 
-    subroutine tracing(traj, nmax, nb1, nb2, pabs) 
+    subroutine tracing(traj, nmax, nb1, nb2, pow, pabs) 
         use constants, only : tiny1
         use rt_parameters, only: eps, rrange, hdrob, nr, ipri, iw
         use dispersion_module, only: izn, yn3
@@ -241,6 +241,7 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
 
         implicit none
         class(Trajectory), intent(inout) :: traj
+        real(wp), intent(inout)    :: pow
         real(wp), intent(in)    :: pabs
         integer,  intent(inout) :: nmax        
         integer,  intent(inout) :: nb1, nb2        
@@ -311,7 +312,7 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
         !---------------------------------------
         ystart(1) = tet
         ystart(2) = xm
-        call driver2(ystart,xbeg,xend,xsav,hmin,h1, pabs)
+        call driver2(ystart,xbeg,xend,xsav,hmin,h1, pow, pabs)
         tet = ystart(1)
         xm = ystart(2)
         ib2 = 0

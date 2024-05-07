@@ -29,7 +29,7 @@ module driver_module
     integer     :: im4
     !common /bg/ im4    
 
-    real(wp)    :: pow
+    !real(wp)    :: pow
     !!common /acg/ pow
 
     !integer     :: inak, lenstor, lfree
@@ -106,7 +106,7 @@ contains
         call current_trajectory%add_point(tp)
     end subroutine
 
-    subroutine driver2(ystart,x1,x2,xsav,hmin,h1, pabs) !sav2008
+    subroutine driver2(ystart,x1,x2,xsav,hmin,h1, pow, pabs) !sav2008
         !! solve eqs. starting from xbeg
         !! ystart(1) = tet
         !! ystart(2) = xm
@@ -122,6 +122,7 @@ contains
         real(wp), intent(in)    :: x1
         real(wp), intent(inout) :: x2, xsav
         real(wp), intent(in)    :: hmin,h1
+        real(wp), intent(inout) :: pow
         real(wp), intent(in)    :: pabs
         !common /abc/ rzz,tetzz,xmzz,iznzz,iwzz,irszz
         !common /abcd/ irs
@@ -194,7 +195,7 @@ contains
             end do
             ynz0=ynz
             if(ipow.gt.0) then !integrate power equation
-                powccc = dql1(ifound, jfoundr, pabs)
+                powccc = dql1(ifound, jfoundr, pow, pabs)
                 ! -----------------------------------
                 !      memorize trajectory
                 ! ----------------------------------
@@ -279,7 +280,7 @@ contains
         dydx(2)=prt
     end
 
-    function dql1(ifound, jfoundr, pabs) result(powccc)
+    function dql1(ifound, jfoundr, pow, pabs) result(powccc)
         use constants, only: clt, zero
         use rt_parameters, only: itend0, kv
         use plasma, only: fvt, vperp
@@ -294,7 +295,7 @@ contains
         implicit none
         integer, intent(in)  :: ifound, jfoundr
         real(wp), intent(in) :: pabs
-
+        real(wp), intent(inout) :: pow
         real(wp)    :: radth
         integer     :: i, j, ifast, idir
         real(wp)    :: powpr,  hdis, vz, refr

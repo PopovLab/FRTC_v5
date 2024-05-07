@@ -1,0 +1,27 @@
+{
+  "shape": "2x2",
+  "title": "Radial Data setting",
+  "show grid": true,
+  "x axis": "rho",
+  "x axis terms": [
+    "index",
+    "ameter",
+    "rho"
+  ],
+  "plots": {
+    "ax1": [
+      "Jlh"
+    ],
+    "ax2": [
+      "E",
+      "En"
+    ],
+    "ax3": [
+      "Plh",
+      "Poh"
+    ],
+    "ax4": [
+      "Te"
+    ]
+  }
+}

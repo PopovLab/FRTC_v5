@@ -20,7 +20,7 @@ contains
         type (SpectrumPoint) point
         real(wp) pabs
         integer ntet, iout, itr,  nnj,  n_it
-        integer maxref, iterat, nmax0, ibad, itet, nref
+        integer maxref, iterat, nmax0, ibad, itet
         integer nbad1, nbad2, inz
         integer iw0, ifail, iabsirp, inak0,ib,ie
         integer nmax, i, nb1,nb2
@@ -71,7 +71,6 @@ contains
         ! begin outer loop on teta
         !--------------------------------------
         do itet = 1,ntet
-            nref = 0
             nbad1 = 0
             nbad2 = 0
             icall1 = 0
@@ -94,17 +93,6 @@ contains
                 dltpow = pabs
                 call dqliter(dltpow,current_trajectory,hr,powexit,iout)
 
-                if (nmax0.eq.0) then
-                    pow1 = powexit
-                    pgamma = 1.d0-pow1/point%power
-                    powexit = pow1/pgamma
-                    dltpow = powexit-pow1+pabs
-                    call dqliter(dltpow,current_trajectory,hr,powexit,iout)
-                    powexit = powexit-dltpow+pabs
-                    if (powexit.lt.zero) powexit=zero
-                    go to 30
-                end if
-
                 if (iout.eq.0) then
                     go to 30
                 end if
@@ -124,24 +112,14 @@ contains
                 nbad2 = nbad2+nb2
                 current_trajectory%nrefj = current_trajectory%nrefj + nmax
                 powexit = pow
-                nref = nref+nmax
                 if (iabsorp.lt.0) then
                     !-------------------------------------
                     !    encounted problems
                     !-------------------------------------
-                    if (current_trajectory%size.eq.max_size-1) then
-                        write (*,*) 'fix maximal length'
-                        nmax0 = 0
-                        do i=1,4
-                            nmaxm(i) = 0
-                        end do
-                        iout = 1
-                        goto 20
-                    end if
+
                     if (ipri.gt.1) then
                         tetin0=tet1+htet*(itet-1)
                         write (*,111) tetin0, point%Ntor
-
 111                     format(1x,'traj. with tet0=',f10.5,1x,', Ninput=',f10.5,1x,'failed')
                     end if
                     current_trajectory%mbad = 1 ! плохоая траектория
@@ -165,7 +143,7 @@ contains
                 pnab = pnab+powexit
 31              continue
             end do
-            if(ipri.gt.1) write(*,1003)itet,icall1,icall2,nref,nbad1,nbad2
+            if(ipri.gt.1) write(*,1003)itet,icall1,icall2,current_trajectory%nrefj,nbad1,nbad2
         end do
 1001    format (30x,i4,' iteration')
 1002    format (6x,'n',5x,'call2',6x,'call4',6x,'nrefl',4x,'last',5x,'bad2',5x,'bad4')
@@ -177,7 +155,8 @@ contains
 
 
     !real(wp) function rini(xm, tet, point, ifail) !sav2009
-    subroutine rini(traj, point, iw0) 
+    subroutine rini(traj, point, iw0)
+        !! вычисление начальной точки входа луча
         use constants, only : zero
         use rt_parameters, only : inew, nr, iw
         use spectrum_mod, only : SpectrumPoint
@@ -239,6 +218,7 @@ contains
     end      
 
     subroutine dqliter(dltpow, traj, h, powexit, iout) !sav2008
+        !! вычисление поглощенной мощности вдоль траектории
         use constants, only: clt, zero
         use rt_parameters, only: itend0, kv
         use iterator_mod, only: vlf, vrt, dflf, dfrt
@@ -255,7 +235,7 @@ contains
         type(Trajectory), pointer, intent(in) :: traj
         real(wp), intent(in)   :: dltpow
         real(wp), intent(in)   :: h
-        real(wp), intent(out)  :: powexit
+        real(wp), intent(inout)  :: powexit
         integer, intent(inout) :: iout
 
         type(TrajectoryPoint) :: tp

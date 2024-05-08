@@ -24,11 +24,12 @@ contains
         use dispersion_module
         use current
         use iteration_result_mod
-        use iterator_mod, only: kpt1, kpt3
+        !use iterator_mod, only: kpt1, kpt3
         use iterator_mod, only: pnab, plost, psum4
-        use iterator_mod, only: ipt, ipt1, ipt2, nvpt, iterat
-        use iterator_mod, only: vrj, vz1, vz2, vgrid
-        use iterator_mod, only: calculate_dfundv, gridvel, recalculate_f_for_a_new_mesh
+        use iterator_mod, only:  nvpt
+        !use iterator_mod, only: vrj, vz1, vz2, vgrid
+        use iterator_mod, only: calculate_dfundv
+        use iterator_mod, only: find_velocity_limits_and_initial_dfdv, recalculate_f_for_a_new_mesh
         use lock_module
         use math_module
         !use driver_module, only : lfree
@@ -41,14 +42,15 @@ contains
         real*8 outpe,pe_out 
         dimension outpe(*)
 
-        real(wp) :: hr, r,  pn, fnr, fnrr
-        real(wp) :: vt, vto, wpq, whe, v
-        real(wp) :: u, u1, e1, e2, e3, tmp
+        integer  :: iterat
+        !real(wp) :: hr, r,  pn, fnr, fnrr
+        !real(wp) :: vt, vto, wpq, whe, v
+        !real(wp) :: u, u1, e1, e2, e3, tmp
         real(wp) :: cn1, avedens
         real(wp) :: anb, fuspow, o_da
-        real(wp) :: dvperp, ddens
-        real(wp) :: tt, cn2, vmax, v1, v2
-        real(wp) :: tdens
+        !real(wp) :: dvperp, ddens
+        !real(wp) :: tt, cn2, vmax, v1, v2
+        !real(wp) :: tdens
 
         real(wp) :: q_rest, q_abs, q_cond
         real(wp) :: pchg
@@ -56,7 +58,7 @@ contains
         real(wp) :: oi
         real(wp) :: ol, oc, oa, of
         real(wp) :: zff, cnyfoc, dconst, fout
-        real(wp) :: galfa(50,100), vpmin(100), vcva(100)
+        real(wp) :: galfa(50,100) !,  vpmin(100), vcva(100)
         real(wp) :: pdprev1(100), pdprev2(100)
         real(wp) :: source(100)
 
@@ -80,7 +82,7 @@ contains
         !lfree=1
 
         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        hr = 1.d0/dble(nr+1)
+        !hr = 1.d0/dble(nr+1)
         iw0=iw
     
         call find_volums_and_surfaces
@@ -93,86 +95,10 @@ contains
         anb=zero
         fuspow=zero
         o_da=zero
-        !c-------------------------------------------
-        !c find velocity limits and initial dfdv
-        !c--------------------------------------------
-        ipt1=kpt1+1
-        ipt2=ni1+ni2
-        ipt=ipt1+ni1+ni2+kpt3
-        if(ipt.gt.101) then
-            write(*,*)'ipt >101'
-            pause'stop program'
-            stop
-        end if
-        nvpt=ipt
-
-        do j=1,nr                  ! begin 'rho' cycle
-            r=hr*dble(j)
-            !!!!sav2008       pn=fn(r)
-            !!       pn=fn1(r,fnr)
-            !!       pn=fn2(r,fnr,fnrr) !sav2008
-            if(inew.eq.0) then !vardens
-                pn=fn1(r,fnr)
-            else
-                pn=fn2(r,fnr,fnrr)
-            end if
-            dens(j)=pn
-            vt=fvt(r)
-            vto=vt/vt0
-            wpq=c0**2*pn
-            whe=dabs(b_tor)*c1
-            v=wpq/ww**2
-            u1=whe/ww
-            u=u1**2
-            e1=1d0-v*(1d0/xmi-1d0/u)
-            e2=v/u1
-            e3=v
-            tmp=ft(r)/0.16d-8 !Te, keV
-            cn1=dsqrt(50d0/tmp)  !sav2008
-            if(itend0.gt.0) then
-                eta(j)=1d0-v
-                vcva(j)=cnstvc*vt*dsqrt(2d0)/valfa
-                vpmin(j)=2.0d0*dsqrt(tmp/(-eta(j)))
-222             continue
-                dvperp=(vpmax-vpmin(j))/dble(kv-1)
-                if(dvperp.le.zero) then
-                    vpmax=1.3d0*vpmax
-                    go to 222
-                end if
-                do k=1,kv
-                    vperp(k,j)=vpmin(j)+dble(k-1)*dvperp
-                end do
-                fcoll(j)=.5d-13*dens(j)*zalfa**2*xlog/xmalfa/tmp**1.5d0
-                ddens=dn1*dens(j)
-                tdens=dn2*dens(j)
-                tt=fti(r)**one_third    ! (ti, keV)^1/3
-                source(j)=4d-12*factor*ddens*tdens*dexp(-20d0/tt)/tt**2
-                anb=anb+source(j)*vk(j)
-            end if
-            cn2=dsqrt(dabs(e1))+e2/dsqrt(e3) !sav2008
-            !vz1(j)=cleft*cltn/cn1  !Vpar/Vt0
-            !vz2(j)=cright*cltn/cn2  !Vpar/Vt0
-            !if(vz2(j).gt.0.9d0*cltn) vz2(j)=0.9d0*cltn
-            !v1=vz1(j)/vto !Vpar/Vt(rho)
-            !v2=vz2(j)/vto !Vpar/Vt(rho)
-            vmax=cltn/vto
-            v1=4.d0  !Vpar/Vt(rho)
-            v2=10.d0 !cright*cltn/cn2 !10.d0 !Vpar/Vt(rho)
-            if(v2.ge.vmax) v2=0.5d0*vmax
-            if(v1.ge.v2) v1=v2-2.d0
-            call gridvel(v1,v2,vmax,0.5d0,ni1,ni2,ipt1,kpt3,vrj)
-            vz1(j)=v1*vto !Vpar/Vt0
-            vz2(j)=v2*vto !Vpar/Vt0
-            if(vz2(j).gt.0.9d0*cltn) vz2(j)=0.9d0*cltn
-            do i=1,ipt
-                vgrid(i,j)=vrj(i)*vto
-            end do
-        end do                     ! end 'rho' cycle 
-
-
-        !!!!!!!!!read data !!!!!!!!!!!!       
-        call calculate_dfundv(ispectr)
         
+        call find_velocity_limits_and_initial_dfdv(anb, source)
+        call calculate_dfundv(ispectr)
+
         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if(itend0.gt.0) then  ! begin alpha-source renormalisation
             call alpha_source_renormalisation(anb, fuspow, source)
@@ -263,7 +189,7 @@ contains
         end if
 
         if(iterat.le.niterat) then
-            call recalculate_f_for_a_new_mesh(ispectr)
+            call recalculate_f_for_a_new_mesh(ispectr, iterat)
             call init_iteration
             goto 80
         end if

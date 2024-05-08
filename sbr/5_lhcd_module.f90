@@ -12,28 +12,25 @@ module lhcd_module
 contains
     subroutine ourlhcd2017(spectr, outpe, pe_out)      
         use constants
-        use approximation
-        use spline_module
-        use chebyshev
+        !use approximation
+        !use spline_module
+        !use chebyshev
         use plasma
-        use rt_parameters
+        use rt_parameters, only: pabs0, ipri, niterat
+        use rt_parameters, only: nr, ntet, kv, iw, pgiter, itend0
         use maxwell      
         use trajectory_module, only: view,  init_trajectory
         use spectrum_mod
         use manager_mod
-        use dispersion_module
+        !use dispersion_module
         use current
         use iteration_result_mod
-        !use iterator_mod, only: kpt1, kpt3
         use iterator_mod, only: pnab, plost, psum4
-        use iterator_mod, only:  nvpt
-        !use iterator_mod, only: vrj, vz1, vz2, vgrid
+        use iterator_mod, only: nvpt
         use iterator_mod, only: calculate_dfundv
         use iterator_mod, only: find_velocity_limits_and_initial_dfdv, recalculate_f_for_a_new_mesh
-        use lock_module
-        use math_module
-        !use driver_module, only : lfree
-        !use driven_current_module, only : zv1, zv2
+        !use lock_module
+        use math_module, only: integral
         use decrements, only: kzero
         use source_new_mod
         
@@ -43,14 +40,8 @@ contains
         dimension outpe(*)
 
         integer  :: iterat
-        !real(wp) :: hr, r,  pn, fnr, fnrr
-        !real(wp) :: vt, vto, wpq, whe, v
-        !real(wp) :: u, u1, e1, e2, e3, tmp
         real(wp) :: cn1, avedens
         real(wp) :: anb, fuspow, o_da
-        !real(wp) :: dvperp, ddens
-        !real(wp) :: tt, cn2, vmax, v1, v2
-        !real(wp) :: tdens
 
         real(wp) :: q_rest, q_abs, q_cond
         real(wp) :: pchg
@@ -58,7 +49,7 @@ contains
         real(wp) :: oi
         real(wp) :: ol, oc, oa, of
         real(wp) :: zff, cnyfoc, dconst, fout
-        real(wp) :: galfa(50,100) !,  vpmin(100), vcva(100)
+        real(wp) :: galfa(50,100) 
         real(wp) :: pdprev1(100), pdprev2(100)
         real(wp) :: source(100)
 
@@ -81,8 +72,6 @@ contains
         ispectr = spectr%direction
         !lfree=1
 
-        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        !hr = 1.d0/dble(nr+1)
         iw0=iw
     
         call find_volums_and_surfaces

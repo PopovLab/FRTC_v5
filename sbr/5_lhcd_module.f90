@@ -11,25 +11,21 @@ module lhcd_module
 
 contains
     subroutine ourlhcd2017(spectr, outpe, pe_out)      
-        use constants
-        !use approximation
-        !use spline_module
-        !use chebyshev
-        use plasma
+        use constants, only: zero, xsgs
+        use plasma, only: nspl, cltn, vperp, rh, r0, con, tcur
+        use plasma, only: find_volums_and_surfaces
         use rt_parameters, only: pabs0, ipri, niterat
         use rt_parameters, only: nr, ntet, kv, iw, pgiter, itend0
-        use maxwell      
+        !use maxwell      
         use trajectory_module, only: view,  init_trajectory
         use spectrum_mod
         use manager_mod
-        !use dispersion_module
         use current
         use iteration_result_mod
         use iterator_mod, only: pnab, plost, psum4
         use iterator_mod, only: nvpt
         use iterator_mod, only: calculate_dfundv
         use iterator_mod, only: find_velocity_limits_and_initial_dfdv, recalculate_f_for_a_new_mesh
-        !use lock_module
         use math_module, only: integral
         use decrements, only: kzero
         use source_new_mod

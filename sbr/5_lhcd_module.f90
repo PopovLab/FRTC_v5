@@ -121,13 +121,16 @@ contains
             end do              ! end 'rho' cycle
         end if
     
-        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        !!!!!sign of driven current in right coordinate system {dro,dteta,dfi}:
-        !!!!!curdir=+1.0 for current drive in positive direction "dfi"
-        !!!!!curdir=-1.0 for current drive in negative direction "dfi"
-        !!!!!spectrum Nz>0 is along dfi>0 and Nz<0 is along dfi<0
-        !!!!!it is also OK if Npar is used instead of Nz, but for Btor>0, that is along dfi>0
-        !!      curdir=-dble(ispectr)
+        ! ----------------------------------------------------------------------
+        ! sign of driven current in right coordinate system {dro,dteta,dfi}:
+        ! curdir=+1.0 for current drive in positive direction "dfi"
+        ! curdir=-1.0 for current drive in negative direction "dfi"
+        ! spectrum Nz>0 is along dfi>0 and Nz<0 is along dfi<0
+        ! it is also OK if Npar is used instead of Nz, but for Btor>0, 
+        ! that is along dfi>0
+        ! curdir=-dble(ispectr)
+        ! -----------------------------------------------------------------------
+
         !!!!!!!!!!!!!!! begin iterations !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         q_rest=plaun
         iterat=0

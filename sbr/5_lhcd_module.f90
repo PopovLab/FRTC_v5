@@ -7,16 +7,13 @@ module lhcd_module
     type(Spectrum) :: full_spectrum
     type(Spectrum) :: pos_spectr, neg_spectr
 
-    !real(wp), dimension(:), allocatable:: vvj, vdfj
-
 contains
     subroutine ourlhcd2017(spectr, outpe, pe_out)      
         use constants, only: zero, xsgs
-        use plasma, only: nspl, cltn, vperp, rh, r0, con, tcur
+        use plasma, only: nspl, cltn, rh, r0, con, tcur
         use plasma, only: find_volums_and_surfaces
         use rt_parameters, only: pabs0, ipri, niterat
-        use rt_parameters, only: nr, ntet, kv, iw, pgiter, itend0
-        !use maxwell      
+        use rt_parameters, only: nr, kv, ntet, iw, pgiter, itend0
         use trajectory_module, only: view,  init_trajectory
         use spectrum_mod
         use manager_mod
@@ -45,22 +42,15 @@ contains
         real(wp) :: oi
         real(wp) :: ol, oc, oa, of
         real(wp) :: zff, cnyfoc, dconst, fout
-        real(wp) :: galfa(50,100) 
+
         real(wp) :: pdprev1(100), pdprev2(100)
         real(wp) :: source(100)
-
-        real(wp) ::  rmx_n, rmx_t, rmx_z, rmx_ti
-        ! встречает только один раз common /maxrho/ rmx_n,rmx_t,rmx_z,rmx_ti
-      
+    
         type(IterationResult) :: iteration_result
-        real*8 kofpar,timecof
 
-        integer     :: iptnew
         real(wp)    :: plaun
 
         integer ispectr
-        integer :: i, j, k  
-        integer :: klo,khi,ierr
         integer :: iww, iw0, izz
 
         plaun = spectr%input_power
@@ -88,9 +78,10 @@ contains
         if(itend0.gt.0) then  ! begin alpha-source renormalisation
             call alpha_source_renormalisation(anb, fuspow, source)
         end if
-        !c------------------------------------
-        !c set initial values of arrays
-        !c------------------------------------
+
+        ! ------------------------------------
+        !  set initial values of arrays
+        ! ------------------------------------
         iww=0
         izz=zero
         ! 
@@ -110,17 +101,10 @@ contains
         vzmin=cltn
         vzmax=-cltn
         kzero=kv
-        call init_trajectory
 
-        if(itend0.gt.0) then
-            do j=1,nr           ! begin 'rho' cycle
-                do i=1,50
-                    dqi0(i,j)=zero
-                end do
-                call alphas(dqi0,vperp,j,kv,galfa)
-            end do              ! end 'rho' cycle
-        end if
-    
+        call init_trajectory
+        call init_alphas
+        
         ! ----------------------------------------------------------------------
         ! sign of driven current in right coordinate system {dro,dteta,dfi}:
         ! curdir=+1.0 for current drive in positive direction "dfi"
@@ -181,9 +165,9 @@ contains
             call init_iteration
             goto 80
         end if
-        !c------------------------------------------
-        !c save results
-        !c------------------------------------------
+        ! ------------------------------------------
+        !  save results
+        ! ------------------------------------------
 110     continue
 
         if(ipri.gt.0) then
@@ -270,7 +254,7 @@ contains
         real(wp) :: pn, fnr, fnrr
         real(wp) :: dconst, ddout
         real(wp) :: dijk(101,100,2), vrjnew(101,100,2)
-        !встречает только один раз common/t01/dijk(101,100,2), vrjnew(101,100,2), iptnew
+        !встречает только один раз common/t01/dijk(101,100,2), vrjnew(101,100,2)
         !
         hr = 1.d0/dble(nr+1)
         k=(3-ispectr)/2
@@ -376,7 +360,9 @@ contains
     subroutine init_iteration
         use constants, only : zero
         use rt_parameters, only : itend0
-        use current
+        use current, only: dqi0, ppv1, ppv2
+        use current, only: dql, dq1, dq2, dncount, vzmin, vzmax
+        use current, only: pdl, pdc, pda, pdfast
         use iterator_mod
         use plasma, only: cltn
         implicit none
@@ -400,7 +386,25 @@ contains
         end if
     end 
 
-
+    subroutine init_alphas
+        !! непонятная процедура. возможно результаты в dqi0 ???
+        use constants, only: zero
+        use rt_parameters, only: nr, itend0, kv
+        use plasma, only:  vperp
+        use current, only: dqi0
+        implicit none
+        integer :: i, j
+        real(wp) :: galfa(50,100)  ! возможно массив должеб быть доступен еще где-то
+        if(itend0.gt.0) then
+            do j=1,nr           ! begin 'rho' cycle
+                do i=1,50
+                    dqi0(i,j)=zero
+                end do
+                call alphas(dqi0,vperp,j,kv,galfa)
+            end do              ! end 'rho' cycle
+        end if
+        
+    end subroutine
 
     subroutine alphas(d,u,j,kmax,g)
         use decrements, only: dgdu, kzero

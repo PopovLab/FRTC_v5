@@ -29,7 +29,7 @@ contains
         use iterator_mod, only: pnab, plost, psum4
         use iterator_mod, only: ipt, ipt1, ipt2, nvpt, iterat
         use iterator_mod, only: vrj, vz1, vz2, vgrid
-        use iterator_mod, only: calculate_dfundv
+        use iterator_mod, only: calculate_dfundv, gridvel
         use lock_module
         use math_module
         !use driver_module, only : lfree
@@ -487,26 +487,7 @@ contains
         end if
     end 
 
-    subroutine gridvel(v1,v2,vmax,cdel,ni1,ni2,ipt1,kpt3,vrj)
-        implicit none
-        integer ni1,ni2,ipt1,kpt1,kpt2,kpt3,k
-        double precision vrj(*),v1,v2,v12,vmax,cdel
-        kpt1=ipt1-1
-        kpt2=ni1+ni2+1
-        do k=1,kpt1  !0<=v<v1
-            vrj(k)=dble(k-1)*v1/dble(kpt1)
-        end do
-        v12=v1+(v2-v1)*cdel
-        do k=1,ni1+1 !v1<=v<=v12
-            vrj(k+kpt1)=v1+dble(k-1)*(v12-v1)/dble(ni1)
-        end do
-        do k=2,ni2+1 !!v12<v<=v2
-            vrj(k+kpt1+ni1)=v12+dble(k-1)*(v2-v12)/dble(ni2)
-        end do     
-        do k=1,kpt3  !v2<v<=vmax
-            vrj(k+kpt1+kpt2)=v2+dble(k)*(vmax-v2)/dble(kpt3)
-        end do
-    end    
+
 
     subroutine recalculate_f_for_a_new_mesh(ispectr)
         !!   recalculate f' for a new mesh

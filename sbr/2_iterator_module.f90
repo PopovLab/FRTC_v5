@@ -68,7 +68,58 @@ contains
             pause'next key = stop'
             stop
         end if
-    deallocate(vzj,dfdvj)
-end   
+        deallocate(vzj,dfdvj)
+    end   
+
+
+    subroutine calculate_dfundv(ispectr)
+        !! calculate dfundv что такое dfundv?
+        use constants, only: zero
+        use rt_parameters, only: nr
+        use plasma, only: fvt, vt0, cltn
+        use maxwell, only: i0, vij, dfij, dij
+        !use iterator_mod, only: dfundv
+        !use iterator_mod, only: ipt
+        !use iterator_mod, only: vrj, dj, vgrid
+        use lock_module, only: lock, linf
+        implicit none
+        integer, intent(in) :: ispectr
+        real(wp), dimension(:), allocatable:: vvj, vdfj
+        integer  :: i, j, k 
+        integer  :: klo,khi,ierr
+        real(wp) :: dfout
+        real(wp) :: r, hr
+        real(wp) :: vt, vto
+        hr = 1.d0/dble(nr+1)
+        allocate(vvj(i0),vdfj(i0))
+        k=(3-ispectr)/2
+        do j=1,nr
+            r=hr*dble(j)
+            vt=fvt(r)
+            vto=vt/vt0
+            do i=1,i0
+                vvj(i)=vij(i,j)
+                vdfj(i)=dfij(i,j,k) !=dfundv(i,j)*vto**2
+            end do
+            do i=1,ipt
+                vrj(i)=vgrid(i,j)/vto   !Vpar/Vt
+                call lock(vvj,i0,vrj(i),klo,khi,ierr)
+                if(ierr.eq.1) then
+                    write(*,*)'lock error in read distribution function'
+                    write(*,*)'j=',j,'i0=',i0
+                    write(*,*)'vvj(1)=',vvj(1),' vvj(i0)=',vvj(i0)
+                    write(*,*)'i=',i,' vrj(i)=',vrj(i),' vmax=',cltn/vto
+                    write(*,*)
+                    pause'next key = stop'
+                    stop
+                end if
+                call linf(vvj,vdfj,vrj(i),dfout,klo,khi)
+                dfundv(i,j)=dfout/vto**2
+                if(dfundv(i,j).gt.zero) dfundv(i,j)=zero
+            end do
+        end do
+        deallocate(vvj,vdfj)
+    end
+
 
 end module iterator_mod

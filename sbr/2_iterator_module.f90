@@ -123,8 +123,11 @@ contains
 
     subroutine gridvel(v1,v2,vmax,cdel,ni1,ni2,ipt1,kpt3,vrj)
         implicit none
-        integer ni1,ni2,ipt1,kpt1,kpt2,kpt3,k
-        double precision vrj(*),v1,v2,v12,vmax,cdel
+        real(wp), intent(in) :: v1, v2, vmax, cdel
+        integer,  intent(in) :: ni1, ni2, ipt1, kpt3
+        real(wp), intent(inout) :: vrj(:)
+        integer kpt1, kpt2, k
+        real(wp) :: v12
         kpt1=ipt1-1
         kpt2=ni1+ni2+1
         do k=1,kpt1  !0<=v<v1

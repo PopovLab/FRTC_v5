@@ -115,7 +115,7 @@ contains
         use constants, only: zero, tiny1
         use rt_parameters, only : nr, ipri, rbord, maxstep2, hmin1, iw, eps
         use decrements, only: ifound, vfound
-        use dispersion_module, only: ipow,  jfoundr, iconv, irefl, izn
+        use dispersion_module, only: ipow,  jfoundr, iconv, irefl, izn, ivar
         use dispersion_equation, only: ynz
         implicit none
         real(wp), intent(inout) :: ystart(2)
@@ -160,6 +160,7 @@ contains
                 if(jfoundr.le.0) jfoundr=1
                 if(jfoundr.gt.nr) jfoundr=nr
             end if
+            print *, 'call extd2 ivar=', ivar
             call extd2(x,y,dydx)
             irep=0
             if(iconv+irefl.ne.0) then

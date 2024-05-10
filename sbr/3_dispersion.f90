@@ -655,15 +655,11 @@ contains
         call calculate_dielectric_tensor(pa)
 
         call calculate_dispersion_equation(yn2 , yn3)
-        
-        if(dls.lt.zero) then
-            xn_root(1)=1d+10
-            xn_root(2)=1d+10
-            xn_root(3)=1d+10
-            xn_root(4)=1d+10
-            return
-        endif
-        
+
+        xn_root(:)=1d+10
+
+        if(dls.lt.zero) return
+
         dl1=dfloat(iw)*dsqrt(dls)/two/as
         if (iw.eq.-1) ynpopq=-bs/(two*as)+dl1
         if (iw.eq.1)  ynpopq=two*cs/(-bs-two*as*dl1)
@@ -680,30 +676,24 @@ contains
         !----------------------------
         if (dll.ge.zero) then
             dl2=-dfloat(izn)*dsqrt(dll)/al
-            if (izn.eq.1) xnr=-bl/al+dl2
-            if (izn.eq.-1) xnr=cl/(-bl-al*dl2)
+            if (izn.eq.1) xnr= (-bl - izn*sqrt(dll))/al
+            if (izn.eq.-1) xnr=cl/(-bl + izn*sqrt(dll))
             !xnro=xnr            
-            xn_root(1)=xnr
-            xn_root(2)=-bl/al-dl2
-        else
-            xn_root(1)=1d+10
-            xn_root(2)=1d+10
+            xn_root(1)= xnr
+            xn_root(2)= (-bl + izn*sqrt(dll))/al
         end if
 
         ynpopq1=-bs/(two*as)-dl1
         cl1=g11*yn2**2/xj+yn3**2/g33-ynzq-ynpopq1
         dll1=bl**2-al*cl1
 
-        if (dll1.lt.zero) then
-            xn_root(3)=1d+10
-            xn_root(4)=1d+10
-        else
-            xn_root(3)=-bl/al-izn*dsqrt(dll1)/al
-            xn_root(4)=-bl/al+izn*dsqrt(dll1)/al
+        if (dll1.ge.zero) then
+            xn_root(3)= (-bl - izn*dsqrt(dll1))/al
+            xn_root(4)= (-bl + izn*dsqrt(dll1))/al
         end if
-
-    
-
+        !print *, iw, izn
+        !print *, xn_root
+        !pause
     end
 
 

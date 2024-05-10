@@ -232,7 +232,8 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
         use constants, only : tiny1
         use rt_parameters, only: eps, rrange, hdrob, nr, ipri, iw
         use dispersion_module, only: izn, yn3
-        use dispersion_module, only: extd4, disp2, disp2_iroot3, disp2_ider0
+        use dispersion_module, only: extd4, disp2, disp2_ider0
+        use dispersion_module, only: disp2_iroot3, find_all_roots
         use driver_module, only: im4, hrad, irs, iabsorp, iznzz, iwzz, irszz, rzz
         use driver_module, only: tetzz, xmzz
         use driver_module, only: driver2, driver4
@@ -358,7 +359,9 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
         ! find mode
         !---------------------------------------
 
-        call disp2_iroot3(rnew, xmnew, tetnew, xn_root)
+        !call disp2_iroot3(rnew, xmnew, tetnew, xn_root)
+        !print *, xnrnew
+        call find_all_roots(rnew, xmnew, tetnew, xn_root)
 
         pg1 = abs(xnrnew-xn_root(1))
         pg2 = abs(xnrnew-xn_root(2))

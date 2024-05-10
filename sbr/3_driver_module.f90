@@ -160,7 +160,7 @@ contains
                 if(jfoundr.le.0) jfoundr=1
                 if(jfoundr.gt.nr) jfoundr=nr
             end if
-            print *, 'call extd2 ivar=', ivar
+            !print *, 'call extd2 ivar=', ivar
             call extd2(x,y,dydx)
             irep=0
             if(iconv+irefl.ne.0) then

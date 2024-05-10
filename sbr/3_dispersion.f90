@@ -541,7 +541,7 @@ contains
         real(wp) :: dl1, ynpopq1, al, bl, cl, cl1, dll
         real(wp) :: dl2, xnr 
 
-        print *, 'disp2 ivar=', ivar
+        !print *, 'disp2 ivar=', ivar
 
         iconv=0
         irefl=0

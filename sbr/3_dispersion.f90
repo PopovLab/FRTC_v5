@@ -541,7 +541,7 @@ contains
         real(wp) :: dl1, ynpopq1, al, bl, cl, cl1, dll
         real(wp) :: dl2, xnr 
 
-        !print *, 'disp2 ivar=', ivar
+        print *, 'disp2 ivar=', ivar
 
         iconv=0
         irefl=0
@@ -619,7 +619,7 @@ contains
         return
     end
 
-    subroutine disp2_iroot3(pa, yn2, ptet, xnro, pg1, pg2, pg3, pg4)
+    subroutine disp2_iroot3(pa, yn2, ptet, xn_root)
         ! case iroot == 3  ivar=0
         use constants, only: zero, one, two
         use rt_parameters, only: iw
@@ -630,11 +630,11 @@ contains
         real(wp), intent(in) :: pa      ! ro
         real(wp), intent(in) :: yn2     ! ???
         real(wp), intent(in) :: ptet    ! theta
-        real(wp), intent(in) :: xnro ! ???
-        real(wp), intent(out) :: pg1, pg2, pg3, pg4 
+        !real(wp), intent(in) :: xnro ! ???
+        real(wp), intent(inout) :: xn_root(:)
     
         integer  :: jr
-        real(wp) :: xnr1, xnr2, xnr3, xnr4
+        !real(wp) :: xnr1, xnr2, xnr3, xnr4
         real(wp) :: dl1, ynpopq1, al, bl, cl, cl1, dll
 
         real(wp) :: dl2, xnr
@@ -657,10 +657,10 @@ contains
         call calculate_dispersion_equation(yn2 , yn3)
         
         if(dls.lt.zero) then
-            xnr1=1d+10
-            xnr2=1d+10
-            xnr3=1d+10
-            xnr4=1d+10
+            xn_root(1)=1d+10
+            xn_root(2)=1d+10
+            xn_root(3)=1d+10
+            xn_root(4)=1d+10
         else
             dl1=dfloat(iw)*dsqrt(dls)/two/as
             if (iw.eq.-1) ynpopq=-bs/(two*as)+dl1
@@ -681,11 +681,11 @@ contains
                 if (izn.eq.1) xnr=-bl/al+dl2
                 if (izn.eq.-1) xnr=cl/(-bl-al*dl2)
                 !xnro=xnr            
-                xnr1=xnr
-                xnr2=-bl/al-dl2
+                xn_root(1)=xnr
+                xn_root(2)=-bl/al-dl2
             else
-                xnr1=1d+10
-                xnr2=1d+10
+                xn_root(1)=1d+10
+                xn_root(2)=1d+10
             end if
 
             ynpopq1=-bs/(two*as)-dl1
@@ -693,26 +693,15 @@ contains
             dll1=bl**2-al*cl1
 
             if (dll1.lt.zero) then
-                xnr3=1d+10
-                xnr4=1d+10
+                xn_root(3)=1d+10
+                xn_root(4)=1d+10
             else
-                xnr3=-bl/al-izn*dsqrt(dll1)/al
-                xnr4=-bl/al+izn*dsqrt(dll1)/al
+                xn_root(3)=-bl/al-izn*dsqrt(dll1)/al
+                xn_root(4)=-bl/al+izn*dsqrt(dll1)/al
             end if
 
         end if
 
-        !ipric      if (ipri.gt.2) then
-        !ipric       write (*,*)'nr check, r=',rnew,' tet=',tetnew
-        !ipric       write (*,*)'iw=',iw,' izn=',izn
-        !ipric       write (*,*) xnrnew,xnr1
-        !ipric       write (*,*) xnr2,xnr3,xnr4
-        !ipric       pause
-        !ipric      end if
-        pg1 = abs(xnro-xnr1)
-        pg2 = abs(xnro-xnr2)
-        pg3 = abs(xnro-xnr3)
-        pg4 = abs(xnro-xnr4)
     end
 
     subroutine disp2_iroot2(pa,yn2,ptet,prt,prm)

@@ -635,10 +635,10 @@ contains
     
         integer  :: jr
         !real(wp) :: xnr1, xnr2, xnr3, xnr4
-        real(wp) :: dl1, ynpopq1, al, bl, cl, cl1, dll
-
-        real(wp) :: dl2, xnr
-        real(wp) :: dll1
+        real(wp) :: ynpopq1, al, bl, cl, cl1
+        real(wp) :: dll1, dll
+        real(wp) :: dl1,dl2
+        real(wp) :: xnr
 
         iconv=0
         irefl=0
@@ -660,40 +660,31 @@ contains
 
         if(dls.lt.zero) return
 
-        dl1=dfloat(iw)*dsqrt(dls)/two/as
-        if (iw.eq.-1) ynpopq=-bs/(two*as)+dl1
-        if (iw.eq.1)  ynpopq=two*cs/(-bs-two*as*dl1)
+        if (iw.eq.-1) ynpopq = - (bs - iw*sqrt(dls))/(two*as)
+        if (iw.eq.1)  ynpopq = - two*cs/ (bs + iw*sqrt(dls))
         !cc      write(*,*)'iw=',iw,' izn=',izn,' Nperp=',dsqrt(ynpopq)
         !cc      write(*,*)'Nperp2=',ynpopq,' ynpopq1=',-bs/(two*as)-dl1
         !cc      pause
         al=g22/xj
         bl=-yn2*g12/xj
-        cl=g11*yn2**2/xj+yn3**2/g33-ynzq-ynpopq
+        cl= g11*yn2**2/xj + yn3**2/g33 - ynzq - ynpopq
         dll=bl*bl-al*cl
 
-        !---------------------------
-        !  find all roots
-        !----------------------------
         if (dll.ge.zero) then
-            dl2=-dfloat(izn)*dsqrt(dll)/al
-            if (izn.eq.1) xnr= (-bl - izn*sqrt(dll))/al
-            if (izn.eq.-1) xnr=cl/(-bl + izn*sqrt(dll))
-            !xnro=xnr            
+            if (izn.eq. 1) xnr = - (bl + izn*sqrt(dll))/al
+            if (izn.eq.-1) xnr = - cl/(bl - izn*sqrt(dll))
             xn_root(1)= xnr
-            xn_root(2)= (-bl + izn*sqrt(dll))/al
+            xn_root(2)= - (bl - izn*sqrt(dll))/al
         end if
 
-        ynpopq1=-bs/(two*as)-dl1
-        cl1=g11*yn2**2/xj+yn3**2/g33-ynzq-ynpopq1
-        dll1=bl**2-al*cl1
+        ynpopq1 = - (bs + iw*sqrt(dls)) /(two*as)
+        cl1  = g11*yn2**2/xj + yn3**2/g33 - ynzq - ynpopq1
+        dll1 = bl**2 - al*cl1
 
         if (dll1.ge.zero) then
-            xn_root(3)= (-bl - izn*dsqrt(dll1))/al
-            xn_root(4)= (-bl + izn*dsqrt(dll1))/al
+            xn_root(3)= -(bl + izn*sqrt(dll1))/al
+            xn_root(4)= -(bl - izn*sqrt(dll1))/al
         end if
-        !print *, iw, izn
-        !print *, xn_root
-        !pause
     end
 
 

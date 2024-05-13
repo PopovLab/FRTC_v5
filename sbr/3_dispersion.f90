@@ -563,7 +563,7 @@ contains
 30      continue
         dl1=dfloat(iw)*dsqrt(dls)/two/as
         if(iw.eq.-1) ynpopq=-bs/(two*as)+dl1        ! = (-bs + sqrt(dls)) / (2*as)
-        if(iw.eq.1)  ynpopq=two*cs/(-bs-two*as*dl1) ! = (-bs - sqrt(dls)) * (2*cs)
+        if(iw.eq.1)  ynpopq=two*cs/(-bs-two*as*dl1) ! = (-bs - sqrt(dls)) * (2*cs)??
         
 
         !cc      write(*,*)'iw=',iw,' izn=',izn,' Nperp=',dsqrt(ynpopq)
@@ -580,8 +580,8 @@ contains
         if(dll.lt.zero) goto 70
 
 40      dl2=-dfloat(izn)*dsqrt(dll)/al
-        if(izn.eq.1) xnr=-bl/al+dl2         ! =      (-bl - sqrt(dll)) / al
-        if(izn.eq.-1) xnr=cl/(-bl-al*dl2)   ! = cl / (-bl + sqrt(dll))
+        if(izn.eq.1) xnr=-bl/al+dl2         ! =  (-bl - sqrt(dll)) / al
+        if(izn.eq.-1) xnr=cl/(-bl-al*dl2)   ! =  (-bl + sqrt(dll)) / al
         xnro=xnr
         if(ivar.gt.1) then
             !cccccc  find Nr of reflected wave
@@ -619,7 +619,7 @@ contains
         return
     end
 
-    subroutine find_all_roots(pa, yn2, ptet, xn_root)
+    subroutine find_all_roots(pa, yn2, ptet, root)
         ! case iroot == 3  ivar=0
         use constants, only: zero, one, two
         use rt_parameters, only: iw
@@ -630,11 +630,9 @@ contains
         real(wp), intent(in) :: pa      ! ro
         real(wp), intent(in) :: yn2     ! ???
         real(wp), intent(in) :: ptet    ! theta
-        !real(wp), intent(in) :: xnro ! ???
-        real(wp), intent(inout) :: xn_root(:)
+        real(wp), intent(inout) :: root(:)
     
         integer  :: jr
-        !real(wp) :: xnr1, xnr2, xnr3, xnr4
         real(wp) :: ynpopq1, al, bl, cl, cl1
         real(wp) :: dll1, dll
         real(wp) :: dl1,dl2
@@ -656,34 +654,44 @@ contains
 
         call calculate_dispersion_equation(yn2 , yn3)
 
-        xn_root(:)=1d+10
+        root(:)=1d+10
 
         if(dls.lt.zero) return
 
-        if (iw.eq.-1) ynpopq = - (bs - iw*sqrt(dls))/(two*as)
-        if (iw.eq.1)  ynpopq = - two*cs/ (bs + iw*sqrt(dls))
+        if (iw.eq.-1) then
+            ynpopq  = (-bs - sqrt(dls))/(2*as)
+            ynpopq1 = (-bs + sqrt(dls))/(2*as)
+        endif
+        if (iw.eq.1)  then
+            ynpopq  = (-bs + sqrt(dls))/(2*as)  ! = - two*cs/ (bs + iw*sqrt(dls))
+            ynpopq1 = (-bs - sqrt(dls))/(2*as)
+        endif
         !cc      write(*,*)'iw=',iw,' izn=',izn,' Nperp=',dsqrt(ynpopq)
         !cc      write(*,*)'Nperp2=',ynpopq,' ynpopq1=',-bs/(two*as)-dl1
         !cc      pause
+
         al=g22/xj
         bl=-yn2*g12/xj
         cl= g11*yn2**2/xj + yn3**2/g33 - ynzq - ynpopq
         dll=bl*bl-al*cl
 
         if (dll.ge.zero) then
-            if (izn.eq. 1) xnr = - (bl + izn*sqrt(dll))/al
-            if (izn.eq.-1) xnr = - cl/(bl - izn*sqrt(dll))
-            xn_root(1)= xnr
-            xn_root(2)= - (bl - izn*sqrt(dll))/al
+            if (izn.eq. 1) then
+                root(1)= (-bl - sqrt(dll))/al
+                root(2)= (-bl + sqrt(dll))/al ! = cl/(-bl - sqrt(dll))
+            endif                
+            if (izn.eq.-1) then
+                root(1)= (-bl + sqrt(dll))/al ! = cl/(-bl - sqrt(dll))
+                root(2)= (-bl - sqrt(dll))/al
+            endif
         end if
-
-        ynpopq1 = - (bs + iw*sqrt(dls)) /(two*as)
+        
         cl1  = g11*yn2**2/xj + yn3**2/g33 - ynzq - ynpopq1
         dll1 = bl**2 - al*cl1
 
         if (dll1.ge.zero) then
-            xn_root(3)= -(bl + izn*sqrt(dll1))/al
-            xn_root(4)= -(bl - izn*sqrt(dll1))/al
+            root(3)= (-bl - izn*sqrt(dll1))/al
+            root(4)= (-bl + izn*sqrt(dll1))/al
         end if
     end
 

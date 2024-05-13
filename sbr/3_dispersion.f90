@@ -1146,10 +1146,10 @@ contains
         end if
         !c---------------------------------------------------
   
-        dhdr=asr*ynpopq**2+bsr*ynpopq+&
-            as*two*ynpopq*ynpopqr+bs*ynpopqr+csr
-        dhdtet=ast*ynpopq**2+bst*ynpopq+&
-              as*two*ynpopq*ynpopqt+bs*ynpopqt+cst
+        dhdr=asr*ynpopq**2+bsr*ynpopq+as*two*ynpopq*ynpopqr+bs*ynpopqr+csr
+
+        dhdtet=ast*ynpopq**2+bst*ynpopq+as*two*ynpopq*ynpopqt+bs*ynpopqt+cst
+        
         dnx=two*as*ynpopq+bs
         dnz=ynpopq*(e1+e3)+two*(ynzq-e1)*e3
         dhdnr=dnx*two*(g22*xnr-g12*yn2)/xj

@@ -658,17 +658,8 @@ contains
 
         if(dls.lt.zero) return
 
-        if (iw.eq.-1) then
-            ynpopq  = (-bs - sqrt(dls))/(2*as)
-            ynpopq1 = (-bs + sqrt(dls))/(2*as)
-        endif
-        if (iw.eq.1)  then
-            ynpopq  = (-bs + sqrt(dls))/(2*as)  ! = - two*cs/ (bs + iw*sqrt(dls))
-            ynpopq1 = (-bs - sqrt(dls))/(2*as)
-        endif
-        !cc      write(*,*)'iw=',iw,' izn=',izn,' Nperp=',dsqrt(ynpopq)
-        !cc      write(*,*)'Nperp2=',ynpopq,' ynpopq1=',-bs/(two*as)-dl1
-        !cc      pause
+        ynpopq  = (-bs + iw*sqrt(dls))/(2*as)  ! = - two*cs/ (bs + iw*sqrt(dls))
+        ynpopq1 = (-bs - iw*sqrt(dls))/(2*as)
 
         al=g22/xj
         bl=-yn2*g12/xj
@@ -676,14 +667,8 @@ contains
         dll=bl*bl-al*cl
 
         if (dll.ge.zero) then
-            if (izn.eq. 1) then
-                root(1)= (-bl - sqrt(dll))/al
-                root(2)= (-bl + sqrt(dll))/al ! = cl/(-bl - sqrt(dll))
-            endif                
-            if (izn.eq.-1) then
-                root(1)= (-bl + sqrt(dll))/al ! = cl/(-bl - sqrt(dll))
-                root(2)= (-bl - sqrt(dll))/al
-            endif
+            root(1)= (-bl - izn*sqrt(dll))/al
+            root(2)= (-bl + izn*sqrt(dll))/al ! = cl/(-bl - sqrt(dll))
         end if
         
         cl1  = g11*yn2**2/xj + yn3**2/g33 - ynzq - ynpopq1

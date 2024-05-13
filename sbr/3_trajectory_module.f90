@@ -246,6 +246,7 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
         real(wp), intent(in)    :: pabs
         integer,  intent(inout) :: nmax        
         integer,  intent(inout) :: nb1, nb2        
+        integer :: num_roots
         !integer,  intent(in)    :: nomth, nomnz
 
 
@@ -361,7 +362,7 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
 
         !call disp2_iroot3(rnew, xmnew, tetnew, xn_root)
         !print *, xnrnew
-        call find_all_roots(rnew, xmnew, tetnew, xn_root)
+        num_roots= find_all_roots(rnew, xmnew, tetnew, xn_root)
 
         pg1 = abs(xnrnew-xn_root(1))
         pg2 = abs(xnrnew-xn_root(2))

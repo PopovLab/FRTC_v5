@@ -619,7 +619,7 @@ contains
         return
     end
 
-    subroutine find_all_roots(pa, yn2, ptet, root)
+    function find_all_roots(pa, yn2, ptet, root) result(num_roots)
         !! find all roots of dispersion equation
         use constants, only: zero, one, two
         use rt_parameters, only: iw
@@ -632,7 +632,7 @@ contains
         real(wp), intent(in) :: ptet    ! theta
         real(wp), intent(inout) :: root(:)
     
-        integer  :: jr
+        integer  :: num_roots
         real(wp) :: ynpopq1, al, bl, cl, cl1
         real(wp) :: dll1, dll
         real(wp) :: dl1,dl2
@@ -654,6 +654,7 @@ contains
 
         call calculate_dispersion_equation(yn2 , yn3)
 
+        num_roots = 0
         root(:)=1d+10
 
         if(dls.lt.zero) return
@@ -669,6 +670,7 @@ contains
         if (dll.ge.zero) then
             root(1)= (-bl - izn*sqrt(dll))/al
             root(2)= (-bl + izn*sqrt(dll))/al ! = cl/(-bl - sqrt(dll))
+            num_roots = num_roots + 2
         end if
         
         cl1  = g11*yn2**2/xj + yn3**2/g33 - ynzq - ynpopq1
@@ -677,6 +679,7 @@ contains
         if (dll1.ge.zero) then
             root(3)= (-bl - izn*sqrt(dll1))/al
             root(4)= (-bl + izn*sqrt(dll1))/al
+            num_roots = num_roots + 2
         end if
     end
 
@@ -843,6 +846,7 @@ contains
             izn=1
             dl2=-dsqrt(dll)/al
             xnr=-bl/al+dl2
+            print *, 'xnr1 =', xnr
             znakstart = dhdomega(pa,ptet,xnr,yn2)
             !cc        write(*,*)'#1: izn=',izn,' dl2=',dl2,' xnr=',xnr
             !cc        write(*,*)'znak=',znakstart,' -znak*dhdnr=',-znakstart*dhdnr
@@ -850,6 +854,7 @@ contains
                 izn=-1
                 dl2=dsqrt(dll)/al
                 xnr=cl/(-bl-al*dl2)
+                print *, 'xnr2 =', xnr
                 znakstart = dhdomega(pa,ptet,xnr,yn2)
                 !cc         write(*,*)'#2: izn=',izn,' dl2=',dl2,' xnr=',xnr
                 !cc         write(*,*)'znak=',znakstart,' -znak*dhdnr=',-znakstart*dhdnr
@@ -858,6 +863,7 @@ contains
                     stop
                 end if
             end if
+            print *,'izn=', izn
             !xnro=xnr
         end if
 

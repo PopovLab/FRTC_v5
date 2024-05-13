@@ -28,6 +28,8 @@ module trajectory_data
         integer  :: iw     ! iwzap(itr)
         integer  :: izn    ! iznzap(itr)
 
+        real(wp) :: znakstart
+        
         integer  :: spectrum_point_index
         integer  :: mbad
         integer  :: nrefj 

@@ -12,7 +12,7 @@ contains
         use trajectory_module
         use spectrum_mod
         use iterator_mod,only: plost, pnab
-        use dispersion_module, only: icall1, icall2, yn3, ivar, izn
+        use dispersion_module, only: icall1, icall2, yn3, ivar, izn, znakstart
         use driver_module, only: irs, iabsorp
         use trajectory_data
         implicit none
@@ -83,6 +83,7 @@ contains
             do inz = 1, spectr%size
                 itr = itr+1
                 current_trajectory => trajectories(itr)
+                znakstart = current_trajectory%znakstart !  znakstart используется в ext4 
                 point = spectr%data(inz)
 
                 if (current_trajectory%mbad.ne.0) then
@@ -161,8 +162,8 @@ contains
         use constants, only : zero
         use rt_parameters, only : inew, nr, iw
         use spectrum_mod, only : SpectrumPoint
-        use dispersion_module, only: ivar, yn3, izn
-        use dispersion_module, only: disp2_iroot2
+        use dispersion_module, only: ivar, yn3, izn, znakstart
+        use dispersion_module, only: disp2_iroot2, find_all_roots, dhdomega
         use metrics, only: g22, g33, co, si
         use metrics, only: calculate_metrics
         use driver_module, only: irs
@@ -181,9 +182,12 @@ contains
 
         real(wp),  parameter :: rhostart=1.d0
         integer,   parameter :: ntry_max=5
-
+        integer :: num_roots
+        real(wp) :: xnr_root(4)
+        real(wp) :: znak_1, znak_2
         irs = 1
         iw = iw0
+        izn = 1
         hr = 1.d0/dble(nr+1)
         tet = traj%tetin
 
@@ -199,10 +203,21 @@ contains
             yn3 = point%Ntor*dsqrt(g33)/co 
             xm = point%Npol*dsqrt(g22)/si
 
-            call disp2_iroot2(pa,xm,tet,f1,f2)
+            num_roots = find_all_roots(pa,xm,tet,xnr_root)
+            !call disp2_iroot2(pa,xm,tet,f1,f2)
             
-            if (f1.ge.zero.and.f2.ge.zero) then
-                !rini = pa
+            if (num_roots>0) then
+                ! определения znakstart
+                znak_1 = dhdomega(pa,tet,xnr_root(1),xm)
+                znak_2 = dhdomega(pa,tet,xnr_root(2),xm)
+                izn = 1
+                if(-znak_1.gt.zero) then
+                    izn=-1
+                    if(-znak_2.gt.zero) then
+                        write(*,*)'Exception: both modes go outward !!'
+                        stop
+                    end if
+                endif
                 traj%rin = pa
                 traj%tetzap = tet
                 traj%xmzap = xm
@@ -211,6 +226,7 @@ contains
                 traj%irszap = irs 
                 traj%iwzap = iw
                 traj%iznzap = izn
+                traj%znakstart = izn ! оказалось,что нужно запоминать. znakstart используется в ext4
                 return
             end if
         end do

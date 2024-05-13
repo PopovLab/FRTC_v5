@@ -620,7 +620,7 @@ contains
     end
 
     subroutine find_all_roots(pa, yn2, ptet, root)
-        ! case iroot == 3  ivar=0
+        !! find all roots of dispersion equation
         use constants, only: zero, one, two
         use rt_parameters, only: iw
         use metrics
@@ -658,8 +658,8 @@ contains
 
         if(dls.lt.zero) return
 
-        ynpopq  = (-bs + iw*sqrt(dls))/(2*as)  ! = - two*cs/ (bs + iw*sqrt(dls))
-        ynpopq1 = (-bs - iw*sqrt(dls))/(2*as)
+        ynpopq = (-bs + iw*sqrt(dls))/(2*as)  ! = - two*cs/ (bs + iw*sqrt(dls))
+        ynpopq1= (-bs - iw*sqrt(dls))/(2*as)
 
         al=g22/xj
         bl=-yn2*g12/xj
@@ -1149,7 +1149,7 @@ contains
         dhdr=asr*ynpopq**2+bsr*ynpopq+as*two*ynpopq*ynpopqr+bs*ynpopqr+csr
 
         dhdtet=ast*ynpopq**2+bst*ynpopq+as*two*ynpopq*ynpopqt+bs*ynpopqt+cst
-        
+
         dnx=two*as*ynpopq+bs
         dnz=ynpopq*(e1+e3)+two*(ynzq-e1)*e3
         dhdnr=dnx*two*(g22*xnr-g12*yn2)/xj

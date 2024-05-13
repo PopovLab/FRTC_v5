@@ -774,7 +774,7 @@ contains
         use metrics
         use dielectric_tensor
         use dispersion_equation
-        use decrements, only : dhdnr !!!!!
+        !use decrements, only : dhdnr !!!!!
         implicit none
         real(wp), intent(in) :: pa      ! ro
         real(wp), intent(in) :: yn2     ! ???
@@ -846,14 +846,14 @@ contains
             znakstart = dhdomega(pa,ptet,xnr,yn2)
             !cc        write(*,*)'#1: izn=',izn,' dl2=',dl2,' xnr=',xnr
             !cc        write(*,*)'znak=',znakstart,' -znak*dhdnr=',-znakstart*dhdnr
-            if(-znakstart*dhdnr.gt.zero) then
+            if(-znakstart.gt.zero) then
                 izn=-1
                 dl2=dsqrt(dll)/al
                 xnr=cl/(-bl-al*dl2)
                 znakstart = dhdomega(pa,ptet,xnr,yn2)
                 !cc         write(*,*)'#2: izn=',izn,' dl2=',dl2,' xnr=',xnr
                 !cc         write(*,*)'znak=',znakstart,' -znak*dhdnr=',-znakstart*dhdnr
-                if(-znakstart*dhdnr.gt.zero) then
+                if(-znakstart.gt.zero) then
                     write(*,*)'Exception: both modes go outward !!'
                     stop
                 end if
@@ -1216,7 +1216,7 @@ contains
         
         !!w*dH/dw=wdhdw:
         wdhdw=-(yn1*dhdnr+yn2*dhdm+yn3*dhdn3+dhdv2v+dhdu2u)
-        znak=dsign(1.d0,wdhdw)
+        znak=dsign(1.d0,wdhdw*dhdnr)
         !znakstart=znak
         !c      write(*,*)'formula: znak=',znak
         !c      write(*,*)'wdhdw=',wdhdw,' H=',ham

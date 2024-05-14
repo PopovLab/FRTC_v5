@@ -269,7 +269,7 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
         real(wp) :: xnr
         real(wp) :: ynz0, x1, x2, rexi, tetnew
         real(wp) :: xmnew, rnew, xnrnew
-        real(wp) :: xn_root(4)
+        real(wp) :: xnr_root(4)
         real(wp) :: pg1, pg2, pg3, pg4, pg
 
         ! copy initial parameters for a trajectory
@@ -360,14 +360,14 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
         ! find mode
         !---------------------------------------
 
-        !call disp2_iroot3(rnew, xmnew, tetnew, xn_root)
+        !call disp2_iroot3(rnew, xmnew, tetnew, xnr_root)
         !print *, xnrnew
-        num_roots= find_all_roots(rnew, xmnew, tetnew, xn_root)
+        num_roots= find_all_roots(rnew, xmnew, tetnew, xnr_root)
 
-        pg1 = abs(xnrnew-xn_root(1))
-        pg2 = abs(xnrnew-xn_root(2))
-        pg3 = abs(xnrnew-xn_root(3))
-        pg4 = abs(xnrnew-xn_root(4))
+        pg1 = abs(xnrnew-xnr_root(1))
+        pg2 = abs(xnrnew-xnr_root(2))
+        pg3 = abs(xnrnew-xnr_root(3))
+        pg4 = abs(xnrnew-xnr_root(4))
 
         pg = dmin1(pg1,pg2,pg3,pg4)
         if (dabs(pg/xnrnew).gt.pgdop) then

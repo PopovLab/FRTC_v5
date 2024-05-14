@@ -162,6 +162,7 @@ contains
         use constants, only : zero
         use rt_parameters, only : inew, nr, iw
         use spectrum_mod, only : SpectrumPoint
+        use decrements, only : dhdnr 
         use dispersion_module, only: ivar, yn3, izn, znakstart
         use dispersion_module, only: disp2_iroot2, find_all_roots, dhdomega
         use metrics, only: g22, g33, co, si
@@ -184,7 +185,7 @@ contains
         integer,   parameter :: ntry_max=5
         integer :: num_roots
         real(wp) :: xnr_root(4)
-        real(wp) :: znak_1, znak_2
+        real(wp) :: znak
         irs = 1
         iw = iw0
         izn = 1
@@ -208,12 +209,12 @@ contains
             
             if (num_roots>0) then
                 ! определения znakstart
-                znak_1 = dhdomega(pa,tet,xnr_root(1),xm)
-                znak_2 = dhdomega(pa,tet,xnr_root(2),xm)
+                znak = dhdomega(pa,tet,xnr_root(1),xm)
                 izn = 1
-                if(-znak_1.gt.zero) then
+                if(-znak*dhdnr.gt.zero) then
                     izn=-1
-                    if(-znak_2.gt.zero) then
+                    znak = dhdomega(pa,tet,xnr_root(2),xm)
+                    if(-znak*dhdnr.gt.zero) then
                         write(*,*)'Exception: both modes go outward !!'
                         stop
                     end if
@@ -226,7 +227,7 @@ contains
                 traj%irszap = irs 
                 traj%iwzap = iw
                 traj%iznzap = izn
-                traj%znakstart = izn ! оказалось,что нужно запоминать. znakstart используется в ext4
+                traj%znakstart = znak ! оказалось,что нужно запоминать. znakstart используется в ext4
                 return
             end if
         end do

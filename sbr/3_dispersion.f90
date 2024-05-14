@@ -1222,7 +1222,7 @@ contains
         
         !!w*dH/dw=wdhdw:
         wdhdw=-(yn1*dhdnr+yn2*dhdm+yn3*dhdn3+dhdv2v+dhdu2u)
-        znak=dsign(1.d0,wdhdw*dhdnr)
+        znak=dsign(1.d0,wdhdw)
         !znakstart=znak
         !c      write(*,*)'formula: znak=',znak
         !c      write(*,*)'wdhdw=',wdhdw,' H=',ham

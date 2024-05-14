@@ -208,7 +208,7 @@ contains
             !call disp2_iroot2(pa,xm,tet,f1,f2)
             
             if (num_roots>0) then
-                ! определения znakstart
+                ! определение znakstart
                 znak = dhdomega(pa,tet,xnr_root(1),xm)
                 izn = 1
                 if(-znak*dhdnr.gt.zero) then

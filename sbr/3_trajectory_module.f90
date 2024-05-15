@@ -336,8 +336,8 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
         !  pass turning point
         !--------------------------------------------------------
         irs0=irs
-        !num_roots= find_all_roots(xend, xm, tet, xnr_root)
-        num_roots= find_all_roots_simple(xend, xm, tet, xnr_root)
+        num_roots= find_all_roots(xend, xm, tet, xnr_root)
+        !num_roots= find_all_roots_simple(xend, xm, tet, xnr_root)
         !call disp2_ider0(xend,xm,tet,xnr)
         xnr = xnr_root(1)
         print *, 'num_roots=', num_roots
@@ -371,8 +371,8 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
 
         !call disp2_iroot3(rnew, xmnew, tetnew, xnr_root)
         !print *, xnrnew
-        !num_roots= find_all_roots(rnew, xmnew, tetnew, xnr_root)
-        num_roots= find_all_roots_simple(rnew, xmnew, tetnew, xnr_root)
+        num_roots= find_all_roots(rnew, xmnew, tetnew, xnr_root)
+        !num_roots= find_all_roots_simple(rnew, xmnew, tetnew, xnr_root)
 
         pg1 = abs(xnrnew-xnr_root(1))
         pg2 = abs(xnrnew-xnr_root(2))

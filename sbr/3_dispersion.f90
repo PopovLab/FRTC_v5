@@ -736,7 +736,91 @@ contains
         endif    
     end function
 
+
+
     function find_all_roots(pa, yn2, ptet, root) result(num_roots)
+        !! find all roots of dispersion equation
+        !! уточненный вариант вычисления корней
+        use constants, only: zero, one, two
+        use rt_parameters, only: iw
+        use metrics
+        use dielectric_tensor
+        use dispersion_equation
+        implicit none
+        real(wp), intent(in) :: pa      ! ro
+        real(wp), intent(in) :: yn2     ! ???
+        real(wp), intent(in) :: ptet    ! theta
+        real(wp), intent(inout) :: root(:)
+    
+        integer  :: num_roots
+
+        real(wp) :: al, bl, cl, cl1, ynpopq1
+        real(wp) :: ynpopq_(2), rt(2)
+        real(wp) :: tmp(4)
+        real(wp) :: dll1, dll
+        real(wp) :: dl1,dl2
+        real(wp) :: xnr
+        real(wp) :: epsilon
+        real(wp) :: err_1, err_2
+        iconv=0
+        irefl=0
+        if(pa.ge.one.or.pa.le.zero) then
+            print *, 'disp2_iroot3 ivar=', ivar
+            pause
+            return
+        endif
+
+        icall1=icall1+1
+        
+        call calculate_metrics(pa, ptet)
+
+        call calculate_dielectric_tensor(pa)
+
+        call calculate_dispersion_equation(yn2 , yn3)
+
+        num_roots = 0
+        root(:)=1d+10
+
+        if (square_solver(as, bs, cs, ynpopq_)==0) return
+        
+        if (iw<0) then
+            ynpopq  = ynpopq_(2) 
+            ynpopq1 = ynpopq_(1) 
+        else
+            ynpopq1 = ynpopq_(2) 
+            ynpopq =  ynpopq_(1) 
+        endif
+
+        al=g22/xj
+        bl=-yn2*g12/xj
+        cl= g11*yn2**2/xj + yn3**2/g33 - ynzq 
+
+        if (square_solver2(al, 2*bl, cl - ynpopq, rt)>0) then
+            if (izn == 1) then
+                root(1) = rt(1)
+                root(2) = rt(2)
+            else 
+                root(1) = rt(2)
+                root(2) = rt(1)
+            endif
+            num_roots = num_roots + 2
+        end if
+
+        if (square_solver2(al, 2*bl, cl- ynpopq1, rt)>0) then
+            if (izn == 1) then
+                root(3)= rt(1) !(-bl - sqrt(dll))/al
+                root(4)= rt(2) !cl/(-bl - sqrt(dll))
+            else 
+                root(3)= rt(2) !cl/(-bl - sqrt(dll))
+                root(4)= rt(1) !(-bl + izn*sqrt(dll))/al ! = cl/(-bl - sqrt(dll))
+            endif
+        end if
+    end
+
+
+
+
+    function find_all_roots_test(pa, yn2, ptet, root) result(num_roots)
         !! find all roots of dispersion equation
         !! уточненный вариант вычисления корней
         use constants, only: zero, one, two

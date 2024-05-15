@@ -340,7 +340,8 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
         print *, 'xm= ',xm
         print *, 'tet= ',tet
         num_roots= find_all_roots(xend, xm, tet, xnr_root)
-        call disp2_ider0(xend,xm,tet,xnr)
+        !call disp2_ider0(xend,xm,tet,xnr)
+        xnr = xnr_root(1)
         print *, 'num_roots=', num_roots
         !if (num_roots == 0) then
         !    print *, xend,xm,tet
@@ -365,7 +366,7 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
   40    yy(1)=tet 
         yy(2)=xm
         yy(3)=xend
-        yy(4)=xnr_root(1)
+        yy(4)=xnr
         x1=0d0
         x2=1d+10
         rexi=xend

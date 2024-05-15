@@ -621,6 +621,71 @@ contains
         if (ivar.eq.10) ivar=-1
         return
     end
+
+    function find_all_roots_simple(pa, yn2, ptet, root) result(num_roots)
+        !! find all roots of dispersion equation
+        use constants, only: zero, one, two
+        use rt_parameters, only: iw
+        use metrics
+        use dielectric_tensor
+        use dispersion_equation
+        implicit none
+        real(wp), intent(in) :: pa      ! ro
+        real(wp), intent(in) :: yn2     ! ???
+        real(wp), intent(in) :: ptet    ! theta
+        real(wp), intent(inout) :: root(:)
+    
+        integer  :: num_roots
+        real(wp) :: ynpopq1, al, bl, cl, cl1
+        real(wp) :: dll1, dll
+        real(wp) :: dl1,dl2
+        real(wp) :: xnr
+
+        iconv=0
+        irefl=0
+        if(pa.ge.one.or.pa.le.zero) then
+            print *, 'disp2_iroot3 ivar=', ivar
+            pause
+            return
+        endif
+
+        icall1=icall1+1
+        
+        call calculate_metrics(pa, ptet)
+
+        call calculate_dielectric_tensor(pa)
+
+        call calculate_dispersion_equation(yn2 , yn3)
+
+        num_roots = 0
+        root(:)=1d+10
+
+        if(dls.lt.zero) return
+
+        ynpopq = (-bs + iw*sqrt(dls))/(2*as)  ! = - two*cs/ (bs + iw*sqrt(dls))
+        ynpopq1= (-bs - iw*sqrt(dls))/(2*as)
+
+        al=g22/xj
+        bl=-yn2*g12/xj
+        cl= g11*yn2**2/xj + yn3**2/g33 - ynzq - ynpopq
+        dll=bl*bl-al*cl
+
+        if (dll.ge.zero) then
+            root(1)= (-bl - izn*sqrt(dll))/al
+            root(2)= (-bl + izn*sqrt(dll))/al ! = cl/(-bl - sqrt(dll))
+            num_roots = num_roots + 2
+        end if
+        
+        cl1  = g11*yn2**2/xj + yn3**2/g33 - ynzq - ynpopq1
+        dll1 = bl**2 - al*cl1
+
+        if (dll1.ge.zero) then
+            root(3)= (-bl - izn*sqrt(dll1))/al
+            root(4)= (-bl + izn*sqrt(dll1))/al
+            num_roots = num_roots + 2
+        end if
+    end
+
     function square_solver(a,b,c, root) result(num_roots)
         implicit none
         real(wp), intent(in) :: a
@@ -670,8 +735,10 @@ contains
             num_roots = num_roots + 2
         endif    
     end function
+
     function find_all_roots(pa, yn2, ptet, root) result(num_roots)
         !! find all roots of dispersion equation
+        !! уточненный вариант вычисления корней
         use constants, only: zero, one, two
         use rt_parameters, only: iw
         use metrics

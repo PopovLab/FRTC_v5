@@ -233,7 +233,7 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
         use rt_parameters, only: eps, rrange, hdrob, nr, ipri, iw
         use dispersion_module, only: izn, yn3
         use dispersion_module, only: extd4, disp2, disp2_ider0
-        use dispersion_module, only: disp2_iroot3, find_all_roots
+        use dispersion_module, only: disp2_iroot3, find_all_roots, find_all_roots_simple
         use driver_module, only: im4, hrad, irs, iabsorp, iznzz, iwzz, irszz, rzz
         use driver_module, only: tetzz, xmzz
         use driver_module, only: driver2, driver4
@@ -336,30 +336,14 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
         !  pass turning point
         !--------------------------------------------------------
         irs0=irs
-        print *, 'xend= ',xend
-        print *, 'xm= ',xm
-        print *, 'tet= ',tet
-        num_roots= find_all_roots(xend, xm, tet, xnr_root)
+        !num_roots= find_all_roots(xend, xm, tet, xnr_root)
+        num_roots= find_all_roots_simple(xend, xm, tet, xnr_root)
         !call disp2_ider0(xend,xm,tet,xnr)
         xnr = xnr_root(1)
         print *, 'num_roots=', num_roots
-        !if (num_roots == 0) then
-        !    print *, xend,xm,tet
-        !    print *, xnr
-        !    print *, abs(xnr-xnr_root(1))
-        !    print *,'----------'
-        !    print *, xnr_root
-        !    pause
-        !endif
-
-        if (abs(xnr-xnr_root(1)) > 1d-8) then
-            print *,'---------- big diff -----'
-            print *, xend,xm,tet
-            print *, xnr
-            print *, abs(xnr-xnr_root(1))
-            print *,'----------'
-            print *, xnr_root
-           ! pause
+        if (num_roots == 0) then
+            print *,'no roots'
+            pause
         endif
 
         ynz0 = ynz
@@ -387,7 +371,8 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
 
         !call disp2_iroot3(rnew, xmnew, tetnew, xnr_root)
         !print *, xnrnew
-        num_roots= find_all_roots(rnew, xmnew, tetnew, xnr_root)
+        !num_roots= find_all_roots(rnew, xmnew, tetnew, xnr_root)
+        num_roots= find_all_roots_simple(rnew, xmnew, tetnew, xnr_root)
 
         pg1 = abs(xnrnew-xnr_root(1))
         pg2 = abs(xnrnew-xnr_root(2))

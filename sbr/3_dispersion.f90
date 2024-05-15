@@ -687,6 +687,7 @@ contains
 
         real(wp) :: al, bl, cl, cl1, ynpopq1
         real(wp) :: ynpopq_(2), rt(2)
+        real(wp) :: tmp(4)
         real(wp) :: dll1, dll
         real(wp) :: dl1,dl2
         real(wp) :: xnr
@@ -746,11 +747,11 @@ contains
         print *,'dll=', dll
         if (dll.ge.zero) then
             if (izn == 1) then
-                root(1)= (-bl - sqrt(dll))/al
-                root(2)= cl/(-bl - sqrt(dll))
+                tmp(1)= (-bl - sqrt(dll))/al
+                tmp(2)= cl/(-bl - sqrt(dll))
             else 
-                root(1)= cl/(-bl - sqrt(dll))
-                root(2)= (-bl + izn*sqrt(dll))/al ! = cl/(-bl - sqrt(dll))
+                tmp(1)= cl/(-bl - sqrt(dll))
+                tmp(2)= (-bl + izn*sqrt(dll))/al ! = cl/(-bl - sqrt(dll))
             endif
             !num_roots = num_roots + 2
         end if
@@ -758,21 +759,21 @@ contains
 
         if (square_solver2(al, 2*bl, cl, rt)>0) then
             if (izn == 1) then
-                err_1 = abs(root(1) - rt(1)) !(-bl - sqrt(dll))/al
-                err_2 = abs(root(2) - rt(2)) !cl/(-bl - sqrt(dll))
                 root(1) = rt(1)
                 root(2) = rt(2)
             else 
-                err_1 = abs(root(1) - rt(2)) !cl/(-bl - sqrt(dll))
-                err_2 = abs(root(2) - rt(1)) !(-bl + izn*sqrt(dll))/al ! = cl/(-bl - sqrt(dll))
                 root(1) = rt(2)
                 root(2) = rt(1)
             endif
-            if (err_1+err_2> 1d-7) then 
-                print *, 'errror'
+
+            err_1 = abs(root(1) - tmp(1)) !(-bl - sqrt(dll))/al
+            err_2 = abs(root(2) - tmp(2)) !cl/(-bl - sqrt(dll))
+
+            if (err_1+err_2> 1d-9) then 
+                print *, 'errror - 1'
                 print *, err_1, err_2
+                print *, tmp(1:2)                
                 print *, root(1:2)
-                print *, rt(2:1)
                 print *, izn
                 pause
             else
@@ -787,23 +788,35 @@ contains
         dll1 = bl**2 - al*cl1
         print *, '--- izn=', izn
         if (dll1.ge.zero) then
-            root(3)= (-bl - izn*sqrt(dll1))/al
-            root(4)= (-bl + izn*sqrt(dll1))/al
-            num_roots = num_roots + 2
+            tmp(3)= (-bl - izn*sqrt(dll1))/al
+            tmp(4)= (-bl + izn*sqrt(dll1))/al
+            !num_roots = num_roots + 2
             !print *, root(3), root(4)
         end if
-        return
-        if (square_solver(al, 2*bl, cl1, rt)>0) then
+        !return
+
+        if (square_solver2(al, 2*bl, cl1, rt)>0) then
             if (izn == 1) then
-                root(3)= rt(2) !(-bl - sqrt(dll))/al
-                root(4)= rt(1) !cl/(-bl - sqrt(dll))
+                root(3)= rt(1) !(-bl - sqrt(dll))/al
+                root(4)= rt(2) !cl/(-bl - sqrt(dll))
             else 
-                root(3)= rt(1) !cl/(-bl - sqrt(dll))
-                root(4)= rt(2) !(-bl + izn*sqrt(dll))/al ! = cl/(-bl - sqrt(dll))
+                root(3)= rt(2) !cl/(-bl - sqrt(dll))
+                root(4)= rt(1) !(-bl + izn*sqrt(dll))/al ! = cl/(-bl - sqrt(dll))
             endif
+            err_1 = abs(tmp(3) - root(3))
+            err_2 = abs(tmp(4) - root(4))               
             num_roots = num_roots + 2
-           ! print *, root(3), root(4)
-            !pause
+            if (err_1+err_2 > 1d-9) then 
+                print *, 'errror - 2'
+                print *, err_1, err_2
+                print *, tmp(3:4)
+                print *, root(3:4)
+                print *, izn
+                pause
+            else
+                !print *, 'errror good'
+                !print *, err_1, err_2
+            endif
         end if
 
     end

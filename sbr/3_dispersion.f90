@@ -489,6 +489,7 @@ contains
         
         if(dls.lt.zero) then
             ! conversion
+            print *,'conversion'
             pause
             iconv=1
             return
@@ -497,7 +498,8 @@ contains
         dl1=dfloat(iw)*dsqrt(dls)/two/as
         if(iw.eq.-1) ynpopq=-bs/(two*as)+dl1
         if(iw.eq.1)  ynpopq=two*cs/(-bs-two*as*dl1)
-        
+        print *,'disp2_ider0 = ', ynpopq
+        print *, iw, izn
         !cc      write(*,*)'iw=',iw,' izn=',izn,' Nperp=',dsqrt(ynpopq)
         !cc      write(*,*)'Nperp2=',ynpopq,' ynpopq1=',-bs/(two*as)-dl1
         !cc      pause
@@ -509,6 +511,7 @@ contains
         dll=bl*bl-al*cl
 
         if(dll.lt.zero) then
+            print *, 'dll =', dll
             pause
         endif
 
@@ -618,7 +621,55 @@ contains
         if (ivar.eq.10) ivar=-1
         return
     end
+    function square_solver(a,b,c, root) result(num_roots)
+        implicit none
+        real(wp), intent(in) :: a
+        real(wp), intent(in) :: b
+        real(wp), intent(in) :: c
+        real(wp), intent(inout) :: root(:)      
+        integer  :: num_roots
+        real(wp) :: epsilon, dec
 
+        num_roots = 0
+
+        epsilon = 1
+        if (b<0) epsilon = -1
+
+        dec = b**2 - 4*a*c
+        if (dec>=0) then
+            root(1) =  -(b + epsilon*sqrt(dec))/(2.0*a)        
+            root(2) = -2.0*c/ (b + epsilon*sqrt(dec)) ! = (-bs + iw*sqrt(dls))/(2*as)  
+            num_roots = num_roots + 2
+        endif    
+    end function
+
+    function square_solver2(a,b,c, root) result(num_roots)
+        implicit none
+        real(wp), intent(in) :: a
+        real(wp), intent(in) :: b
+        real(wp), intent(in) :: c
+        real(wp), intent(inout) :: root(:)      
+        integer  :: num_roots, r1, r2
+        real(wp) :: epsilon, dec
+
+        num_roots = 0
+
+        r1 = 1
+        r2 = 2
+        epsilon = 1
+        if (b<0) then 
+            epsilon = -1
+            r1 = 2
+            r2 = 1
+        endif
+
+        dec = b**2 - 4*a*c
+        if (dec>=0) then
+            root(r1) =  -(b + epsilon*sqrt(dec))/(2.0*a)        
+            root(r2) = -2.0*c/ (b + epsilon*sqrt(dec)) ! = (-bs + iw*sqrt(dls))/(2*as)  
+            num_roots = num_roots + 2
+        endif    
+    end function
     function find_all_roots(pa, yn2, ptet, root) result(num_roots)
         !! find all roots of dispersion equation
         use constants, only: zero, one, two
@@ -633,11 +684,14 @@ contains
         real(wp), intent(inout) :: root(:)
     
         integer  :: num_roots
-        real(wp) :: ynpopq1, al, bl, cl, cl1
+
+        real(wp) :: al, bl, cl, cl1, ynpopq1
+        real(wp) :: ynpopq_(2), rt(2)
         real(wp) :: dll1, dll
         real(wp) :: dl1,dl2
         real(wp) :: xnr
-
+        real(wp) :: epsilon
+        real(wp) :: err_1, err_2
         iconv=0
         irefl=0
         if(pa.ge.one.or.pa.le.zero) then
@@ -657,30 +711,101 @@ contains
         num_roots = 0
         root(:)=1d+10
 
-        if(dls.lt.zero) return
+        !if(dls.lt.zero) return
+        if (square_solver(as, bs, cs, ynpopq_)==0) return
 
-        ynpopq = (-bs + iw*sqrt(dls))/(2*as)  ! = - two*cs/ (bs + iw*sqrt(dls))
-        ynpopq1= (-bs - iw*sqrt(dls))/(2*as)
+        epsilon = 1
+        if (bs<0) epsilon = -1
+        
+        if (iw<0) then
+            ynpopq  = ynpopq_(2) !-two*cs/ (bs + epsilon*sqrt(dls)) ! = (-bs + iw*sqrt(dls))/(2*as)  
+            !ynpopq = (-bs + sqrt(dls))/(2.0*as)  ! = - two*cs/ (bs + iw*sqrt(dls))
+            ynpopq1 = ynpopq_(1) !-(bs + epsilon*sqrt(dls))/(2.0*as)
+        else
+            ynpopq1 = ynpopq_(2) !-two*cs/ (bs + epsilon*sqrt(dls)) ! = (-bs + iw*sqrt(dls))/(2*as)  
+            ynpopq =  ynpopq_(1) !-(bs + epsilon*sqrt(dls))/(2.0*as)
+            !ynpopq = two*cs/ (-bs - iw*sqrt(dls)) ! = (-bs + iw*sqrt(dls))/(2*as)  
+            !ynpopq1= two*cs/ (-bs + iw*sqrt(dls)) ! = (-bs - iw*sqrt(dls))/(2*as)
+        endif
+
+        print *, 'ynpopq', '   ynpopq1'
+        !print *, ynpopq_
+        print *, ynpopq, ynpopq1
+        print *, two*cs/ (-bs - iw*sqrt(dls)) ! = (-bs + iw*sqrt(dls))/(2*as)  
+        print *, two*cs/ (-bs + iw*sqrt(dls)) ! = (-bs - iw*sqrt(dls))/(2*as)
+        !print *, ynpopq, ynpopq1
+        !print *, ' --------------'
+        !print *, as, bs + sqrt(dls)
+        !print *, bs, cs
+        
 
         al=g22/xj
         bl=-yn2*g12/xj
         cl= g11*yn2**2/xj + yn3**2/g33 - ynzq - ynpopq
         dll=bl*bl-al*cl
-
+        print *,'dll=', dll
         if (dll.ge.zero) then
-            root(1)= (-bl - izn*sqrt(dll))/al
-            root(2)= (-bl + izn*sqrt(dll))/al ! = cl/(-bl - sqrt(dll))
+            if (izn == 1) then
+                root(1)= (-bl - sqrt(dll))/al
+                root(2)= cl/(-bl - sqrt(dll))
+            else 
+                root(1)= cl/(-bl - sqrt(dll))
+                root(2)= (-bl + izn*sqrt(dll))/al ! = cl/(-bl - sqrt(dll))
+            endif
+            !num_roots = num_roots + 2
+        end if
+
+
+        if (square_solver2(al, 2*bl, cl, rt)>0) then
+            if (izn == 1) then
+                err_1 = abs(root(1) - rt(1)) !(-bl - sqrt(dll))/al
+                err_2 = abs(root(2) - rt(2)) !cl/(-bl - sqrt(dll))
+                root(1) = rt(1)
+                root(2) = rt(2)
+            else 
+                err_1 = abs(root(1) - rt(2)) !cl/(-bl - sqrt(dll))
+                err_2 = abs(root(2) - rt(1)) !(-bl + izn*sqrt(dll))/al ! = cl/(-bl - sqrt(dll))
+                root(1) = rt(2)
+                root(2) = rt(1)
+            endif
+            if (err_1+err_2> 1d-7) then 
+                print *, 'errror'
+                print *, err_1, err_2
+                print *, root(1:2)
+                print *, rt(2:1)
+                print *, izn
+                pause
+            else
+                !print *, 'errror good'
+                !print *, err_1, err_2
+            endif
+
             num_roots = num_roots + 2
         end if
         
         cl1  = g11*yn2**2/xj + yn3**2/g33 - ynzq - ynpopq1
         dll1 = bl**2 - al*cl1
-
+        print *, '--- izn=', izn
         if (dll1.ge.zero) then
             root(3)= (-bl - izn*sqrt(dll1))/al
             root(4)= (-bl + izn*sqrt(dll1))/al
             num_roots = num_roots + 2
+            !print *, root(3), root(4)
         end if
+        return
+        if (square_solver(al, 2*bl, cl1, rt)>0) then
+            if (izn == 1) then
+                root(3)= rt(2) !(-bl - sqrt(dll))/al
+                root(4)= rt(1) !cl/(-bl - sqrt(dll))
+            else 
+                root(3)= rt(1) !cl/(-bl - sqrt(dll))
+                root(4)= rt(2) !(-bl + izn*sqrt(dll))/al ! = cl/(-bl - sqrt(dll))
+            endif
+            num_roots = num_roots + 2
+           ! print *, root(3), root(4)
+            !pause
+        end if
+
     end
 
 

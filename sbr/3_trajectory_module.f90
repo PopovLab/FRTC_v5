@@ -336,12 +336,36 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
         !  pass turning point
         !--------------------------------------------------------
         irs0=irs
+        print *, 'xend= ',xend
+        print *, 'xm= ',xm
+        print *, 'tet= ',tet
+        num_roots= find_all_roots(xend, xm, tet, xnr_root)
         call disp2_ider0(xend,xm,tet,xnr)
+        print *, 'num_roots=', num_roots
+        !if (num_roots == 0) then
+        !    print *, xend,xm,tet
+        !    print *, xnr
+        !    print *, abs(xnr-xnr_root(1))
+        !    print *,'----------'
+        !    print *, xnr_root
+        !    pause
+        !endif
+
+        if (abs(xnr-xnr_root(1)) > 1d-8) then
+            print *,'---------- big diff -----'
+            print *, xend,xm,tet
+            print *, xnr
+            print *, abs(xnr-xnr_root(1))
+            print *,'----------'
+            print *, xnr_root
+           ! pause
+        endif
+
         ynz0 = ynz
   40    yy(1)=tet 
         yy(2)=xm
         yy(3)=xend
-        yy(4)=xnr
+        yy(4)=xnr_root(1)
         x1=0d0
         x2=1d+10
         rexi=xend

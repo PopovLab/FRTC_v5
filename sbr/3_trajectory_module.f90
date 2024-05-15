@@ -340,7 +340,6 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
         !num_roots= find_all_roots_simple(xend, xm, tet, xnr_root)
         !call disp2_ider0(xend,xm,tet,xnr)
         xnr = xnr_root(1)
-        print *, 'num_roots=', num_roots
         if (num_roots == 0) then
             print *,'no roots'
             pause

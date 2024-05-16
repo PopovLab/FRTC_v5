@@ -522,7 +522,7 @@ contains
 
     end subroutine
 
-    subroutine disp2_ivar3(pa,yn2,ptet,xnro,prt,prm)
+    subroutine disp2_ivar3(pa,yn2,ptet,xnro)
         ! case iroot == 1 ivar= 0 or 3
         use constants, only: zero, one, two
         use rt_parameters, only: iw
@@ -536,8 +536,8 @@ contains
         real(wp), intent(in) :: yn2     ! ???
         real(wp), intent(in) :: ptet    ! theta
         real(wp), intent(out) :: xnro ! ???
-        real(wp), intent(out) :: prt  ! ???
-        real(wp), intent(out) :: prm  ! ???       
+        real(wp) :: prt  ! ???
+        real(wp) :: prm  ! ???       
 
         integer  :: jr
 
@@ -600,18 +600,7 @@ contains
         end if
         print *, 'disp2_ivar3'
         pause
-        !--------------------------------------
-        !   calculation of derivatives
-        !--------------------------------------
-        call calculate_partial_derivatives(yn2, yn3, dl1, ynpopq, al, bl, dl2, prt, prm)
 
-        if(ipow.gt.0) then
-            !--------------------------------------
-            !  calculation of decrements
-            !--------------------------------------
-            call calculate_decrements(pa, yn2, ptet, yn3, ynpopq, xnr, jfoundr, izn)
-
-        end if
         return
 
         !  reflection

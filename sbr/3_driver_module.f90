@@ -685,7 +685,8 @@ contains
         !common /dg/ pintld4,pintcl4,pintal4
         integer,  parameter :: iturns=1, maxat=3, nvar=4
         real(wp), parameter :: hbeg=1.d-4 !sav2008
-        real(wp)  :: x, xnr, prt, prm, dyd, hnext
+        real(wp)  :: x, xnr, dyd, hnext
+        !real(wp)  :: prt, prm
         real(wp)  :: yscal(nvar),y(nvar),dydx(nvar),yold(nvar)
         real(wp)  :: eps1, rbord1, hdid, xold, h ,rmm
         real(wp)  :: hdrob1, pdec14zz, pdec24zz, pdec34zz
@@ -741,7 +742,7 @@ contains
                 !c--------------------------------------
                 ivar=3
                 izn=-izn
-                call disp2_ivar3(y(3),y(2),y(1),xnr,prt,prm)
+                call disp2_ivar3(y(3),y(2),y(1),xnr)
                 if(ivar.eq.-1) then !out of dispersion curve - restart
                     print *, 'out of dispersion curve - restart'
                     do i=1,nvar

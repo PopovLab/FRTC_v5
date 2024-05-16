@@ -588,18 +588,14 @@ contains
         if(izn.eq.1) xnr=-bl/al+dl2         ! =  (-bl - sqrt(dll)) / al
         if(izn.eq.-1) xnr=cl/(-bl-al*dl2)   ! =  (-bl + sqrt(dll)) / al
         xnro=xnr
-        if(ivar.gt.1) then
-            !cccccc  find Nr of reflected wave
-            dnx=two*as*ynpopq+bs
-            dhdnr=dnx*(two*g22*xnr-two*g12*yn2)/xj
-            if(-znakstart*dhdnr.gt.zero) then
-                izn=-izn
-                goto 40
-            end if
-            return
+ 
+        !cccccc  find Nr of reflected wave
+        dnx=two*as*ynpopq+bs
+        dhdnr=dnx*(two*g22*xnr-two*g12*yn2)/xj
+        if(-znakstart*dhdnr.gt.zero) then
+            izn=-izn
+            goto 40
         end if
-        print *, 'disp2_ivar3'
-        pause
 
         return
 
@@ -615,7 +611,7 @@ contains
     end
 
     subroutine disp2(pa,yn2,ptet,xnro,prt,prm)
-        ! case iroot == 1 ivar= 0 or 3
+        ! case iroot == 1 ivar= 0 
         use constants, only: zero, one, two
         use rt_parameters, only: iw
         use metrics

@@ -668,7 +668,7 @@ contains
         use rt_parameters, only: ipri, eps, hdrob, rbord, maxstep4, rrange
         use dispersion_module, only: idec, ivar, izn
         use dispersion_module, only: pdec14, pdec24, pdec34
-        use dispersion_module, only: disp2
+        use dispersion_module, only: disp2, disp2_ivar3
         implicit none
         real(wp), intent(inout)  :: ystart(:)
         real(wp), intent(inout)  :: x1,x2
@@ -741,7 +741,7 @@ contains
                 !c--------------------------------------
                 ivar=3
                 izn=-izn
-                call disp2(y(3),y(2),y(1),xnr,prt,prm)
+                call disp2_ivar3(y(3),y(2),y(1),xnr,prt,prm)
                 if(ivar.eq.-1) then !out of dispersion curve - restart
                     print *, 'out of dispersion curve - restart'
                     do i=1,nvar

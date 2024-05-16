@@ -652,7 +652,6 @@ contains
         if(dls.lt.zero) then
             ! conversion
             iconv=1
-            if (ivar.ne.0) ivar=-1
             return
         end if
 30      continue
@@ -678,16 +677,6 @@ contains
         if(izn.eq.1) xnr=-bl/al+dl2         ! =  (-bl - sqrt(dll)) / al
         if(izn.eq.-1) xnr=cl/(-bl-al*dl2)   ! =  (-bl + sqrt(dll)) / al
         xnro=xnr
-        if(ivar.gt.1) then
-            !cccccc  find Nr of reflected wave
-            dnx=two*as*ynpopq+bs
-            dhdnr=dnx*(two*g22*xnr-two*g12*yn2)/xj
-            if(-znakstart*dhdnr.gt.zero) then
-                izn=-izn
-                goto 40
-            end if
-            return
-        end if
 
         !--------------------------------------
         !   calculation of derivatives
@@ -705,12 +694,6 @@ contains
 
         !  reflection
 70      irefl=1
-        if (ivar.gt.1.and.ivar.ne.10) then
-            iw=-iw
-            ivar=10
-            goto 30
-        end if
-        if (ivar.eq.10) ivar=-1
         return
     end
 

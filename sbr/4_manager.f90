@@ -164,7 +164,7 @@ contains
         use spectrum_mod, only : SpectrumPoint
         use decrements, only : dhdnr 
         use dispersion_module, only: ivar, yn3, izn, znakstart
-        use dispersion_module, only: disp2_iroot2, find_all_roots, dhdomega
+        use dispersion_module, only: find_all_roots, dhdomega
         use metrics, only: g22, g33, co, si
         use metrics, only: calculate_metrics
         use driver_module, only: irs
@@ -179,7 +179,6 @@ contains
 
         integer :: ntry
         real(wp) :: pa, prt, prm, hr 
-        real(wp) :: f1,f2
 
         real(wp),  parameter :: rhostart=1.d0
         integer,   parameter :: ntry_max=5
@@ -205,8 +204,7 @@ contains
             xm = point%Npol*dsqrt(g22)/si
 
             num_roots = find_all_roots(pa,xm,tet,xnr_root)
-            !call disp2_iroot2(pa,xm,tet,f1,f2)
-            
+             
             if (num_roots>0) then
                 ! определение znakstart
                 znak = dhdomega(pa,tet,xnr_root(1),xm)

@@ -232,7 +232,7 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
         use constants, only : tiny1
         use rt_parameters, only: eps, rrange, hdrob, nr, ipri, iw
         use dispersion_module, only: izn, yn3
-        use dispersion_module, only: extd4, disp2, disp2_ider0
+        use dispersion_module, only: extd4, disp2
         use dispersion_module, only: find_all_roots, find_all_roots_simple
         use driver_module, only: im4, hrad, irs, iabsorp, iznzz, iwzz, irszz, rzz
         use driver_module, only: tetzz, xmzz
@@ -338,7 +338,7 @@ subroutine view(tview, ispectr,nnz,ntet) !sav2008
         irs0=irs
         num_roots= find_all_roots(xend, xm, tet, xnr_root)
         !num_roots= find_all_roots_simple(xend, xm, tet, xnr_root)
-        !call disp2_ider0(xend,xm,tet,xnr)
+
         xnr = xnr_root(1)
         if (num_roots == 0) then
             print *,'no roots'

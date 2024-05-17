@@ -454,73 +454,7 @@ module dispersion_module
     !!common /df/ pdec14,pdec24,pdec34,idec
 
 contains
-    subroutine disp2_ider0(pa,yn2,ptet,xnro)
-        ! case iroot == 1 ider == 0 ivar =0 
-        use constants, only: zero, one, two
-        use rt_parameters, only: iw
-        use metrics
-        use dielectric_tensor
-        use dispersion_equation
-        implicit none
-        real(wp), intent(in) :: pa      ! ro
-        real(wp), intent(in) :: yn2     ! ???
-        real(wp), intent(in) :: ptet    ! theta
-        real(wp), intent(out) :: xnro ! ???
 
-        integer  :: jr
-
-        real(wp) :: dl1, ynpopq1, al, bl, cl, cl1, dll
-
-        real(wp) :: dl2, xnr, ynyt, dnym
-        real(wp) :: dnx, dll1,  e1t
-
-        iconv=0
-        irefl=0
-        if(pa.ge.one.or.pa.le.zero) then
-            pause
-        endif
-        icall1=icall1+1
-        
-        call calculate_metrics(pa, ptet)
-
-        call calculate_dielectric_tensor(pa)
-
-        call calculate_dispersion_equation(yn2 , yn3)
-        
-        if(dls.lt.zero) then
-            ! conversion
-            print *,'conversion'
-            pause
-            iconv=1
-            return
-        end if
-
-        dl1=dfloat(iw)*dsqrt(dls)/two/as
-        if(iw.eq.-1) ynpopq=-bs/(two*as)+dl1
-        if(iw.eq.1)  ynpopq=two*cs/(-bs-two*as*dl1)
-        print *,'disp2_ider0 = ', ynpopq
-        print *, iw, izn
-        !cc      write(*,*)'iw=',iw,' izn=',izn,' Nperp=',dsqrt(ynpopq)
-        !cc      write(*,*)'Nperp2=',ynpopq,' ynpopq1=',-bs/(two*as)-dl1
-        !cc      pause
-
-        al=g22/xj
-        bl=-yn2*g12/xj
-        cl=g11*yn2**2/xj+yn3**2/g33-ynzq-ynpopq
-
-        dll=bl*bl-al*cl
-
-        if(dll.lt.zero) then
-            print *, 'dll =', dll
-            pause
-        endif
-
-        dl2=-dfloat(izn)*dsqrt(dll)/al
-        if(izn.eq.1) xnr=-bl/al+dl2
-        if(izn.eq.-1) xnr=cl/(-bl-al*dl2)
-        xnro=xnr
-
-    end subroutine
 
     subroutine disp2_ivar3(pa,yn2,ptet,xnro)
         ! case iroot == 1 ivar= 0 or 3
@@ -536,19 +470,19 @@ contains
         real(wp), intent(in) :: yn2     ! ???
         real(wp), intent(in) :: ptet    ! theta
         real(wp), intent(out) :: xnro ! ???
-        real(wp) :: prt  ! ???
-        real(wp) :: prm  ! ???       
 
         integer  :: jr
 
         real(wp) :: dl1, ynpopq1, al, bl, cl, cl1, dll
         real(wp) :: dl2, xnr 
 
-        !print *, 'disp2 ivar=', ivar
-
         iconv=0
         irefl=0
-        if(pa.ge.one.or.pa.le.zero) goto 70
+        if(pa.ge.one.or.pa.le.zero) then
+            print *, 'pa=',pa
+            pause
+            !goto 70
+        endif
         icall1=icall1+1
         
         call calculate_metrics(pa, ptet)
@@ -565,7 +499,7 @@ contains
             if (ivar.ne.0) ivar=-1
             return
         end if
-30      continue
+300     continue
         dl1=dfloat(iw)*dsqrt(dls)/two/as
         if(iw.eq.-1) ynpopq=-bs/(two*as)+dl1        ! = (-bs + sqrt(dls)) / (2*as)
         if(iw.eq.1)  ynpopq=two*cs/(-bs-two*as*dl1) ! = (-bs - sqrt(dls)) * (2*cs)??
@@ -575,39 +509,42 @@ contains
         !cc      write(*,*)'Nperp2=',ynpopq,' ynpopq1=',-bs/(two*as)-dl1
         !cc      pause
 
-        if (ynpopq.lt.zero) goto 70
+        !if (ynpopq.lt.zero) goto 70
         al=g22/xj
         bl=-yn2*g12/xj
         cl=g11*yn2**2/xj+yn3**2/g33-ynzq-ynpopq
 
         dll=bl*bl-al*cl
 
-        if(dll.lt.zero) goto 70
+        !if ((dll.lt.zero).or.(ynpopq.lt.zero)) then
+        if (dll.lt.zero) then
+        !  70 reflection 
+            irefl=1
+            if (ivar.gt.1.and.ivar.ne.10) then
+                iw=-iw
+                ivar=10
+                goto 300
+            end if
+            if (ivar.eq.10) ivar=-1
+            return
+        endif
 
-40      dl2=-dfloat(izn)*dsqrt(dll)/al
+400     dl2=-dfloat(izn)*dsqrt(dll)/al
         if(izn.eq.1) xnr=-bl/al+dl2         ! =  (-bl - sqrt(dll)) / al
         if(izn.eq.-1) xnr=cl/(-bl-al*dl2)   ! =  (-bl + sqrt(dll)) / al
         xnro=xnr
  
-        !cccccc  find Nr of reflected wave
+        !  find Nr of reflected wave
         dnx=two*as*ynpopq+bs
         dhdnr=dnx*(two*g22*xnr-two*g12*yn2)/xj
         if(-znakstart*dhdnr.gt.zero) then
             izn=-izn
-            goto 40
+            goto 400
         end if
 
         return
 
-        !  reflection
-70      irefl=1
-        if (ivar.gt.1.and.ivar.ne.10) then
-            iw=-iw
-            ivar=10
-            goto 30
-        end if
-        if (ivar.eq.10) ivar=-1
-        return
+
     end
 
     subroutine disp2(pa,yn2,ptet,xnro,prt,prm)
@@ -664,7 +601,7 @@ contains
         !cc      write(*,*)'Nperp2=',ynpopq,' ynpopq1=',-bs/(two*as)-dl1
         !cc      pause
 
-        if (ynpopq.lt.zero) goto 70
+        !if (ynpopq.lt.zero) goto 70
         al=g22/xj
         bl=-yn2*g12/xj
         cl=g11*yn2**2/xj+yn3**2/g33-ynzq-ynpopq

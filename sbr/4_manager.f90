@@ -94,7 +94,6 @@ contains
                 powexit = point%power
                 dltpow = pabs
                 call dqliter(dltpow,current_trajectory,hr,powexit,iout)
-
                 if (iout.eq.0) then
                     go to 30
                 end if
@@ -132,6 +131,15 @@ contains
 20              continue
 
                 if(current_trajectory%nrefj.gt.maxref.and.pow.gt.pabs) then !forced absorp
+                    if (current_trajectory%nrefj.gt.maxref) then 
+                        print *, 'exceeded limit of reflection number'
+                        print *, 'max_refl= ', maxref
+                        print *, 'nrefj=', current_trajectory%nrefj
+                        print *, 'size=',current_trajectory%size
+                        print *, 'pow=', pow, pabs
+                        print *, 'point%power=', point%power
+                        print *,'------------'
+                    endif
                     if(pow.ge.point%power) go to 30 !sav2008
                     pow1 = pow
                     pgamma = 1.d0-pow1/point%power

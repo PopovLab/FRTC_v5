@@ -89,6 +89,8 @@ contains
         tp%izz = icf2 ! было idir
         tp%xnpar = cf3 !было xparn
         tp%driver = driver
+        tp%ipow = ipow
+        !print *,'driver=', driver, current_trajectory%size
         if(im4.eq.1) then
             tp%jrad = -j
             tp%dland = pintld4

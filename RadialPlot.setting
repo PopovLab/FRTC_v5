@@ -11,9 +11,9 @@
       "title": "профили токов",
       "y_label": "$ J  \\;  [{MA}/m^2]$",
       "data": [
-        "J",
-        "Johm",
-        "Jlh"
+        "Jpar",
+        "Jlh",
+        "Jbs"
       ]
     },
     {
@@ -21,8 +21,10 @@
       "title": "профили E",
       "y_label": "Value [arb. unit]",
       "data": [
-        "Upl",
-        "E"
+        "Te",
+        "Ne",
+        "Ti",
+        "Ni"
       ]
     },
     {
@@ -30,9 +32,8 @@
       "title": "профили мощности",
       "y_label": "Value [arb. unit]",
       "data": [
-        "Plh",
-        "Plp",
-        "Plm"
+        "Poh",
+        "Plh"
       ]
     },
     {
@@ -40,7 +41,7 @@
       "title": "профили температуры",
       "y_label": "Value [arb. unit]",
       "data": [
-        "Te"
+        "shir"
       ]
     }
   ]

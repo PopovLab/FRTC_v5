@@ -99,7 +99,7 @@
     "Numerical parameters": {
       "nr": {
         "title": "nr",
-        "value": 60,
+        "value": 100,
         "type": "int",
         "description": "radial grid number  <= 505"
       },
@@ -159,7 +159,7 @@
       },
       "pabs": {
         "title": "pabs",
-        "value": 0.01,
+        "value": 0.1,
         "type": "float",
         "description": "part of remaining power interp. as absorption"
       },
@@ -171,13 +171,13 @@
       },
       "ni1": {
         "title": "ni1",
-        "value": 20,
+        "value": 25,
         "type": "int",
         "description": "grid number in the left part of Vz plato"
       },
       "ni2": {
         "title": "ni2",
-        "value": 20,
+        "value": 25,
         "type": "int",
         "description": "grid number in the right part of Vz plato"
       },
@@ -189,25 +189,25 @@
       },
       "nmaxm(1)": {
         "title": "nmaxm(1)",
-        "value": 60,
+        "value": 3,
         "type": "int",
         "description": "permitted reflections at 0 iteration"
       },
       "nmaxm(2)": {
         "title": "nmaxm(2)",
-        "value": 60,
+        "value": 3,
         "type": "int",
         "description": "permitted reflections at 2 iteration"
       },
       "nmaxm(3)": {
         "title": "nmaxm(3)",
-        "value": 60,
+        "value": 3,
         "type": "int",
         "description": "permitted reflections at 3 iteration"
       },
       "nmaxm(4)": {
         "title": "nmaxm(4)",
-        "value": 60,
+        "value": 3,
         "type": "int",
         "description": "permitted reflections at 4 iteration"
       },
@@ -291,7 +291,7 @@
       },
       "ntet": {
         "title": "ntet",
-        "value": 3,
+        "value": 6,
         "type": "int",
         "description": "theta grid number"
       },

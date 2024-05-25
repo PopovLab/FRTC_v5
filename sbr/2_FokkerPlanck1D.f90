@@ -218,7 +218,7 @@ module FokkerPlanck1D_mod ! the module name defines the namespace
         implicit none
         real*8,  intent(in)     :: v(:)        
         real*8,  intent(inout)  :: f0(:)
-        real*8,  intent (inout), optional :: df0(:)
+        real*8,  intent(inout), optional :: df0(:)
         integer i, ii,  i0, ibeg
         real*8, allocatable  :: f(:), df(:)
         real*8 fout1, fout2

@@ -189,25 +189,25 @@
       },
       "nmaxm(1)": {
         "title": "nmaxm(1)",
-        "value": 60,
+        "value": 20,
         "type": "int",
         "description": "permitted reflections at 0 iteration"
       },
       "nmaxm(2)": {
         "title": "nmaxm(2)",
-        "value": 60,
+        "value": 20,
         "type": "int",
         "description": "permitted reflections at 2 iteration"
       },
       "nmaxm(3)": {
         "title": "nmaxm(3)",
-        "value": 60,
+        "value": 20,
         "type": "int",
         "description": "permitted reflections at 3 iteration"
       },
       "nmaxm(4)": {
         "title": "nmaxm(4)",
-        "value": 60,
+        "value": 20,
         "type": "int",
         "description": "permitted reflections at 4 iteration"
       },

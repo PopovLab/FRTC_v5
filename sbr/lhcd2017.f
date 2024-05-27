@@ -123,7 +123,7 @@
             type(Spectrum) spectr
             integer :: i
 
-            real(wp) pe_m, c_m
+            real(wp) pe, vi_pe
             real(wp) vint
 
             select case (spectrum_type)
@@ -140,10 +140,10 @@
                   stop
             end select            
             call spectr%write(spectrum_name) !'spectrum_neg')            
-            call ourlhcd2017(spectr, out_power, pe_m)              
+            call ourlhcd2017(spectr, out_power, pe)              
              
-             if(pe_m.ne.zero) then
-                  c_m=vint(out_power, roc) ! define in stdfun.f
+             if(pe.ne.zero) then
+                  vi_pe=vint(out_power, roc) ! define in stdfun.f
                   ! VINT:	Volume integral {0,R} of any array
                   ! Only a radially dependent array may be the 1st parameter of the function
                   ! Examples:
@@ -151,9 +151,9 @@
                   !    out_Vint(CAR3,Ro); !Volume integral {0,Ro} of CAR3
                   !    out_Vint(CAR3B)    !Total volume integral of CAR3 (0,ROC)
                   !			(Yushmanov 26-DEC-90)
-                  if(c_m.ne.zero) then
+                  if(vi_pe.ne.zero) then
                         do i=1,ngrid
-                              out_power(i)= pe_m*out_power(i)/c_m
+                              out_power(i)= pe*out_power(i)/vi_pe
                         end do
                   end if
             end if

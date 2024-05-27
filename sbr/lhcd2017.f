@@ -67,75 +67,29 @@
       
       call full_spectrum%normalization
       call full_spectrum%write('full_spectrum')
-!!!!!!!!!!!!! starting ray-tracing !!!!!!!!!!!!!!!!!!!!!
+
+      ! starting ray-tracing 
       allocate(outpep(ngrid),outpem(ngrid))
 
-!!positive spectrum:
+      !!positive spectrum:
       print *, 'positive spectrum'
       pe_p=zero
       outpep=zero
       if(pos_spectr%input_power > zero) then
-            print *, 'spectrum_type',spectrum_type
-            select case (spectrum_type)
-            case (0)
-                  spectr = make_spline_approximation(pos_spectr)
-            case (1)
-                  spectr = pos_spectr 
-                  call spectr%normalization
-            case (2)
-                  spectr = pos_spectr
-                  call spectr%normalization
-            case (3)
-                  print *, '2D spectrum'
-                  stop                  
-            end select
-            call spectr%write('spectrum_pos')
-            call ourlhcd2017(spectr, outpep,pe_p)
+            call eval_lhcd(neg_spectr, 'spectrum_pos', outpep)  
       else
             dij(:,:,1)=zero
       end if      
 
-      if(pe_p.ne.zero) then
-            c_p=vint(outpep,roc)
-            if(c_p.ne.zero) then
-                  do i=1,ngrid
-                        outpep(i)=pe_p*outpep(i)/c_p
-                  end do
-            end if
-      end if
-
-!!negative spectrum:
+      !!negative spectrum:
        print *, 'negative spectrum'
        pe_m=zero
        outpem=zero       
        if(neg_spectr%input_power > zero) then        
-            select case (spectrum_type)
-            case (0)
-                  spectr = make_spline_approximation(neg_spectr)
-            case (1)
-                  spectr = neg_spectr 
-                  call spectr%normalization
-            case (2)
-                  spectr = neg_spectr
-                  call spectr%normalization
-            case (3)
-                  print *, '2D spectrum'
-                  stop
-            end select            
-            call spectr%write('spectrum_neg')            
-            call ourlhcd2017(spectr, outpem,pe_m)              
+            call eval_lhcd(neg_spectr, 'spectrum_neg', outpem)  
        else
             dij(:,:,2)=zero
        endif     
-       
-       if(pe_m.ne.zero) then
-            c_m=vint(outpem,roc)
-            if(c_m.ne.zero) then
-                  do i=1,ngrid
-                        outpem(i)=pe_m*outpem(i)/c_m
-                  end do
-            end if
-      end if
 
       do i=1,ngrid
             out_lh_power(i)=outpep(i)+outpem(i)
@@ -147,3 +101,60 @@
       !pause
 
       end
+
+
+      subroutine eval_lhcd(in_spectrum, spectrum_name, out_power)
+            !use approximation
+            !use utils
+            use constants, only: zero
+            use plasma, only: ngrid
+            use rt_parameters, only: spectrum_type
+            !use maxwell  
+            use spectrum_mod !, only: make_spline_approximation
+            use lhcd_module, only: ourlhcd2017       
+            implicit none
+            include 'for/parameter.inc'
+            include 'for/const.inc'
+            !include 'for/status.inc'            
+            type(Spectrum),   intent(in) :: in_spectrum
+            character(len=*), intent(in) :: spectrum_name
+            real(wp),         intent(inout) :: out_power(*)
+
+            type(Spectrum) spectr
+            integer :: i
+
+            real(wp) pe_m, c_m
+            real(wp) vint
+
+            select case (spectrum_type)
+            case (0)
+                  spectr = make_spline_approximation(in_spectrum)
+            case (1)
+                  spectr = in_spectrum 
+                  call spectr%normalization
+            case (2)
+                  spectr = in_spectrum
+                  call spectr%normalization
+            case (3)
+                  print *, '2D spectrum'
+                  stop
+            end select            
+            call spectr%write(spectrum_name) !'spectrum_neg')            
+            call ourlhcd2017(spectr, out_power, pe_m)              
+             
+             if(pe_m.ne.zero) then
+                  c_m=vint(out_power, roc) ! define in stdfun.f
+                  ! VINT:	Volume integral {0,R} of any array
+                  ! Only a radially dependent array may be the 1st parameter of the function
+                  ! Examples:
+                  !    out\Vint(CAR3)	!Radial profile of CAR3 volume integral
+                  !    out_Vint(CAR3,Ro); !Volume integral {0,Ro} of CAR3
+                  !    out_Vint(CAR3B)    !Total volume integral of CAR3 (0,ROC)
+                  !			(Yushmanov 26-DEC-90)
+                  if(c_m.ne.zero) then
+                        do i=1,ngrid
+                              out_power(i)= pe_m*out_power(i)/c_m
+                        end do
+                  end if
+            end if
+      end subroutine

@@ -1,14 +1,14 @@
       subroutine lhcd2017(outpe)
-cc******************************************************************
-cc   outj(i)  = LH driven current density, MA/m^2
-cc   outpe(i) =LH power density (Landau+coll.) deposited into electrons, MW/m^3
-cc   outpec(i) = LH power density (collisions) deposited into electrons, MW/m^3
-cc   outpef(i) = LH power dens. dep. into el. by fast wave, MW/m^3
-cc   dndt(i)  = d^2Jr1/dt^2/E, MA/m^2/sec^2/(V/m), ~runaway d(el.density)/dt/E
-cc   djdt(i)  = dJr2/dt, time drivative of runaway current Jr2, MA/m^2/sec
-cc   outpa(i)  = LH power density deposited into alphas, MW/m^3
-cc   outda(i)  = (Na/Ne) relative density of alpha-particles
-cc******************************************************************
+! ******************************************************************
+!   outj(i)  = LH driven current density, MA/m^2
+!   outpe(i) =LH power density (Landau+coll.) deposited into electrons, MW/m^3
+!   outpec(i) = LH power density (collisions) deposited into electrons, MW/m^3
+!   outpef(i) = LH power dens. dep. into el. by fast wave, MW/m^3
+!   dndt(i)  = d^2Jr1/dt^2/E, MA/m^2/sec^2/(V/m), ~runaway d(el.density)/dt/E
+!   djdt(i)  = dJr2/dt, time drivative of runaway current Jr2, MA/m^2/sec
+!   outpa(i)  = LH power density deposited into alphas, MW/m^3
+!   outda(i)  = (Na/Ne) relative density of alpha-particles
+! ******************************************************************
       use approximation
       use utils
       use plasma
@@ -27,17 +27,17 @@ cc******************************************************************
       real*8,dimension(:),allocatable:: outpep,outpem
       type(Spectrum) spectr
       type(Timer) my_timer
-cc*********************************************************************
-cc    Co-ordinates used in ray-tracing:
-cc         (x-x0)/rm=r*cos(teta)-delta-gamma*sin^2(teta) !sav2008 -gamma
-cc         (z-z0)/rm=ell*r*sin(teta)
-cc    Definitions:
-cc    (x0,z0) - magnetic axis position, centimeters
-cc    rm      - minor radius in mid-plane, cenrimeters
-cc    r(rho_ASTRA),delta(r),gamma(r),ell(r) - dimensionless functions
-cc    rho_ASTRA=sqrt(Phi_tor/GP/BTOR)
-cc    Interval for r:  0.<= r <=1.
-cc*********************************************************************
+! *********************************************************************
+!     Co-ordinates used in ray-tracing:
+!          (x-x0)/rm=r*cos(teta)-delta-gamma*sin^2(teta) !sav2008 -gamma
+!          (z-z0)/rm=ell*r*sin(teta)
+!     Definitions:
+!     (x0,z0) - magnetic axis position, centimeters
+!     rm      - minor radius in mid-plane, cenrimeters
+!     r(rho_ASTRA),delta(r),gamma(r),ell(r) - dimensionless functions
+!     rho_ASTRA=sqrt(Phi_tor/GP/BTOR)
+!     Interval for r:  0.<= r <=1.
+! *********************************************************************
       call my_timer%start('lhcd/lhcd_time.dat', time)
       print *, 'start lhcd2017 time=', time
       print *, 'NA1 NB1', NA1, NB1

@@ -76,7 +76,7 @@
       pe_p=zero
       outpep=zero
       if(pos_spectr%input_power > zero) then
-            call eval_lhcd(neg_spectr, 'spectrum_pos', outpep)  
+            call eval_lhcd(pos_spectr, 'spectrum_pos', outpep)  
       else
             dij(:,:,1)=zero
       end if      

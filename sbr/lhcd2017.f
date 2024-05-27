@@ -1,7 +1,8 @@
-      subroutine lhcd2017(outpe)
+      subroutine lhcd2017(out_lh_power)
 ! ******************************************************************
 !   outj(i)  = LH driven current density, MA/m^2
 !   outpe(i) =LH power density (Landau+coll.) deposited into electrons, MW/m^3
+!   outpe = out_lh_power
 !   outpec(i) = LH power density (collisions) deposited into electrons, MW/m^3
 !   outpef(i) = LH power dens. dep. into el. by fast wave, MW/m^3
 !   dndt(i)  = d^2Jr1/dt^2/E, MA/m^2/sec^2/(V/m), ~runaway d(el.density)/dt/E
@@ -23,7 +24,7 @@
       include 'for/parameter.inc'
       include 'for/const.inc'
       include 'for/status.inc'
-      real*8 outpe(NRD)
+      real*8 out_lh_power(NRD)
       real*8,dimension(:),allocatable:: outpep,outpem
       type(Spectrum) spectr
       type(Timer) my_timer
@@ -42,7 +43,7 @@
       print *, 'start lhcd2017 time=', time
       print *, 'NA1 NB1', NA1, NB1
       tcur=time
-      outpe=zero
+      out_lh_power=zero
       p_in=dble(QLH)    ! input LH power, MW
 
       if(p_in.eq.zero) then 
@@ -137,7 +138,7 @@
       end if
 
       do i=1,ngrid
-       outpe(i)=outpep(i)+outpem(i)
+            out_lh_power(i)=outpep(i)+outpem(i)
       end do
 
       deallocate(outpep,outpem)

@@ -182,7 +182,11 @@ contains
         call calculate_diffusion(ispectr)
 
         call view(tcur,ispectr,spectr%size,ntet)  !writing trajectories into a file
+
+        call write_lhcd_power(tcur, ispectr) 
+
         call calculate_out_power(outpe)
+
         pe_out=ol+oc
         
     end    
@@ -304,6 +308,44 @@ contains
             zv2(j,k)=vrj(ni1+ni2+ipt1)
         end do
     end 
+
+    subroutine write_lhcd_power(time_stamp, ispectr) 
+        use rt_parameters, only: nr
+        use plasma, only: sk, vk
+        use current, only: pdl, pdc        
+        implicit none
+        real(wp), intent(in) :: time_stamp
+        integer,  intent(in) :: ispectr
+
+        real(wp)      :: pwe
+        integer       :: iu, i
+        character(32) :: folder
+        character(64) :: fname
+    
+        print *, 'write_lhcd_power time=', time_stamp
+        !print *, name(m)
+        if (ispectr>0) then
+            folder = "lhcd/lhcd_power/pos/"
+        else
+            folder = "lhcd/lhcd_power/neg/"
+        endif
+    
+        write(fname,'(A, f9.7,".dat")') folder, time_stamp
+        print *, fname        
+
+
+
+        open(newunit=iu, file=fname, status="replace", action="write")
+	    write(iu,'(A5, 10A16)'), 'index', 'pwe', 'pdl', 'pdc', 'sk', 'vk'
+
+        do i=1, nr-1
+            pwe= (pdl(i)+pdc(i))/vk(i)
+            write (iu, '(i6,5(ES22.14))') i, pwe, pdl(i), pdc(i), sk(i), vk(i)
+        end do
+
+        close(iu)
+
+    end subroutine
 
     subroutine calculate_out_power(out_pe)
         use constants, only: zero, one

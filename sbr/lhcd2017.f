@@ -19,13 +19,13 @@
       use lhcd_module  
       implicit none
       integer i
-      real*8 p_in,pe_p,pe_m,c_p,c_m
-      real*8 vint
+      real*8 p_in!,pe_p,pe_m,c_p,c_m
+      !real*8 vint
       include 'for/parameter.inc'
       include 'for/const.inc'
       include 'for/status.inc'
       real*8 out_lh_power(NRD)
-      real*8,dimension(:),allocatable:: outpep,outpem
+      real(wp),dimension(:),allocatable:: outpep,outpem
       type(Spectrum) spectr
       type(Timer) my_timer
 ! *********************************************************************
@@ -68,13 +68,10 @@
       call full_spectrum%normalization
       call full_spectrum%write('full_spectrum')
 
-      ! starting ray-tracing 
       allocate(outpep(ngrid),outpem(ngrid))
 
       !!positive spectrum:
       print *, 'positive spectrum'
-      pe_p=zero
-      outpep=zero
       if(pos_spectr%input_power > zero) then
             call eval_lhcd(pos_spectr, 'spectrum_pos', outpep)  
       else
@@ -83,8 +80,6 @@
 
       !!negative spectrum:
        print *, 'negative spectrum'
-       pe_m=zero
-       outpem=zero       
        if(neg_spectr%input_power > zero) then        
             call eval_lhcd(neg_spectr, 'spectrum_neg', outpem)  
        else
@@ -104,12 +99,9 @@
 
 
       subroutine eval_lhcd(in_spectrum, spectrum_name, out_power)
-            !use approximation
-            !use utils
             use constants, only: zero
             use plasma, only: ngrid
             use rt_parameters, only: spectrum_type
-            !use maxwell  
             use spectrum_mod !, only: make_spline_approximation
             use lhcd_module, only: ourlhcd2017       
             implicit none
@@ -126,6 +118,11 @@
             real(wp) pe, vi_pe
             real(wp) vint
 
+            pe=0
+            do i=1,ngrid
+                  out_power(i)= 0
+            end do
+
             select case (spectrum_type)
             case (0)
                   spectr = make_spline_approximation(in_spectrum)
@@ -139,6 +136,7 @@
                   print *, '2D spectrum'
                   stop
             end select            
+
             call spectr%write(spectrum_name) !'spectrum_neg')            
             call ourlhcd2017(spectr, out_power, pe)              
              

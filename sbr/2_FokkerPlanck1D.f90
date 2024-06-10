@@ -2,6 +2,7 @@ module FokkerPlanck1D_mod ! the module name defines the namespace
     !! модуль содержит функции для решения одномерного уравнения Фоккер-Планка
     use, intrinsic :: iso_fortran_env, only: sp=>real32, dp=>real64
     use savelyev_solver_module
+    use chang_cooper_module
     implicit none
     type FokkerPlanck1D 
         !! solver of FP eq
@@ -176,8 +177,8 @@ module FokkerPlanck1D_mod ! the module name defines the namespace
         yend = this%f(this%i0) !zero
         !print *, ' yend =', yend 
         !!!!!!!!!!!!   solve problem   !!!!!!!!!!!!!!!!!!!!!!!!!!
-        call savelyev_solver(this%alfa2, nt, this%h, dt, this%n, ybeg, yend, this%d1, this%d2, this%d3, y)
-        !call teplova_khavin_solver(this%alfa2, nt, this%h, dt, this%n, ybeg, yend, this%d1,this%d2,this%d3, y)
+        !call savelyev_solver(this%alfa2, nt, this%h, dt, this%n, ybeg, yend, this%d1, this%d2, this%d3, y)
+        call chang_cooper_solver(this%alfa2, nt, this%h, dt, this%n, ybeg, yend, this%d1,this%d2,this%d3, y)
         allocate(fj(this%n+2))
         fj(1)=ybeg
         fj(this%n+2)=yend

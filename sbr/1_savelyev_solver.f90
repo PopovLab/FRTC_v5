@@ -1,5 +1,6 @@
 module savelyev_solver_module
     use kind_module
+    use chang_cooper_module, only: tridag
     implicit none
     
     PRIVATE :: q, k, d
@@ -165,32 +166,6 @@ contains
     end
 
 
-    subroutine tridag(a,b,c,r,u,n)
-        !! создает трехдиагональнйю матрицу
-        implicit none
-        integer, intent(in)    :: n
-        real(wp),  intent(in)    :: a(n), b(n), c(n), r(n)
-        real(wp),  intent(inout) :: u(n)
-        integer, parameter :: nmax=1000000
-        integer j
-        real(wp) bet, gam(nmax)
-
-        if(b(1).eq.0.d0) pause 'tridag: rewrite equations'
-        bet=b(1)
-        u(1)=r(1)/bet
-        do j=2,n
-            gam(j)=c(j-1)/bet
-            bet=b(j)-a(j)*gam(j)
-            if(bet.eq.0.d0) then
-                    write(*,*)'b(j)=',b(j),'a(j)=',a(j),'gam(j)=',gam(j)
-                    pause 'tridag failed'
-            end if
-            u(j)=(r(j)-a(j)*u(j-1))/bet
-        end do
-        do j=n-1,1,-1
-            u(j)=u(j)-gam(j+1)*u(j+1)
-        end do
-    end subroutine
 
 
 

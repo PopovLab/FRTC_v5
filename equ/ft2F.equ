@@ -1,0 +1,111 @@
+ DROUT=1.d-4;
+DPOUT=1.d-4;
+TSTART=0.001d0;
+TINIT=0.015d0;
+TPAUSE=0.034;
+TEND=0.05d0;
+TSCALE=0.019d0;
+DTOUT=1.d-5;
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+IPL=0.0236;
+
+
+!!==========Ion density=================
+ZEF=2.2; !!ZEFX;
+
+AIM1=14.0;      !mass of impurity - OXYGEN 
+ZIM1=7.0;       !charge of impurity - OXYGEN
+AMAIN=1.;   !mass of main ion component
+ZMAIN=1;    !charge of main ion component
+
+NIZ1=NE*(ZEF-ZMJ)/(ZIM1-ZMJ)/ZIM1;
+NIZ2=0.0;
+
+NI=NE*(ZIM1-ZEF+1.)/ZIM1; !density of all ions
+NDEUT=NI-NIZ1;          !density of deuterium plasma ions
+
+
+!!========Current Density===========
+CU:Eq;
+CU=FPR;
+!CC="work(j,303)";
+CAR31=CNHR+CCMHD;
+CC=CAR31;
+!CUBS="work(j,301)";
+!CD=CUBM;
+!DC=0;  HC=0;  XC=0;
+
+
+  !----  Equilibrium solver  ----
+NEQUIL=41;  !Grid number for equilibrium calculations
+            !If commented then no equilibrium recomputing
+
+NE:AS;
+NE=((1.6-0.2)*((1-(AMETR/0.076)**2.5)**2.0)+0.2)*ZRD3;
+!NE=NEX;
+
+!====================  Electron  temperature ============================
+TE:AS;
+ZRD28=1-0.22*(FRAMP(0.029,0.032))+0.08*(FRAMP(0.032,0.035));
+TE=((0.45*ZRD2*ZRD28-0.049)*((1-(AMETR/0.076)**1.5)**1.3)+0.049);
+!TE=TEX;
+!TE=((0.4-0.04)*((1-(AMETR/0.076)**2)**1.0)+0.04);
+
+
+
+PRAD=PRADX;
+PE=PJOUL-PEICL-PRADX;
+
+!====================  Ion  temperature =================================
+TI:AS;
+TI=TE/2;
+
+
+!!!!!!!! Fokplanch !!!!
+QLH=0.06*(FJUMP(0.028));
+!QLH=ZRD45X;
+CF1=0.1d-3;  !interval between lhcd() calls, sec
+CF2=0.028d0;  !first call of lhcd()
+
+CF10=0.1d-3;  !interval between configlhcd() calls, sec
+CF11=0.03d0;  !first call of lhcd() 0.032
+
+DSTART=0.026;
+debug:0.0001:DSTART::;
+
+saveprofiles::CF2:CF3:;
+!saveprofiles2::CF2:CF3:;
+lhcd2017(PELH):CF1:CF2:CF3:;
+!lhcd2022(PELH):CF1:CF2:CF3:;
+drivencurrent(CULH,CAR32)::CF2:CF3:;
+
+
+CD=CULH;   !Externally driven current density profile, MA/m^2
+CCD1=VINT(PELHB);   !absorbed QLH power
+CCD2=IINT(CULHB);   !driven current
+!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+
+
+!====================   Radial output  ================================= 
+J\CU\-1;       Plh\PELH;   Johm\CUOHM\8;   E\UPL/RTOR/GP2;
+Poh\POH\-2;    Te\TE\\TEX;   CC\CC\-3;      Q\1./MU;
+Jlh\CULH\-1;   Upl\UPL;    Zef\ZEF\-1;     En\CAR24;
+Plh\PELH\-2;   Ne\NE\\NEX;    sig\CAR32\-3;    Chr\CAR31; 
+  
+
+
+!====================  Time output  ===================================
+QLh_QLH_-5;
+IPL_IPL_-21;
+IBS_CUBSB_-21;
+Iohm_IOHMB_-10;
+ZEF_ZEF(AB)_5.;
+L_LINT_2;
+V_UPLB_2; 
+ICD_ILHB_-21;
+Vexp_ZRD2_-2;

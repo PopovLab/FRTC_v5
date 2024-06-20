@@ -206,7 +206,7 @@ module FokkerPlanck1D_mod ! the module name defines the namespace
       !if (present(dfj0)) then
       !    call burying_procedure(vj, fj0, dfj0)
       !else 
-      !    call burying_procedure(vj, fj0)
+      call burying_procedure(this%v, this%f)
       !end if
   
   

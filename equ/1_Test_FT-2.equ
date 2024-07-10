@@ -1,0 +1,99 @@
+
+!----------------- Times -----------------
+TSTART = 0.01d0;
+TEND = 0.011;
+TINIT = 0.01d0;
+
+DROUT = 1.d-4;
+DPOUT = 1.d-4;
+DTOUT = 1.d-5;
+DSTART = 0.010;
+
+CF1 = 1.d-4;
+CF2 = 0.01;
+CF3 = 0.011;
+!----------------- Electrons parametrs -----------------
+
+NE:AS;
+!NE = 2*NEX;
+NE = (2.0 - 0.003)*(1-(RHO/ROC)**2) + 0.003;
+
+TE:AS;
+!TE = 2*TEX;
+TE = (1 - 0.01)*(1-(RHO/ROC)**4) + 0.01;
+!----------------- Ion parametrs -----------------
+
+TI:AS; 
+TI = 0.4*TE;
+
+!----------------- Impurities -----------------
+
+AMAIN = AMJ;
+ZMAIN = ZMJ;
+
+ZEF = 1.0;
+
+NI = NE;
+NHYDR = NI;
+
+!----------------- Plasma parametrs -----------------
+
+!Current densities
+
+CU:EQ;
+CU = CNHH;
+!MU=0.5*FPR+0.25;
+
+HC = HCSA; DC = DCSA; XC = XCSA;
+CC = CNSA; CD = CUBM + 0.*CULH;
+
+!----------------- Equilibrium solver -----------------
+
+NBND = 100;
+NEQUIL = 41;
+
+!----------------- LHCD & DrivenCurrent -----------------
+
+QLH = 0.06;
+
+debug:0.0001:DSTART::;
+saveprofiles::CF2:CF3:;
+lhcd2017(PELH):CF1:CF2:CF3:;
+drivencurrent(CULH,CAR32,CU)::CF2:CF3:;
+
+CD = CULH;
+CCD1 = VINT(PELHB);
+CCD2 = IINT(CULHB);
+
+CV10 =  IINT(CU) - IINT(CUBS) - CCD2;
+CV11 =  IINT(CUBS);
+!----------------- Auxiliary quantities -----------------
+CV14 = NEAVB;
+CV13 = -TIMDER(CV14);
+
+VTOR = 0; VPOL = VPSWW;
+ER = BTOR*(FRS*MU*VTOR/RTOR+VDIA-VPOL);
+
+ !PE = POH+PEBM-PET*TI; PET = -PEI; 
+ !PI = PIBM-PIT*TE; PIT = -PEI;
+
+!----------------- Radial output -----------------
+Te\TE; Jneo\(CU-CUBS-CD); Jpar\CU; shir\SHEAR;
+Ne\NE\2; Elong\ELON; Cond\CC; Poh\POH;
+Ti\TI; E\UPL/RTOR/GP2; Jlh\CULH; q\1./MU;
+Ni\NHYDR; Shift\SHIF; Jbs\CUBS; Plh\PELH;
+!----------------- Time output --------------
+q0_1./MU(0); q1_1./MU(ROC);
+Ibs_CV11; Iohm_CV10; Ilh_CCD2; Itot_CV10+CCD2+CV11;
+Qlh_QLH; Plh_CCD1;
+
+
+
+
+
+
+
+
+
+
+

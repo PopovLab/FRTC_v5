@@ -37,7 +37,7 @@
         inpt=NA1
 
         do i=1,inpt
-            afld(i)=UPL(i)/RTOR/GP2 !!variant
+            afld(i)=0*UPL(i)/RTOR/GP2 !!variant
         end do
 
         ! ---- starting LH current calculation 

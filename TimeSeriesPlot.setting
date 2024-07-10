@@ -11,16 +11,17 @@
       "title": "Chart 1",
       "y_label": " $Current\\;[{MA}/m^2]$",
       "data": [
-        "ICD"
+        "Ibs",
+        "Iohm",
+        "Ilh",
+        "Itot"
       ]
     },
     {
       "name": "ax2",
       "title": "Chart 2",
       "y_label": "Value [a. u.]",
-      "data": [
-        "Iohm"
-      ]
+      "data": []
     },
     {
       "name": "ax3",

@@ -209,6 +209,7 @@ module rt_parameters
             pause 'nnz and ntet changed, because nnz*ntet>10000'
         end if
 
+
         call show_parameters
     end subroutine read_parameters
 end module rt_parameters

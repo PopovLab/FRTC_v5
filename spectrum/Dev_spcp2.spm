@@ -1,0 +1,10 @@
+{
+  "name": "Dev_spcp2",
+  "comment": "ccc",
+  "spectrum": {
+    "kind": "spectrum_2D",
+    "source": "D:/Dev/spcp2.dat",
+    "angle": 0.0,
+    "PWM": true
+  }
+}

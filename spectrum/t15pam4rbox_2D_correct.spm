@@ -1,0 +1,10 @@
+{
+  "name": "t15pam4rbox_2D_correct",
+  "comment": "t15pam4rbox_2D_correct.dat",
+  "spectrum": {
+    "kind": "scatter_spectrum",
+    "source": "t15pam4rbox_2D_correct.dat",
+    "angle": 0.0,
+    "PWM": true
+  }
+}

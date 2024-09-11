@@ -1,0 +1,10 @@
+{
+  "name": "FT2_spcpz_231222",
+  "comment": "FT2 spcpz_231222.dat",
+  "spectrum": {
+    "kind": "spectrum_1D",
+    "source": "FT2_spcpz_231222.dat",
+    "angle": 0.0,
+    "PWM": true
+  }
+}

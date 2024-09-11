@@ -1,0 +1,14 @@
+{
+  "name": "gauss",
+  "comment": "тестовый гаусс",
+  "spectrum": {
+    "kind": "gauss_spectrum",
+    "x_min": -40.0,
+    "x_max": 40.0,
+    "step": 0.5,
+    "bias": -10.0,
+    "sigma": 2.5,
+    "angle": 0.0,
+    "PWM": true
+  }
+}

@@ -11,7 +11,7 @@ DSTART = 0.025d0;
 
 CF1 = 1.d-4;
 CF2 = 0.028;
-CF3 = 0.0345;
+CF3 = 0.033;
 !----------------- Electrons parametrs -----------------
 CF14 = 1.5d0;
 
@@ -40,7 +40,7 @@ ZIM1 = 8;
 AIM2 = 12;
 ZIM2 = 6;
 
-ZEF = 1.8 + 1*FRAMP(0.033,CF3);
+ZEF = 1.8 + 0.7*FRAMP(0.033,0.035);
 
 !Its densities
 
@@ -110,7 +110,7 @@ Ni\NDEUT\2; Shift\SHIF; Jbs\CUBS; Plh\PELH\10;
 q0_1./MU(0); q1_1./MU(ROC); Tec_TEC; eta_CF16;
 Ibs_CV11; Iohm_CV10; Ilh_CCD2; Itot_CV10+CCD2+CV11;
 Qlh_QLH; DR_CV2; Zeff_ZEF(ROC);
-Uloop_(UPL(ROC)+CV8); Ux_ZRD2; Ur_ZRD4; Ne_NEAVB; Te_TEAVB;
+Uloop_(UPL(ROC)-CV8); Ux_ZRD2; Ur_ZRD4; Ne_NEAVB; Te_TEAVB;
 
 
 

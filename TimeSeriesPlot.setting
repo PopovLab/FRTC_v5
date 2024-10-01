@@ -21,15 +21,17 @@
       "name": "ax2",
       "title": "Chart 2",
       "y_label": "Value [a. u.]",
-      "data": []
+      "data": [
+        "Uloo",
+        "Ux"
+      ]
     },
     {
       "name": "ax3",
       "title": "Chart 3",
       "y_label": "Value [a. u.]",
       "data": [
-        "Vexp",
-        "V"
+        "Zeff"
       ]
     }
   ]

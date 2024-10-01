@@ -3,7 +3,7 @@
   "show_grid": true,
   "show_axis_labels": true,
   "shape": "2x2",
-  "x_axis": "rho",
+  "x_axis": "ameter",
   "x_label": "rho [arb. unit]",
   "sub_plots": [
     {
@@ -21,10 +21,7 @@
       "title": "профили E",
       "y_label": "Value [arb. unit]",
       "data": [
-        "Te",
-        "Ne",
-        "Ti",
-        "Ni"
+        "Ti"
       ]
     },
     {
@@ -32,8 +29,7 @@
       "title": "профили мощности",
       "y_label": "Value [arb. unit]",
       "data": [
-        "Poh",
-        "Plh"
+        "Vpol"
       ]
     },
     {
@@ -41,7 +37,8 @@
       "title": "профили температуры",
       "y_label": "Value [arb. unit]",
       "data": [
-        "shir"
+        "Er",
+        "E"
       ]
     }
   ]

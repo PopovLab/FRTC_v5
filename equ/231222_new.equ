@@ -70,8 +70,8 @@ QLH = (0.062d0-1.d-2*FRAMP(CF2,CF3)-0.052*FJUMP(CF3))*FJUMP(CF2);
 
 debug:0.0001:DSTART::;
 saveprofiles::CF2:CF3:;
-lhcd2017(PELH):CF1:CF2:CF3:;
-drivencurrent(CULH,CAR32,CU)::CF2:CF3:;
+!lhcd2017(PELH):CF1:CF2:CF3:;
+!drivencurrent(CULH,CAR32,CU)::CF2:CF3:;
 
 CD = CULH;
 CCD1 = VINT(PELH);
@@ -108,7 +108,7 @@ Ni\NDEUT\2; Shift\SHIF; Jbs\CUBS; Plh\PELH\10;
 !----------------- Time output --------------
 q0_1./MU(0); q1_1./MU(ROC); Tec_TEC; eta_CF16;
 Ibs_CV11; Iohm_CV10; Ilh_CCD2; Itot_CV10+CCD2+CV11;
-Qlh_QLH; Plh_CCD1; Zeff_ZEF(ROC);
+Qlh_QLH; DR_\CV2; Zeff_ZEF(ROC);
 Uloop_(UPL(ROC)+CV8); Ux_ZRD3; Ur_ZRD4; Ne_NEAVB; Te_TEAVB;
 
 

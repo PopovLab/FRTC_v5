@@ -3,15 +3,15 @@ Name   Time    Value      Error   Comment
 
 RTOR            0.55
 AB              0.09
-ABC             0.07
-BTOR            2.20
-IPL             0.02
+ABC             0.08
+BTOR            2.22
+IPL             0.0194
 
 ELONM           1.0
-ELONG           1.5
+ELONG           1.0
 TRICH           0.0
 TRIAN           0.0
-AMJ             1.0
+AMJ             2.0
 ZMJ             1.0
 SHIFT           0.005
 UPDWN           0.0

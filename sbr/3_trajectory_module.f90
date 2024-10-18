@@ -11,7 +11,7 @@ module trajectory_module
 
     !integer mbeg(mpnt),mend(mpnt),mbad(mpnt)
 
-    integer, parameter :: max_num_trajectories = 30000
+    integer, parameter :: max_num_trajectories = 1000000
     type(Trajectory), target ::  trajectories(max_num_trajectories)
 contains
 

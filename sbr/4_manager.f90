@@ -216,8 +216,8 @@ contains
             ! вычисление g22 и g33
             call calculate_metrics(pa, tet)
 
-            yn3 = point%Ntor*dsqrt(g33)! /co 
-            xm = point%Npol*dsqrt(g22) !/si
+            yn3 = point%Ntor*dsqrt(g33) /co 
+            xm = point%Npol*dsqrt(g22) /si
 
             call disp2_iroot2(pa,xm,tet,f1,f2)
             

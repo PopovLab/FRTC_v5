@@ -14,7 +14,7 @@ module trajectory_data
         !! value = 2 or 4, где была создана точка в driver2 или driver4 
     end type TrajectoryPoint
 
-    integer, parameter :: max_size = 10000
+    integer, parameter :: max_size = 100000
 
     type Trajectory
         integer size

@@ -5,7 +5,7 @@ TSTART = 0.11;
 TEND = 0.203;
 TINIT=0.18;
 TSCALE = 0.022;
-TPAUSE = 0.200;
+TPAUSE = 0.2;
 
 
 !BTOR=1.0d0;
@@ -66,7 +66,7 @@ CCD3=VINT(CAR12B);  !absorbed power via collisional damping
 CF1=0.1d-3;  !interval between lhcd() calls, sec
 CF2=0.180d0;  !first call of lhcd()
 DSTART=0.178;
-debug:0.0001:DSTART::;
+debug:0.001:DSTART::;
 saveprofiles::CF2::;
 lhcd2017(PELH):CF1:CF2::;
 drivencurrent(CULH,CAR32)::CF2::;
@@ -78,9 +78,9 @@ CCD2=IINT(CULHB);   !driven current
 !========Current Density===========
 !IPL=0.35*FRAMP(0.12,0.155)+0.15;
 !IPL=ZRD2;
-IPL=0.5;
+IPL=0.4;
 CU:Eq;
-CU=0.5;
+CU=0.3;
 CC="work(j,303)"; !+CCMHD;
 !!CC=CCSP+CCMHD;
 CD=CULH;
@@ -108,7 +108,7 @@ NEQUIL = 41;
 !==========Plasma Composition=================
 !2.4
 !ZEF=(1.1-0.3)*((1-(AMETR/ABC)**2)**1)+0.3;
-ZEF=2.4; !+0.5*FRAMP(0.190,0.21);
+ZEF=2.6; !+0.5*FRAMP(0.190,0.21);
 ZIM1=ZICAR; AIM1=12.0;
 NIZ1=NE*(ZEF-ZMJ)/(ZIM1-ZMJ)/ZIM1;
 NIZ2=0;
@@ -131,7 +131,11 @@ NE:AS;
 CAR17=(3-0.8)*((1-(AMETR/0.223)**1.5)**8)+0.79;
 CAR19=(1.4-0.14)*((1-(AMETR/0.23)**3.5)**2)+0.14;
 CAR18=CAR17*STEP(0.161-AMETR)+CAR19*STEP(AMETR-0.161)+0.001;
-NE=(6.0-1.0)*((1-(AMETR/ABC)**2)**1)+1.0;
+
+
+NE=(10.8-1.0)*((1-(AMETR/ABC)**2)**1)+1.0;
+!!NE=(10.8-1.0)*((1-(AMETR/ABC)**2)**1)+1.0; !+2.0*EXP(-(AMETR/ABC-0.9)**2/0.005);
+
 !NE=CAR19+0.001;
 !NE=CAR18+0.001;
 CAR11 = (1.0*(1.0-ASTEP(CF6))+0.10*ASTEP(CF6));  ! 1
@@ -144,7 +148,7 @@ CAR21=(ZRD44-0.2)*((1-(AMETR/0.223)**1.5)**7)+0.2;
 CAR22=(0.2-0.039)*((1-(AMETR/0.223)**15)**2)+0.039;
 CAR23=CAR21*STEP(0.171-AMETR)+CAR22*STEP(AMETR-0.171)+0.001;
 !TE=(0.52-0.09)*((1-(AMETR/0.23)**2.5)**1)+0.09;
-TE=(2.0-0.1)*(1-(AMETR/ABC)**2)+0.1;
+TE=1.25*(1-(AMETR/ABC)**2)+0.1;
 
 !TE=(ZRD44-0.1)*((1-(AMETR/0.223)**1.5)**4)+0.25;
 
@@ -160,7 +164,7 @@ PE=POH-PENEU-PENLI-PRAD+PELH;
 J\CU\-1;       Plh\PELH;   Johm\CUOHM\8;   E\ULON/(RTOR+AMETR)/GP2;
 Te\TE\\TEX;	En\CAR24;      CC\CC\-3;      Q\1./MU;
 Jlh\CULH\-1;   Upar\ULON;    Zef\ZEF\-1;     Poh\POH\-2;
-Plh2\PELH\-2;   Ne\NE\\NEX;    sig\CAR32\-3;    Chr\CAR31; 
+Plh\PELH\-2;   Ne\NE\\NEX;    sig\CAR32\-3;    Chr\CAR31; 
   
 
 

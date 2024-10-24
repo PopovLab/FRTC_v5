@@ -1,4 +1,4 @@
- Globus-M 40167 LH 0.5MA 0.8.T
+ Globus-M 41105 LH 0.4MA 0.8.T
 
  Name   Time    Value      Error
 RTOR            0.375
@@ -144,5 +144,5 @@ NAMEXP NEX POINTS 8 GRIDTYPE 19 FACTOR 1
    
 POINTS   2   GRIDTYPE 1   NAMEXP ZEFX   NTIMES 1
 .190  
-2.4  2.4
+2.6  2.6
 

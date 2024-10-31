@@ -99,7 +99,7 @@
     "Numerical parameters": {
       "nr": {
         "title": "nr",
-        "value": 30,
+        "value": 40,
         "type": "int",
         "description": "radial grid number  <= 505"
       },

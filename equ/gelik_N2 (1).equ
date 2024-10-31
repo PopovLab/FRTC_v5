@@ -80,7 +80,7 @@ CCD2=IINT(CULHB);   !driven current
 !IPL=ZRD2;
 IPL=0.35;
 CU:Eq;
-CU=0.1;
+!CU=0.1;
 CC="work(j,303)"; !+CCMHD;
 !!CC=CCSP+CCMHD;
 CD=CULH;
@@ -164,7 +164,7 @@ PE=POH-PENEU-PENLI-PRAD+PELH;
 J\CU\-1;       Plh\PELH;   Johm\CUOHM\8;   E\ULON/(RTOR+AMETR)/GP2;
 Te\TE\\TEX;	En\CAR24;      CC\CC\-3;      Q\1./MU;
 Jlh\CULH\-1;   Upar\ULON;    Zef\ZEF\-1;     Poh\POH\-2;
-Plh\PELH\-2;   Ne\NE\\NEX;    sig\CAR32\-3;    Chr\CAR31; 
+Plh2\PELH\-2;   Ne\NE\\NEX;    sig\CAR32\-3;    Chr\CAR31; 
   
 
 

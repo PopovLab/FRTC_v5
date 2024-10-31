@@ -477,7 +477,7 @@ contains
             rxx(j+1)=hr*dble(j)
         end do
 
-        if(ismthout.ne.0) then
+        
             do j=1,nr
                 pwe(j+1)=(pdl(j)+pdc(j))/vk(j)
             end do
@@ -486,6 +486,7 @@ contains
             do i=1,nrr
                 wrk(i)=pwe(i)
             end do
+        if(ismthout.ne.0) then
             call fsmoth4(rxx,wrk,nrr,pwe)
         end if
         !

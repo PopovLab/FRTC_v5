@@ -251,7 +251,7 @@
       },
       "ismthout": {
         "title": "ismthout",
-        "value": 1,
+        "value": 0,
         "type": "int",
         "description": "if=0, no smoothing in output profiles"
       },
@@ -277,14 +277,14 @@
     "grill parameters": {
       "Zplus": {
         "title": "Zplus",
-        "value": 20.0,
+        "value": 5.0,
         "type": "float",
         "unit": "cm",
         "description": "upper grill corner in centimeters"
       },
       "Zminus": {
         "title": "Zminus",
-        "value": -20.0,
+        "value": -5.0,
         "type": "float",
         "unit": "cm",
         "description": "lower grill corner in centimeters"

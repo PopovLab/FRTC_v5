@@ -1,5 +1,5 @@
 {
-  "name": "gelik_compare_4",
+  "name": "LH_43110",
   "setting": {
     "Comments": {
       "value": "Comments about ....",
@@ -9,7 +9,7 @@
     "Physical parameters": {
       "Freq": {
         "title": "Frequency",
-        "value": 0.2,
+        "value": 2.45,
         "unit": "GHz",
         "type": "float",
         "description": "RF frequency, GHz"
@@ -233,7 +233,7 @@
       },
       "iw": {
         "title": "iw",
-        "value": -1,
+        "value": 1,
         "type": "int",
         "description": "initial mode (slow=1, fast=-1)"
       },
@@ -277,14 +277,14 @@
     "grill parameters": {
       "Zplus": {
         "title": "Zplus",
-        "value": 5.0,
+        "value": 20.0,
         "type": "float",
         "unit": "cm",
         "description": "upper grill corner in centimeters"
       },
       "Zminus": {
         "title": "Zminus",
-        "value": -5.0,
+        "value": -20.0,
         "type": "float",
         "unit": "cm",
         "description": "lower grill corner in centimeters"
@@ -303,29 +303,8 @@
       }
     },
     "spectrum": {
-      "spectrum_type": "gaussian",
-      "options": {
-        "x_min": -4.05,
-        "x_max": -3.95,
-        "step": 0.005,
-        "bias": -4.0,
-        "sigma": 0.01
-      },
-      "parameters": {
-        "angle": {
-          "title": "Angle",
-          "value": 0.0,
-          "type": "float",
-          "unit": "deg",
-          "description": "Rotation on spectrum"
-        },
-        "spline": {
-          "title": "Spline",
-          "value": false,
-          "type": "logical",
-          "description": "Apply spline approximation"
-        }
-      }
+      "spectrum_type": "scatter_spectrum",
+      "source": "43110box.dat"
     }
   }
 }

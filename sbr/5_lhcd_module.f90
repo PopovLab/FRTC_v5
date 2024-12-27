@@ -414,6 +414,9 @@ contains
             vmax=cltn/vto
             zff=(5d0+zefff(r))/5d0
             cnyfoc=zff*c0**4*cnye
+
+
+            
             if(inew.eq.0) then !vardens
                 pn=fn1(r,fnr)
             else
@@ -423,12 +426,20 @@ contains
             !!!!!!!!                         and multiplied by 10^-10 in dfind()
             !!!old       dconst=vt0/(cnyfoc*pme*pn**2)
             !!!        dj(i)=dql(i,j)*dconst*vto !D_normir
+
+            
+                print *, '----', nr, vt, vt0, vmax, cnyfoc, dconst
+           
+
+
             do i=1,ipt
                 vrj(i)=vgrid(i,j)/vto      !Vpar/Vt
                 dj(i)=dql(i,j)*dconst*vto  !D_normir
                 vrjnew(i,j,k)=vrj(i)
                 dijk(i,j,k)=dj(i)
             end do
+
+            
             do i=1,i0
                 if(vij(i,j).ge.vmax) then
                     ddout=zero

@@ -1,5 +1,5 @@
 {
-  "name": "t15 7x3 1D",
+  "name": "t15 7x3 1D_Ntor_nospline",
   "setting": {
     "Comments": {
       "value": "Comments about ....\n",
@@ -304,7 +304,7 @@
     },
     "spectrum": {
       "spectrum_type": "spectrum_1D",
-      "source": "Nz.dat",
+      "source": "Ntau2.dat",
       "parameters": {
         "angle": {
           "title": "Angle",

@@ -45,7 +45,7 @@ module FokkerPlanck1D_mod ! the module name defines the namespace
         real(dp), value :: e, v_lim, v(:), f(:)
         integer  :: n
         real(dp) :: h
-        real(dp), parameter :: h0 = 0.1d0
+        real(dp), parameter :: h0 = 0.01d0
         !this%inst_field1 = cmplx(0.,0.) 
         this%enorm     = abs(e)
         this%v_lim = v_lim

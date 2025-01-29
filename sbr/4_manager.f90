@@ -215,7 +215,8 @@ contains
 
             ! вычисление g22 и g33
             call calculate_metrics(pa, tet)
-
+               ! write (*,*), 'tetasi=', si, 'tetaco=', co
+               ! pause
             yn3 = point%Ntor*dsqrt(g33) !/co 
             xm = point%Npol*dsqrt(g22) !/si
 

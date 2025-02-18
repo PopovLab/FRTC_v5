@@ -12,7 +12,6 @@
       "y_label": "$ J  \\;  [{MA}/m^2]$",
       "data": [
         "J",
-        "Johm",
         "Jlh"
       ]
     },
@@ -40,7 +39,7 @@
       "title": "профили температуры",
       "y_label": "Value [arb. unit]",
       "data": [
-        "Te"
+        "Ne"
       ]
     }
   ]

@@ -1,5 +1,5 @@
 {
-  "name": "TRT_model",
+  "name": "TRT_model_gelik",
   "setting": {
     "Comments": {
       "value": "Comments about ....\n\n\n",
@@ -9,7 +9,7 @@
     "Physical parameters": {
       "Freq": {
         "title": "Frequency",
-        "value": 4.6,
+        "value": 1.2,
         "unit": "GHz",
         "type": "float",
         "description": "RF frequency, GHz"
@@ -233,7 +233,7 @@
       },
       "iw": {
         "title": "iw",
-        "value": 1,
+        "value": -1,
         "type": "int",
         "description": "initial mode (slow=1, fast=-1)"
       },
@@ -305,11 +305,11 @@
     "spectrum": {
       "spectrum_type": "gaussian",
       "options": {
-        "x_min": -2.5,
-        "x_max": -0.1,
+        "x_min": -5.0,
+        "x_max": -1.0,
         "step": 0.005,
-        "bias": -1.1,
-        "sigma": 0.3
+        "bias": -3.0,
+        "sigma": 0.4
       },
       "parameters": {
         "angle": {

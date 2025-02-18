@@ -305,10 +305,10 @@
     "spectrum": {
       "spectrum_type": "gaussian",
       "options": {
-        "x_min": -3.0,
-        "x_max": -0.8,
+        "x_min": -4.0,
+        "x_max": -2.0,
         "step": 0.01,
-        "bias": -1.9,
+        "bias": -3.0,
         "sigma": 0.2
       },
       "parameters": {
@@ -321,7 +321,7 @@
         },
         "spline": {
           "title": "Spline",
-          "value": true,
+          "value": false,
           "type": "logical",
           "description": "Apply spline approximation"
         }

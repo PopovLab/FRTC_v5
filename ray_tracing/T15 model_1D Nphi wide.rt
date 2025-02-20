@@ -1,8 +1,8 @@
 {
-  "name": "t15s30",
+  "name": "T15 model_1D Nphi wide",
   "setting": {
     "Comments": {
-      "value": "Comments about ....",
+      "value": "spectrum as Ntau",
       "title": "Comments",
       "type": "text"
     },
@@ -277,21 +277,21 @@
     "grill parameters": {
       "Zplus": {
         "title": "Zplus",
-        "value": 20.0,
+        "value": 34.29,
         "type": "float",
         "unit": "cm",
         "description": "upper grill corner in centimeters"
       },
       "Zminus": {
         "title": "Zminus",
-        "value": -20.0,
+        "value": -34.29,
         "type": "float",
         "unit": "cm",
         "description": "lower grill corner in centimeters"
       },
       "ntet": {
         "title": "ntet",
-        "value": 15,
+        "value": 35,
         "type": "int",
         "description": "theta grid number"
       },
@@ -304,7 +304,7 @@
     },
     "spectrum": {
       "spectrum_type": "spectrum_1D",
-      "source": "t15s30box.dat",
+      "source": "D:/dev/FRTC_v4/ray_tracing/t15phi7x3ws1d.dat",
       "parameters": {
         "angle": {
           "title": "Angle",
@@ -315,7 +315,7 @@
         },
         "spline": {
           "title": "Spline",
-          "value": true,
+          "value": false,
           "type": "logical",
           "description": "Apply spline approximation"
         }

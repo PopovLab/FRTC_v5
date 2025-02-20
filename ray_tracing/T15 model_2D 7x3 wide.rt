@@ -1,8 +1,8 @@
 {
-  "name": "T15 model",
+  "name": "T15 model_2D 7x3 wide",
   "setting": {
     "Comments": {
-      "value": "Comments about ....",
+      "value": "spectrum as Ntau",
       "title": "Comments",
       "type": "text"
     },
@@ -304,7 +304,7 @@
     },
     "spectrum": {
       "spectrum_type": "scatter_spectrum",
-      "source": "D:/dev/FRTC_v4/ray_tracing/spectrum.dat"
+      "source": "D:/dev/FRTC_v4/ray_tracing/t15phi7x3w2d.dat"
     }
   }
 }

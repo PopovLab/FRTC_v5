@@ -1,8 +1,8 @@
 {
-  "name": "T15 rot",
+  "name": "T15 model_2D 5\u04454 060 wide",
   "setting": {
     "Comments": {
-      "value": "Comments about ....",
+      "value": "spectrum as Ntau",
       "title": "Comments",
       "type": "text"
     },
@@ -28,19 +28,19 @@
       },
       "xmi2": {
         "title": "xmi2",
-        "value": 16.0,
+        "value": 1.0,
         "type": "float",
         "description": "Mi2/Mp,  relative mass of ions 2"
       },
       "zi2": {
         "title": "zi2",
-        "value": 0.0,
+        "value": 1.0,
         "type": "float",
         "description": "charge of ions 2"
       },
       "dni2": {
         "title": "dni2",
-        "value": 0.0,
+        "value": 0.25,
         "type": "float",
         "description": "Ni2/Ni1, relative density of ions 2"
       },
@@ -111,7 +111,7 @@
       },
       "rrange": {
         "title": "rrange",
-        "value": 0.0001,
+        "value": 0.1,
         "type": "float",
         "description": "rel.(hr) size of a 'turning' point region, <1.d0"
       },
@@ -165,61 +165,61 @@
       },
       "pgiter": {
         "title": "pgiter",
-        "value": 0.0001,
+        "value": 1e-05,
         "type": "float",
         "description": "relative accuracy to stop iterations"
       },
       "ni1": {
         "title": "ni1",
-        "value": 25,
+        "value": 20,
         "type": "int",
         "description": "grid number in the left part of Vz plato"
       },
       "ni2": {
         "title": "ni2",
-        "value": 25,
+        "value": 20,
         "type": "int",
         "description": "grid number in the right part of Vz plato"
       },
       "niterat": {
         "title": "niterat",
-        "value": 99,
+        "value": 199,
         "type": "int",
         "description": "maximal number of iterations"
       },
       "nmaxm(1)": {
         "title": "nmaxm(1)",
-        "value": 20,
+        "value": 500,
         "type": "int",
         "description": "permitted reflections at 0 iteration"
       },
       "nmaxm(2)": {
         "title": "nmaxm(2)",
-        "value": 20,
+        "value": 50,
         "type": "int",
         "description": "permitted reflections at 2 iteration"
       },
       "nmaxm(3)": {
         "title": "nmaxm(3)",
-        "value": 20,
+        "value": 50,
         "type": "int",
         "description": "permitted reflections at 3 iteration"
       },
       "nmaxm(4)": {
         "title": "nmaxm(4)",
-        "value": 20,
+        "value": 50,
         "type": "int",
         "description": "permitted reflections at 4 iteration"
       },
       "maxstep2": {
         "title": "maxstep2",
-        "value": 1000,
+        "value": 5000,
         "type": "int",
         "description": "maximal steps' number in Fast comp. mode"
       },
       "maxstep4": {
         "title": "maxstep4",
-        "value": 1000,
+        "value": 5000,
         "type": "int",
         "description": "maximal steps' number in Slow comp. mode"
       }
@@ -239,7 +239,7 @@
       },
       "ismth": {
         "title": "ismth",
-        "value": 1,
+        "value": 0,
         "type": "int",
         "description": "if=0, no smoothing in Ne(rho),Te(rho),Ti(rho)"
       },
@@ -257,7 +257,7 @@
       },
       "inew": {
         "title": "inew",
-        "value": 1,
+        "value": -1,
         "type": "int",
         "description": "inew=0 for usual tokamak&Ntor_grill; 1 or 2 for g' in ST&Npol_grill"
       },
@@ -277,21 +277,21 @@
     "grill parameters": {
       "Zplus": {
         "title": "Zplus",
-        "value": 20.0,
+        "value": 24.29,
         "type": "float",
         "unit": "cm",
         "description": "upper grill corner in centimeters"
       },
       "Zminus": {
         "title": "Zminus",
-        "value": -20.0,
+        "value": -24.29,
         "type": "float",
         "unit": "cm",
         "description": "lower grill corner in centimeters"
       },
       "ntet": {
         "title": "ntet",
-        "value": 21,
+        "value": 5,
         "type": "int",
         "description": "theta grid number"
       },
@@ -303,46 +303,8 @@
       }
     },
     "spectrum": {
-      "spectrum_type": "rotated_gaussian",
-      "parameters": {
-        "N_frame": {
-          "title": "Frame Size",
-          "value": 4.0,
-          "type": "float",
-          "description": "Width of spectrum"
-        },
-        "N_tor": {
-          "title": "N tor center",
-          "value": -2.0,
-          "type": "float",
-          "description": "N tor of spectrum centr"
-        },
-        "N_pol": {
-          "title": "N pol center",
-          "value": 0.0,
-          "type": "float",
-          "description": "N pol of spectrum centr"
-        },
-        "N_sigma": {
-          "title": "N sigma",
-          "value": 0.5,
-          "type": "float",
-          "description": "N sigma"
-        },
-        "num": {
-          "title": " num samples",
-          "value": 500,
-          "type": "int",
-          "description": "num evenly spaced samples,"
-        },
-        "angle": {
-          "title": "Angle",
-          "value": 45.0,
-          "type": "float",
-          "unit": "deg",
-          "description": "Rotation on spectrum"
-        }
-      }
+      "spectrum_type": "scatter_spectrum",
+      "source": "D:/dev/FRTC_v4/ray_tracing/t15phi5x4w60s2d.dat"
     }
   }
 }

@@ -1,8 +1,8 @@
 {
-  "name": "t15pam25ph60_1D",
+  "name": "T15 model_1D_5x4_060_cut16",
   "setting": {
     "Comments": {
-      "value": "Comments about ....\n",
+      "value": "spectrum as Ntau",
       "title": "Comments",
       "type": "text"
     },
@@ -79,7 +79,7 @@
       },
       "factor": {
         "title": "factor",
-        "value": 1.0,
+        "value": 10.0,
         "type": "float",
         "description": "factor in alpha source"
       },
@@ -277,34 +277,34 @@
     "grill parameters": {
       "Zplus": {
         "title": "Zplus",
-        "value": 20.0,
+        "value": 34.29,
         "type": "float",
         "unit": "cm",
         "description": "upper grill corner in centimeters"
       },
       "Zminus": {
         "title": "Zminus",
-        "value": -20.0,
+        "value": -34.29,
         "type": "float",
         "unit": "cm",
         "description": "lower grill corner in centimeters"
       },
       "ntet": {
         "title": "ntet",
-        "value": 15,
+        "value": 35,
         "type": "int",
         "description": "theta grid number"
       },
       "nnz": {
         "title": "nnz",
-        "value": 100,
+        "value": 51,
         "type": "int",
         "description": "iN_phi grid number"
       }
     },
     "spectrum": {
       "spectrum_type": "spectrum_1D",
-      "source": "spcpz_PAM25_phi060_case04.dat",
+      "source": "D:/dev/FRTC_v4/ray_tracing/spcpz_PAM_5x4_060_cut16.dat",
       "parameters": {
         "angle": {
           "title": "Angle",
@@ -315,7 +315,7 @@
         },
         "spline": {
           "title": "Spline",
-          "value": true,
+          "value": false,
           "type": "logical",
           "description": "Apply spline approximation"
         }

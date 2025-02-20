@@ -1,8 +1,8 @@
 {
-  "name": "t15pam25ph60",
+  "name": "T15 model_1D_5\u04454_060",
   "setting": {
     "Comments": {
-      "value": "Comments about ....\n",
+      "value": "spectrum as Ntau",
       "title": "Comments",
       "type": "text"
     },
@@ -79,7 +79,7 @@
       },
       "factor": {
         "title": "factor",
-        "value": 1.0,
+        "value": 10.0,
         "type": "float",
         "description": "factor in alpha source"
       },
@@ -277,21 +277,21 @@
     "grill parameters": {
       "Zplus": {
         "title": "Zplus",
-        "value": 20.0,
+        "value": 34.29,
         "type": "float",
         "unit": "cm",
         "description": "upper grill corner in centimeters"
       },
       "Zminus": {
         "title": "Zminus",
-        "value": -20.0,
+        "value": -34.29,
         "type": "float",
         "unit": "cm",
         "description": "lower grill corner in centimeters"
       },
       "ntet": {
         "title": "ntet",
-        "value": 5,
+        "value": 21,
         "type": "int",
         "description": "theta grid number"
       },
@@ -303,8 +303,23 @@
       }
     },
     "spectrum": {
-      "spectrum_type": "scatter_spectrum",
-      "source": "t15pam4rbox_2D_correct.dat"
+      "spectrum_type": "spectrum_1D",
+      "source": "D:/dev/FRTC_v4/ray_tracing/spcpz_PAM_5x4x13.6cm_awg=110mm_bwg=18mm_pwg=10mm_dphi=-060.dat",
+      "parameters": {
+        "angle": {
+          "title": "Angle",
+          "value": 0.0,
+          "type": "float",
+          "unit": "deg",
+          "description": "Rotation on spectrum"
+        },
+        "spline": {
+          "title": "Spline",
+          "value": false,
+          "type": "logical",
+          "description": "Apply spline approximation"
+        }
+      }
     }
   }
 }

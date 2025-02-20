@@ -5,10 +5,10 @@ DPOUT=1.d-4;
 DROUT=1.d-4;
 DTOUT=0.00001;
 TSTART = 0.11;
-TEND = 2.9;
+TEND = 0.305;
 TINIT=0.299;
 TSCALE = 0.006;
-TPAUSE = 0.305;
+TPAUSE = 0.308;
 
      
 !BTOR=1.0d0;
@@ -61,8 +61,13 @@ CCD3=VINT(CAR12B);  !absorbed power via collisional damping
 
 
 !===========Dynamic FRTC===========
-!QLH=4.0d0;
+<<<<<<< Updated upstream
+
 QLH=4.0d0;
+=======
+!QLH=2.1d0;
+!QLH=4.0d0;
+>>>>>>> Stashed changes
 
 CF1=0.1d-3;  !interval between lhcd() calls, sec
 CF2=0.3d0;  !first call of lhcd()
@@ -71,8 +76,8 @@ CF3=0.61d0;
 DSTART=0.299;
 debug:0.0001:DSTART::;
 saveprofiles::CF2:CF3:;
-lhcd2017(PELH):CF1:CF2:CF3:;
-drivencurrent(CULH, CAR32)::CF2:CF3:;
+lhcd2017(PELH,CAR14,CAR15,ZRD8):CF1:CF2:CF3:;
+drivencurrent(CULH,ZRD35,ZRD36,CAR12,CAR13,CAR32)::CF2:CF3:;
 
 
 
@@ -98,7 +103,7 @@ NBND = 100;
 NEQUIL = 41;
 
 !==========Plasma Composition=================
-ZEF=2.6; !+0.5*FRAMP(0.190,0.21);
+ZEF=1.6; !+0.5*FRAMP(0.190,0.21);
 ZIM1=ZICAR; AIM1=12.0;
 NIZ1=NE*(ZEF-ZMJ)/(ZIM1-ZMJ)/ZIM1;
 NIZ2=0;

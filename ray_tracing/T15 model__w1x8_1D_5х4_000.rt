@@ -1,5 +1,5 @@
 {
-  "name": "T15 model_1D_5\u04454_000",
+  "name": "T15 model__w1x8_1D_5\u04454_000",
   "setting": {
     "Comments": {
       "value": "spectrum as Ntau",
@@ -304,7 +304,7 @@
     },
     "spectrum": {
       "spectrum_type": "spectrum_1D",
-      "source": "D:/dev/FRTC_v4/ray_tracing/spcpz_PAM_5x4_000_1x8.dat",
+      "source": "spcpz_PAM_5x4_000_1x8.dat",
       "parameters": {
         "angle": {
           "title": "Angle",

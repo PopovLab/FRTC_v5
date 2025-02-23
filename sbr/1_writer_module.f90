@@ -32,7 +32,7 @@ subroutine binary_write_array(v, a, time, array_name)
         write (iu), v
         write (iu), a
         !ga = glue_arrays(a(:,i,1), a(:,i,2))
-            !write (iu, '(10012(ES22.14))') ga(:)
+            !write (iu, '(20012(ES22.14))') ga(:)
 
     close(iu)      
 
@@ -63,10 +63,10 @@ subroutine write_v_array(v, a, time, array_name)
     open(iu, file=fname,position="append")
         do i=1, N
             gv = glue_v_axis(v(:,i))
-            write (iu, '(10012(ES22.14))') gv(:)
+            write (iu, '(20012(ES22.14))') gv(:)
             deallocate(gv)
             ga = glue_arrays(a(:,i,2), a(:,i,1)) ! negative - positive
-            write (iu, '(10012(ES22.14))') ga(:)
+            write (iu, '(20012(ES22.14))') ga(:)
             deallocate(ga)
         end do
     close(iu)
@@ -116,8 +116,8 @@ subroutine write_x_array(x, arr, time, array_name)
     print *, fname
     open(iu, file=fname,position="append")
         do i=1, N
-            write (iu, '(10012(ES22.14))') x(: ,i)
-            write (iu, '(10012(ES22.14))') arr(:, i)
+            write (iu, '(20012(ES22.14))') x(: ,i)
+            write (iu, '(20012(ES22.14))') arr(:, i)
         end do
     close(iu)
 end subroutine

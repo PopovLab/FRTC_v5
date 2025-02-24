@@ -308,7 +308,7 @@
         "x_min": -2.5,
         "x_max": -0.1,
         "step": 0.005,
-        "bias": -1.1,
+        "bias": -1.5,
         "sigma": 0.3
       },
       "parameters": {

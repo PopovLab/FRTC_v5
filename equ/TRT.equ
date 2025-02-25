@@ -81,7 +81,7 @@ IPL=5.0;
 !CU:;
 !CU=1.5;
 CU:Eq;
-CU=1.0;
+CU=CUX;
 !CU=TEX/2;
 CAR25=TEX/6;
 !CU=CAR25; 

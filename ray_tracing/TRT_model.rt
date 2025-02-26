@@ -9,7 +9,7 @@
     "Physical parameters": {
       "Freq": {
         "title": "Frequency",
-        "value": 4.6,
+        "value": 2.45,
         "unit": "GHz",
         "type": "float",
         "description": "RF frequency, GHz"
@@ -305,7 +305,7 @@
     "spectrum": {
       "spectrum_type": "gaussian",
       "options": {
-        "x_min": -2.5,
+        "x_min": -4.0,
         "x_max": -0.1,
         "step": 0.005,
         "bias": -1.5,

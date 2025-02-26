@@ -281,7 +281,7 @@ contains
 
         call calculate_diffusion(ispectr)
 
-        call view(tcur,ispectr,spectr%size,ntet)  !writing trajectories into a file
+      !  call view(tcur,ispectr,spectr%size,ntet)  !writing trajectories into a file
         call calculate_out_power(outpe)
         pe_out=ol+oc
         

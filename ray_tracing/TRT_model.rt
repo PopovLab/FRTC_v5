@@ -9,7 +9,7 @@
     "Physical parameters": {
       "Freq": {
         "title": "Frequency",
-        "value": 2.45,
+        "value": 4.6,
         "unit": "GHz",
         "type": "float",
         "description": "RF frequency, GHz"
@@ -28,13 +28,13 @@
       },
       "xmi2": {
         "title": "xmi2",
-        "value": 16.0,
+        "value": 1.0,
         "type": "float",
         "description": "Mi2/Mp,  relative mass of ions 2"
       },
       "zi2": {
         "title": "zi2",
-        "value": 0.0,
+        "value": 1.0,
         "type": "float",
         "description": "charge of ions 2"
       },
@@ -305,11 +305,11 @@
     "spectrum": {
       "spectrum_type": "gaussian",
       "options": {
-        "x_min": -4.0,
-        "x_max": -0.1,
+        "x_min": -2.0,
+        "x_max": -1.0,
         "step": 0.005,
         "bias": -1.5,
-        "sigma": 0.3
+        "sigma": 0.05
       },
       "parameters": {
         "angle": {

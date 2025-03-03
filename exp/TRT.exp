@@ -2,8 +2,8 @@
 
  Name   Time    Value      Error
 RTOR            2.15
-AB              0.59
-ABC             0.59
+AB              0.57
+ABC             0.57
 !AWALL           0.3
 ELONM           1.8                 !elong. of the chamber
 TRICH           0.35                 !trian. of the chamber

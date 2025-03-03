@@ -20,7 +20,8 @@
       "title": "профили E",
       "y_label": "Te, keV",
       "data": [
-        "Te"
+        "Te",
+        "Upl"
       ]
     },
     {

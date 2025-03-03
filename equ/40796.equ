@@ -67,7 +67,7 @@ CF1=0.1d-3;  !interval between lhcd() calls, sec
 CF2=0.180d0;  !first call of lhcd()
 CF3=0.22d0;
 DSTART=0.178;
-debug:0.001:DSTART::;
+debug:0.0001:DSTART::;
 saveprofiles::CF2:CF3:;
 !saveprofiles2::CF2:CF3:;
 lhcd2017(PELH,CAR14,CAR15):CF1:CF2:CF3:;
@@ -78,7 +78,7 @@ drivencurrent(CULH,ZRD35,ZRD36,CAR12,CAR13,CAR32)::CF2:CF3:;
 !========Current Density==========
 !IPL=0.35*FRAMP(0.12,0.155)+0.15;
 !IPL=ZRD2;
-IPL=0.3;
+IPL=0.180;
 CU:Eq;
 !CU=1.0;
 CU=1 - (RHO / ROC)**0.0001;
@@ -154,7 +154,7 @@ PE=POH-PENEU-PENLI-PRAD+PELH;
 J\CU\-1;       Plh\PELH;   Jlp\CAR12\-1;   Plp\CAR14\-2;
 Te\TE\\TEX;	En\CAR24;      CC\CC\-3;      Q\1./MU;
 Jlh\CULH\-1;   Upl\UPL;    Jlm\CAR13\-1;     Plm\CAR15\-2;
-Plh2\PELH\-2;   Ne\NE\\NEX;    sig\CAR32\-3;    E\UPL/(RTOR+AMETR)/GP2; 
+Ssif\SHIF;   Ne\NE\\NEX;    sig\CAR32\-3;    E\UPL/(RTOR+AMETR)/GP2; 
   
 
 

@@ -99,7 +99,7 @@
     "Numerical parameters": {
       "nr": {
         "title": "nr",
-        "value": 90,
+        "value": 30,
         "type": "int",
         "description": "radial grid number  <= 505"
       },
@@ -147,7 +147,7 @@
       },
       "rbord": {
         "title": "rbord",
-        "value": 0.999,
+        "value": 0.99,
         "type": "float",
         "description": "(relative radius of reflection, <1."
       },
@@ -159,13 +159,13 @@
       },
       "pabs": {
         "title": "pabs",
-        "value": 0.01,
+        "value": 0.05,
         "type": "float",
         "description": "part of remaining power interp. as absorption"
       },
       "pgiter": {
         "title": "pgiter",
-        "value": 0.0001,
+        "value": 0.001,
         "type": "float",
         "description": "relative accuracy to stop iterations"
       },
@@ -189,25 +189,25 @@
       },
       "nmaxm(1)": {
         "title": "nmaxm(1)",
-        "value": 50,
+        "value": 20,
         "type": "int",
         "description": "permitted reflections at 0 iteration"
       },
       "nmaxm(2)": {
         "title": "nmaxm(2)",
-        "value": 50,
+        "value": 20,
         "type": "int",
         "description": "permitted reflections at 2 iteration"
       },
       "nmaxm(3)": {
         "title": "nmaxm(3)",
-        "value": 50,
+        "value": 20,
         "type": "int",
         "description": "permitted reflections at 3 iteration"
       },
       "nmaxm(4)": {
         "title": "nmaxm(4)",
-        "value": 50,
+        "value": 20,
         "type": "int",
         "description": "permitted reflections at 4 iteration"
       },
@@ -305,11 +305,11 @@
     "spectrum": {
       "spectrum_type": "gaussian",
       "options": {
-        "x_min": -5.0,
-        "x_max": -1.0,
-        "step": 0.005,
-        "bias": -3.0,
-        "sigma": 0.4
+        "x_min": -1.825,
+        "x_max": -1.775,
+        "step": 0.009,
+        "bias": -1.8,
+        "sigma": 0.05
       },
       "parameters": {
         "angle": {

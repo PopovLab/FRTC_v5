@@ -32,7 +32,7 @@ subroutine fokkerplanck_compute(time, TAU)
     !real(wp) d0
     !integer jindex,kindex
     !common/dddql/ d0,jindex,kindex
-    parameter(dt0=0.1d0,h0 =0.1d0)
+    parameter(dt0=0.1d0,h0 =0.01d0)
 
     dtstep=TAU/dble(ntau) !seconds 
 

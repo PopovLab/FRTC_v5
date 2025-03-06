@@ -161,6 +161,7 @@ contains
           errmax=max(errmax,abs(yerr(i)/yscal(i)))
         enddo
         errmax=errmax/eps
+       ! write(*,*), eps, errmax
         if(errmax.gt.1.d0)then
             htemp=safety*h*(errmax**pshrnk)
             h=sign(max(abs(htemp),0.1d0*abs(h)),h)

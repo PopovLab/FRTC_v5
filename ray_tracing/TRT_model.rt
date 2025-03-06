@@ -305,10 +305,10 @@
     "spectrum": {
       "spectrum_type": "gaussian",
       "options": {
-        "x_min": -2.0,
-        "x_max": -1.0,
-        "step": 0.005,
-        "bias": -1.5,
+        "x_min": -1.825,
+        "x_max": -1.775,
+        "step": 0.009,
+        "bias": -1.8,
         "sigma": 0.05
       },
       "parameters": {

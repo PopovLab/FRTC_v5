@@ -20,8 +20,7 @@
       "title": "профили E",
       "y_label": "Value [arb. unit]",
       "data": [
-        "Upl",
-        "E"
+        "Q"
       ]
     },
     {
@@ -39,6 +38,7 @@
       "title": "профили температуры",
       "y_label": "Value [arb. unit]",
       "data": [
+        "Te",
         "Ne"
       ]
     }

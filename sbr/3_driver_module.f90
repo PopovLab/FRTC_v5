@@ -374,7 +374,7 @@ contains
         real(wp)            :: dysav(nv) !sav#
 
         integer, parameter  :: nmax=50,kmaxx=8,imax=kmaxx+1
-        real(wp),parameter  :: safe1=.25d0, safe2=.7d0 
+        real(wp),parameter  :: safe1=.25d0, safe2=.7d0 !!!!!!!!
         real(wp),parameter  :: redmax=1.d-5, redmin=.7d0
         real(wp),parameter  :: tiny=1.d-30, scalmx=.1d0
 
@@ -429,7 +429,7 @@ contains
             xnew=x+h
             if(xnew.eq.x) then
                 write(*,*) 'step size underflow in difeq'
-                pause
+               pause
             end if
             call mmid(ysav,dydx,nv,x,h,nseq(k),yseq,derivs)
             !sav#

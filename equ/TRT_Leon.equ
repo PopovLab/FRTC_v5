@@ -66,9 +66,9 @@ QLH=4.0d0;
 !QLH=0.4d0;
 
 CF1=0.1d-3;  !interval between lhcd() calls, sec
-CF2=0.100d0;  !first call of lhcd()
-CF3=0.110d0;
-DSTART=0.098;
+CF2=0.500d0;  !first call of lhcd()
+CF3=0.510d0;
+DSTART=0.498;
 debug:0.0001:DSTART::;
 saveprofiles::CF2:CF3:;
 lhcd2017(PELH,CAR14,CAR15,ZRD8):CF1:CF2:CF3:;
@@ -77,12 +77,11 @@ drivencurrent(CULH,ZRD35,ZRD36,CAR12,CAR13,CAR32)::CF2:CF3:;
 
 
 !========Current Density===========
-IPL=5.0;
+IPL=4.0;
 !CU:;
 CU:Eq;
 !CU=1.0;
 CU=CUX;
-
 !CU=TE**(3/2);
 !CU=1 - (RHO / ROC)**0.0001;
 !CU=(TEX)+ 1 - (RHO / ROC)**0.0001; !!**3/2;
@@ -147,9 +146,9 @@ PE=POH-PENEU-PENLI-PRAD+PELH;
 
 
 !====================   Radial output  =================================
-J\CU\-1;       Plh\PELH;   Johm\CUOHM\8;   CDF\CD\-2;
+J\CU\-1;       Plh\PELH;   Johm\CUOHM\8;   E\UPL/(RTOR+AMETR)/GP2;
 Te\TE\\TEX;	   Jlh2\CULH\-2;   CC\CC\-3;      Q\1./MU;
-Jlh\CULH\-1;   Upl\UPL;    Zef\ZEF\-1;     IBs\CUBS;
+Jlh\CULH\-1;   Upl\UPL;    Zef\ZEF\-1;     Poh\POH\-2;
 Ti\TI\\TIX;      Ne\NE\\NEX;    sig\CAR32\-3;    Chr\CAR31; 
   
 

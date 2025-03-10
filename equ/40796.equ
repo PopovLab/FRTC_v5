@@ -133,7 +133,7 @@ ZRD48=0.24; !0.08   *(FRAMP(0.16,0.22));
 
 !=========DENSITY============
 NE:AS;
-NE=NEX;
+NE=NEX/2;
 !NE=CAR19+0.001;
 !NE=CAR18+0.001;
 CAR11 = (1.0*(1.0-ASTEP(CF6))+0.10*ASTEP(CF6));  ! 1

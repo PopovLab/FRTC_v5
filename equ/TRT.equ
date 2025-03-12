@@ -66,9 +66,9 @@ QLH=4.0d0;
 !QLH=0.4d0;
 
 CF1=0.1d-3;  !interval between lhcd() calls, sec
-CF2=0.100d0;  !first call of lhcd()
-CF3=0.110d0;
-DSTART=0.098;
+CF2=0.400d0;  !first call of lhcd()
+CF3=0.410d0;
+DSTART=0.398;
 debug:0.0001:DSTART::;
 saveprofiles::CF2:CF3:;
 lhcd2017(PELH,CAR14,CAR15,ZRD8):CF1:CF2:CF3:;

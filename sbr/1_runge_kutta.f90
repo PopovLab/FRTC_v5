@@ -165,7 +165,7 @@ contains
             htemp=safety*h*(errmax**pshrnk)
             h=sign(max(abs(htemp),0.1d0*abs(h)),h)
             xnew=x+h
-            if(xnew.eq.x)pause 'stepsize underflow in rkqs'
+          !  if(xnew.eq.x)pause 'stepsize underflow in rkqs'
             goto 1
         else
             if(errmax.gt.errcon)then

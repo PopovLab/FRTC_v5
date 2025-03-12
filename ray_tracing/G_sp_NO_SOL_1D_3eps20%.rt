@@ -1,5 +1,5 @@
 {
-  "name": "G_sp_NO_SOL_1D_6eps",
+  "name": "G_sp_NO_SOL_1D_3eps20%",
   "setting": {
     "Comments": {
       "value": "Comments about ....\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
@@ -291,7 +291,7 @@
       },
       "ntet": {
         "title": "ntet",
-        "value": 2,
+        "value": 21,
         "type": "int",
         "description": "theta grid number"
       },
@@ -304,7 +304,7 @@
     },
     "spectrum": {
       "spectrum_type": "spectrum_1D",
-      "source": "D:/dev/FRTC_v5/ray_tracing/LowDensNoSol6eps00s1d.dat",
+      "source": "D:/dev/FRTC_v5/ray_tracing/LowDensNoSol+00s1d.dat",
       "parameters": {
         "angle": {
           "title": "Angle",

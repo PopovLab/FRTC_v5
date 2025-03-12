@@ -90,7 +90,7 @@ module dielectric_tensor
     real(wp) :: pn, fnr, wpq, whe, v, u1, u
 contains
     subroutine calculate_dielectric_tensor(pa)
-        !! calculate components of dielectric tensor
+        !! calculate components of cold dielectric tensor
         use constants, only: zero, one, two
         use constants, only: c0, c1, pi        
         use rt_parameters, only: inew
@@ -338,7 +338,7 @@ contains
         aimh=wpq/ww**2*pi*sl1*cltn**2/ynzq
         pdecv=dabs(aimh/dhdnr/xsz)
         !!        pdec1=-pdecv*dfdv
-        pdec1=dabs(pdecv*dfdv)
+        pdec1=dabs(pdecv*dfdv)    !!!warm add here
         pnye=cnye*wpq**2/(pn*vt**3)
         pnyi=cnyi*pnye*zefff(pa)
         pdec2=dabs(pnyi/ww*(wpq/whe**2*ynpopq+wpq/ww**2*ynzq)*ynpopq/dhdnr/xsz)

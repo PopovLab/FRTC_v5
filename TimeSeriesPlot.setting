@@ -17,6 +17,7 @@
       "title": "Chart 2",
       "y_label": "I, MA",
       "data": [
+        "IPL",
         "ICD"
       ]
     },

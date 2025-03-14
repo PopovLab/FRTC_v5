@@ -1,9 +1,9 @@
  Globus-M 41105 LH 0.4MA 0.8.T
 
  Name   Time    Value      Error
-RTOR            0.375
-AB              0.25
-ABC             0.23
+RTOR            0.36
+AB              0.24
+ABC             0.24
 !AWALL           0.3
 ELONM           2.                 !elong. of the chamber
 TRICH           0.4                 !trian. of the chamber
@@ -11,7 +11,7 @@ ELONG           1.8                 !elong. of the LCMS
 TRIAN           0.4                 !trian. of the LCMS
 AMJ             2.                  !mass of main ions
 ZMJ             1.                  !charge of main ions
-BTOR            0.8
+BTOR            0.8                 !***************************
 SHIFT           0.0 
 UPDWN           0.0   
 NB1             100

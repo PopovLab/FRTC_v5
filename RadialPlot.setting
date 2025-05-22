@@ -4,13 +4,15 @@
   "show_axis_labels": true,
   "shape": "2x2",
   "x_axis": "rho",
-  "x_label": "Value [arb. unit]",
+  "x_label": "rho",
   "sub_plots": [
     {
       "name": "ax1",
       "title": "профили токов",
-      "y_label": "Value [arb. unit]",
+      "y_label": "J [MA/m2]",
       "data": [
+        "J",
+        "Johm",
         "Jlh"
       ]
     },
@@ -19,14 +21,13 @@
       "title": "профили E",
       "y_label": "Value [arb. unit]",
       "data": [
-        "E",
-        "En"
+        "Q"
       ]
     },
     {
       "name": "ax3",
       "title": "профили мощности",
-      "y_label": "Value [arb. unit]",
+      "y_label": "P [MW/m3]",
       "data": [
         "Plh"
       ]

@@ -1,5 +1,5 @@
 {
-  "name": "EAST_FAM",
+  "name": "EAST_PAM_90",
   "setting": {
     "Comments": {
       "value": "Comments about ....",
@@ -99,7 +99,7 @@
     "Numerical parameters": {
       "nr": {
         "title": "nr",
-        "value": 30,
+        "value": 60,
         "type": "int",
         "description": "radial grid number  <= 505"
       },
@@ -257,7 +257,7 @@
       },
       "inew": {
         "title": "inew",
-        "value": 0,
+        "value": 1,
         "type": "int",
         "description": "inew=0 for usual tokamak&Ntor_grill; 1 or 2 for g' in ST&Npol_grill"
       },
@@ -304,7 +304,7 @@
     },
     "spectrum": {
       "spectrum_type": "spectrum_1D",
-      "source": "spcp(Ntau)_Case20H_EAST_FAM_5x4x11.7cm_dphi=+000.dat",
+      "source": "spcp(Ntau)_Case20H_EAST_PAM_5x4x10.2cm_dphi=-090.dat",
       "parameters": {
         "angle": {
           "title": "Angle",

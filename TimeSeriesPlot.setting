@@ -17,6 +17,7 @@
       "title": "Chart 2",
       "y_label": "I, MA",
       "data": [
+        "IPL",
         "ICD"
       ]
     },
@@ -25,8 +26,7 @@
       "title": "Chart 3",
       "y_label": "U, V",
       "data": [
-        "V",
-        "Vexp"
+        "V"
       ]
     }
   ]

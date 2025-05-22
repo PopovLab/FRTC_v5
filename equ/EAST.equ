@@ -5,10 +5,10 @@ DPOUT=1.d-4;
 DROUT=1.d-4;
 DTOUT=0.00001;
 TSTART = 0.11;
-TEND = 0.305;
-TINIT=0.299;
+TEND = 2.0;
+TINIT=1.299;
 TSCALE = 0.006;
-TPAUSE = 0.308;
+
 
      
 !BTOR=1.0d0;
@@ -45,8 +45,8 @@ CAR31X = 1.5e-6           ! to substitute this for "volume" neutral density
 !============Stationary FRTC 2014============
 !QLH=ZRD1;
 !QLH=0.12d0*(FRAMP(0.180,0.182)-FJUMP(0.3d0));
-CF1=0.18d0;
-CF2=0.195d0;
+!CF1=0.18d0;
+!CF2=0.195d0;
 !CF3=1.d-4;
 !lhcd(0.d0,CULH,PELH,CAR12,CAR13,CAR14,CAR15):0.001:0.185::A;
 !CAR12 = power deposition into electrons via collisional damping
@@ -65,10 +65,10 @@ QLH=4.0;
 !QLH=4.0d0;
 
 CF1=0.1d-3;  !interval between lhcd() calls, sec
-CF2=0.3d0;  !first call of lhcd()
-CF3=0.61d0;
+CF2=1.3d0;  !first call of lhcd()
+CF3=2.0d0;
 !debug:0.0001:DSTART::;
-DSTART=0.299;
+DSTART=1.299;
 debug:0.0001:DSTART::;
 saveprofiles::CF2:CF3:;
 lhcd2017(PELH,CAR14,CAR15,ZRD8):CF1:CF2:CF3:;
@@ -116,7 +116,7 @@ NNWM=0.45e-4*(1-FJUMP(0.180));
 SN=SNNEU*NE+CAR20;
 
 !=========DENSITY============
-NE=NEX*1.36;
+NE=NEX*1.28;
 CAR17=(2.5-0.8)*((1-(AMETR/0.223)**1.5)**8)+0.79;
 CAR19=(0.8-0.6)*((1-(AMETR/0.223)**15)**2)+0.6;
 CAR18=CAR17*STEP(0.161-AMETR)+CAR19*STEP(AMETR-0.161)+0.001;
@@ -130,7 +130,7 @@ ZRD44=1-0.3*(FRAMP(0.2,0.21));
 CAR21=(0.72-0.17)*((1-(AMETR/0.223)**1.5)**7)+0.17;
 CAR22=(0.17-0.02)*((1-(AMETR/0.223)**15)**2)+0.02;
 CAR23=CAR21*STEP(0.171-AMETR)+CAR22*STEP(AMETR-0.171)+0.001;
-TE=TEX/1.44;
+TE=TEX/1.68;
 !TE=(3.5-0.05)*((1-(AMETR/0.66)**1.5)**4)+0.05;
 
 

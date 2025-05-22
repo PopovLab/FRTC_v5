@@ -83,8 +83,8 @@ contains
         class(TrajectoryPoint), intent(in) :: tpoint  
         this%size = this%size + 1
         if (this%size > max_size) then
-            print *, 'слишком много точек'
-            stop
+      !      print *, 'слишком много точек'
+      !      stop
         end if
         this%points(this%size) = tpoint
     end subroutine

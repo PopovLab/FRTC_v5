@@ -1,5 +1,5 @@
 {
-  "name": "EAST_FAM",
+  "name": "EAST_FAM_46",
   "setting": {
     "Comments": {
       "value": "Comments about ....",
@@ -9,7 +9,7 @@
     "Physical parameters": {
       "Freq": {
         "title": "Frequency",
-        "value": 2.45,
+        "value": 4.6,
         "unit": "GHz",
         "type": "float",
         "description": "RF frequency, GHz"
@@ -99,7 +99,7 @@
     "Numerical parameters": {
       "nr": {
         "title": "nr",
-        "value": 30,
+        "value": 60,
         "type": "int",
         "description": "radial grid number  <= 505"
       },
@@ -257,7 +257,7 @@
       },
       "inew": {
         "title": "inew",
-        "value": 0,
+        "value": 1,
         "type": "int",
         "description": "inew=0 for usual tokamak&Ntor_grill; 1 or 2 for g' in ST&Npol_grill"
       },

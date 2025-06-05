@@ -11,7 +11,7 @@ ELONG           1.75                 !elong. of the LCMS
 TRIAN           0.35                 !trian. of the LCMS
 AMJ             2.                  !mass of main ions
 ZMJ             1.                  !charge of main ions
-BTOR            6.0
+BTOR            8.0
 SHIFT           0.0 
 UPDWN           0.0   
 NB1             100

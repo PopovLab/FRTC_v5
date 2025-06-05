@@ -11,6 +11,8 @@
       "title": "Chart 1",
       "y_label": " $J \\;  [{MA}/m^2]$",
       "data": [
+        "IPL",
+        "QLh",
         "ICD"
       ]
     },

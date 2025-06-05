@@ -315,7 +315,7 @@
         },
         "spline": {
           "title": "Spline",
-          "value": true,
+          "value": false,
           "type": "logical",
           "description": "Apply spline approximation"
         }

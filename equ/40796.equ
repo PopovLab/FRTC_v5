@@ -44,7 +44,7 @@ CAR31X = 1.5e-6           ! to substitute this for "volume" neutral density
 
 !============Stationary FRTC 2014============
 !QLH=ZRD1;
-QLH=0.4d0;
+QLH=0.2d0;
 !QLH=0.12d0*(FRAMP(0.180,0.182)-FJUMP(0.3d0));
 CF1=0.18d0;
 CF2=0.22d0;
@@ -62,7 +62,7 @@ CCD3=VINT(CAR12B);  !absorbed power via collisional damping
 
 
 !===========Dynamic FRTC===========
-QLH=0.4d0;
+QLH=2.0d0;
 CF1=0.1d-3;  !interval between lhcd() calls, sec
 CF2=0.180d0;  !first call of lhcd()
 CF3=0.22d0;
@@ -78,7 +78,7 @@ drivencurrent(CULH,ZRD35,ZRD36,CAR12,CAR13,CAR32)::CF2:CF3:;
 !========Current Density==========
 !IPL=0.35*FRAMP(0.12,0.155)+0.15;
 !IPL=ZRD2;
-IPL=0.180;
+IPL=0.400;
 CU:Eq;
 !CU=1.0;
 CU=1 - (RHO / ROC)**0.0001;
@@ -110,7 +110,7 @@ NEQUIL = 41;
 !2.4
 !ZEF=(1.1-0.3)*((1-(AMETR/ABC)**2)**1)+0.3;
 ZRD43=1-0.61*(FRAMP(0.175,0.22))
-ZEF=2.0! *ZRD43; 
+ZEF=1.4! *ZRD43; 
 !ZEF=5.5;!+0.5*FRAMP(0.190,0.21);
 ZIM1=ZICAR; AIM1=12.0;
 NIZ1=NE*(ZEF-ZMJ)/(ZIM1-ZMJ)/ZIM1;
@@ -133,7 +133,8 @@ ZRD48=0.24; !0.08   *(FRAMP(0.16,0.22));
 
 !=========DENSITY============
 NE:AS;
-NE=NEX/2;
+!NE=NEX;
+NE=(6.0-1.0)*((1-(AMETR/ABC)**2)**1)+1.0;
 !NE=CAR19+0.001;
 !NE=CAR18+0.001;
 CAR11 = (1.0*(1.0-ASTEP(CF6))+0.10*ASTEP(CF6));  ! 1
@@ -141,7 +142,8 @@ CN=-1.0*SLAT*DN*AMETR/(ABC*ABC*G11);
 
 !=========Electron temperature=======
 TE:AS;
-TE=TEX;
+!TE=TEX;
+TE=(2.0-0.1)*(1-(AMETR/ABC)**2)+0.1;
 
 HE=6.0*(1-FRAMP(0.120,0.135))+(0.9*4.7*(1.-FJUMP(0.165))+2*FJUMP(0.165));
 PEX=PELH;
